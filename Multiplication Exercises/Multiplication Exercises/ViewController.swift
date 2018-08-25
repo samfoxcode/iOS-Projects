@@ -24,6 +24,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var internalResult = 0
     var attempts = 0
     var totalCorrect = 0
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -47,12 +48,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         var valueToAdd = 0
         var internalResultCollection = [internalResult]
         
+        // Populate a collection of random results as well as the correct one for internal use
         while internalResultCollection.count <= 4 {
             randomResult = internalResult + Int(arc4random_uniform(5))+1
             if !(internalResultCollection.contains(randomResult)) {
                 internalResultCollection.append(randomResult)
             }
         }
+        
+        // Now populate the picker collection with the other result values, but in a random order
         var count = 0
         while answerChoicesCollection.contains(0) && count <= 4{
             valueToAdd = internalResultCollection[Int(arc4random_uniform(4))]
@@ -63,6 +67,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
     }
+    
     func startAndRestartGame(){
         answerChoicesCollection = [0, 0, 0, 0]
         internalMultiplicand = 0
@@ -79,6 +84,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         answerChoices.delegate = self
         answerChoices.dataSource = self
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,8 +99,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func submitAndNextButton(_ sender: Any) {
         
         if submitNextButton.currentTitle == "Submit" {
+            
             let selectedChoice = answerChoices.selectedRow(inComponent: 0)
             result.text = String(internalResult)
+            
             if answerChoicesCollection[selectedChoice] != internalResult {
                 correctLabel.textColor = UIColor.red
                 correctLabel.text = "Wrong!"
@@ -106,7 +114,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 attempts = attempts + 1
                 totalCorrect = totalCorrect + 1
             }
+            
             questionsStatus.text = String(totalCorrect) + "/" + String(attempts) + " Questions Correct"
+            
             if totalCorrect == 5 {
                 let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
