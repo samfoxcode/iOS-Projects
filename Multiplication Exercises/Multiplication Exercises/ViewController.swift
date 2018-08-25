@@ -22,6 +22,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var internalMultiplicand = 0
     var internalMultiplier = 0
     var internalResult = 0
+    var attempts = 0
+    var totalCorrect = 0
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -52,7 +54,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             }
         }
         var count = 0
-        while answerChoicesCollection.contains(0) && count <= 4 {
+        while answerChoicesCollection.contains(0) && count <= 4{
             valueToAdd = internalResultCollection[Int(arc4random_uniform(4))]
             if !(answerChoicesCollection.contains(valueToAdd)){
                 answerChoicesCollection[count] = valueToAdd
@@ -61,14 +63,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func startAndRestartGame(){
+        answerChoicesCollection = [0, 0, 0, 0]
+        internalMultiplicand = 0
+        internalMultiplier = 0
+        internalResult = 0
+        attempts = 0
+        totalCorrect = 0
+        questionsStatus.text = "0/0 Questions Correct"
+        result.text = String("")
         generateMultiplicationValues()
+        correctLabel.textColor = UIColor.black
+        correctLabel.text = "You are..."
         submitNextButton.setTitle("Submit", for: UIControlState.normal)
         answerChoices.delegate = self
         answerChoices.dataSource = self
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        startAndRestartGame()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,9 +91,42 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     @IBAction func submitAndNextButton(_ sender: Any) {
-        let selectedChoice = answerChoices.selectedRow(inComponent: 1)
         
-        
+        if submitNextButton.currentTitle == "Submit" {
+            let selectedChoice = answerChoices.selectedRow(inComponent: 0)
+            result.text = String(internalResult)
+            if answerChoicesCollection[selectedChoice] != internalResult {
+                correctLabel.textColor = UIColor.red
+                correctLabel.text = "Wrong!"
+                attempts = attempts + 1
+            }
+            else {
+                correctLabel.textColor = UIColor.green
+                correctLabel.text = "Correct!"
+                attempts = attempts + 1
+                totalCorrect = totalCorrect + 1
+            }
+            questionsStatus.text = String(totalCorrect) + "/" + String(attempts) + " Questions Correct"
+            if totalCorrect == 5 {
+                let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                startAndRestartGame()
+            }
+            else {
+                submitNextButton.setTitle("Next", for: UIControlState.normal)
+            }
+        }
+        else {
+            result.text = String("")
+            answerChoicesCollection = [0, 0, 0, 0]
+            generateMultiplicationValues()
+            correctLabel.textColor = UIColor.black
+            correctLabel.text = "You are..."
+            submitNextButton.setTitle("Submit", for: UIControlState.normal)
+            answerChoices.delegate = self
+            answerChoices.dataSource = self
+        }
         
     }
     
