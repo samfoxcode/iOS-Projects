@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet var submitNextButton: UIButton!
     @IBOutlet var correctLabel: UILabel!
     @IBOutlet var answerChoicesSegmentedControl: UISegmentedControl!
+    @IBOutlet var progressBar: UIProgressView!
     
     var internalResultCollection = [Int]()
     let numberOfChoicesDisplayed = 5
@@ -57,6 +58,8 @@ class ViewController: UIViewController {
     }
     
     func startAndRestartGame(){
+        answerChoicesSegmentedControl.selectedSegmentIndex = -1
+        progressBar.progress = 0
         internalMultiplicand = 0
         internalMultiplier = 0
         internalResult = 0
@@ -87,32 +90,39 @@ class ViewController: UIViewController {
     @IBAction func submitAndNextButton(_ sender: Any) {
         
         if submitNextButton.currentTitle == "Submit" {
-            
-            let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
-            result.text = String(internalResult)
-            
-            if internalResultCollection[selectedChoice] != internalResult {
-                correctLabel.textColor = UIColor.red
-                correctLabel.text = "Wrong!"
-                attempts = attempts + 1
+            if answerChoicesSegmentedControl.selectedSegmentIndex == -1{
+                let errorAlert = UIAlertController(title: "Must Select An Answer!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
             }
             else {
-                correctLabel.textColor = UIColor.green
-                correctLabel.text = "Correct!"
-                attempts = attempts + 1
-                totalCorrect = totalCorrect + 1
-            }
-            
-            questionsStatus.text = String(totalCorrect) + "/" + String(attempts) + " Questions Correct"
-            
-            if totalCorrect == 5 {
-                let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                startAndRestartGame()
-            }
-            else {
-                submitNextButton.setTitle("Next", for: UIControlState.normal)
+                let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
+                result.text = String(internalResult)
+                
+                if internalResultCollection[selectedChoice] != internalResult {
+                    correctLabel.textColor = UIColor.red
+                    correctLabel.text = "Wrong!"
+                    attempts = attempts + 1
+                }
+                else {
+                    correctLabel.textColor = UIColor.green
+                    correctLabel.text = "Correct!"
+                    attempts = attempts + 1
+                    totalCorrect = totalCorrect + 1
+                    progressBar.progress = progressBar.progress + 0.2
+                }
+                
+                questionsStatus.text = String(totalCorrect) + "/" + String(attempts) + " Questions Correct"
+                
+                if totalCorrect == 5 {
+                    let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    startAndRestartGame()
+                }
+                else {
+                    submitNextButton.setTitle("Next", for: UIControlState.normal)
+                }
             }
         }
         else {
@@ -122,6 +132,7 @@ class ViewController: UIViewController {
             correctLabel.textColor = UIColor.black
             correctLabel.text = "You are..."
             submitNextButton.setTitle("Submit", for: UIControlState.normal)
+            answerChoicesSegmentedControl.selectedSegmentIndex = -1
         }
         
     }

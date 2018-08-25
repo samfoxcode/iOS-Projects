@@ -80,6 +80,12 @@
                                     <segment title="0"/>
                                 </segments>
                             </segmentedControl>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lfh-2c-B7A">
+                                <rect key="frame" x="10" y="633" width="349" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="progressTintColor" red="0.1248963919" green="0.31798397639999998" blue="0.57088458539999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="trackTintColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Correct!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORb-fX-6ly">
                                 <rect key="frame" x="53" y="583" width="268" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -96,6 +102,7 @@
                         <outlet property="correctLabel" destination="ORb-fX-6ly" id="bjB-rI-W3i"/>
                         <outlet property="multiplicand" destination="Bp9-9Q-ZTx" id="T0j-bL-SgZ"/>
                         <outlet property="multiplier" destination="fKV-Ey-52n" id="2fu-T5-mks"/>
+                        <outlet property="progressBar" destination="Lfh-2c-B7A" id="pGe-S6-QwU"/>
                         <outlet property="questionsStatus" destination="lNu-ku-rZV" id="CZP-rE-4uh"/>
                         <outlet property="result" destination="uZm-68-wFg" id="WdE-9N-Ylp"/>
                         <outlet property="submitNextButton" destination="378-zU-zHc" id="BnF-FK-zqf"/>
