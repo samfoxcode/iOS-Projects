@@ -8,81 +8,69 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController {
 
     @IBOutlet var multiplicand: UILabel!
     @IBOutlet var multiplier: UILabel!
     @IBOutlet var result: UILabel!
-    @IBOutlet var answerChoices: UIPickerView!
     @IBOutlet var questionsStatus: UILabel!
     @IBOutlet var submitNextButton: UIButton!
     @IBOutlet var correctLabel: UILabel!
+    @IBOutlet var answerChoicesSegmentedControl: UISegmentedControl!
     
-    var answerChoicesCollection = [0, 0, 0, 0]
+    var internalResultCollection = [Int]()
+    let numberOfChoicesDisplayed = 5
     var internalMultiplicand = 0
     var internalMultiplier = 0
     var internalResult = 0
     var attempts = 0
     var totalCorrect = 0
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return answerChoicesCollection.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(answerChoicesCollection[row])
-    }
 
     func generateMultiplicationValues(){
+        var randomResult = 0
+        internalResultCollection = [Int]()
+        
         internalMultiplicand = Int(arc4random_uniform(15)+1)
         internalMultiplier = Int(arc4random_uniform(15)+1)
         multiplicand.text = String(internalMultiplicand)
         multiplier.text = String(internalMultiplier)
         internalResult = internalMultiplicand * internalMultiplier
         
-        var randomResult = 0
-        var valueToAdd = 0
-        var internalResultCollection = [internalResult]
-        
         // Populate a collection of random results as well as the correct one for internal use
-        while internalResultCollection.count <= 4 {
+        while internalResultCollection.count < numberOfChoicesDisplayed {
             randomResult = internalResult + Int(arc4random_uniform(5))+1
             if !(internalResultCollection.contains(randomResult)) {
                 internalResultCollection.append(randomResult)
             }
         }
+        // Put the correct value in randomly in the array
+        internalResultCollection[Int(arc4random_uniform(4))] = internalResult
         
-        // Now populate the picker collection with the other result values, but in a random order
-        var count = 0
-        while answerChoicesCollection.contains(0) && count <= 4{
-            valueToAdd = internalResultCollection[Int(arc4random_uniform(4))]
-            if !(answerChoicesCollection.contains(valueToAdd)){
-                answerChoicesCollection[count] = valueToAdd
-                count = count + 1
-            }
+        var index = 0
+        answerChoicesSegmentedControl.removeAllSegments()
+        for i in internalResultCollection {
+            answerChoicesSegmentedControl.insertSegment(withTitle: String(i), at: index, animated: true)
+            index += 1
         }
         
     }
     
     func startAndRestartGame(){
-        answerChoicesCollection = [0, 0, 0, 0]
         internalMultiplicand = 0
         internalMultiplier = 0
         internalResult = 0
         attempts = 0
         totalCorrect = 0
+        internalResultCollection = [Int]()
         questionsStatus.text = "0/0 Questions Correct"
-        result.text = String("")
-        generateMultiplicationValues()
+        result.text = String("___")
         correctLabel.textColor = UIColor.black
         correctLabel.text = "You are..."
         submitNextButton.setTitle("Submit", for: UIControlState.normal)
-        answerChoices.delegate = self
-        answerChoices.dataSource = self
+        
+        generateMultiplicationValues()
+
     }
     
     override func viewDidLoad() {
@@ -100,10 +88,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         if submitNextButton.currentTitle == "Submit" {
             
-            let selectedChoice = answerChoices.selectedRow(inComponent: 0)
+            let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
             result.text = String(internalResult)
             
-            if answerChoicesCollection[selectedChoice] != internalResult {
+            if internalResultCollection[selectedChoice] != internalResult {
                 correctLabel.textColor = UIColor.red
                 correctLabel.text = "Wrong!"
                 attempts = attempts + 1
@@ -128,14 +116,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             }
         }
         else {
-            result.text = String("")
-            answerChoicesCollection = [0, 0, 0, 0]
+            result.text = String("___")
+            internalResultCollection = [Int]()
             generateMultiplicationValues()
             correctLabel.textColor = UIColor.black
             correctLabel.text = "You are..."
             submitNextButton.setTitle("Submit", for: UIControlState.normal)
-            answerChoices.delegate = self
-            answerChoices.dataSource = self
         }
         
     }
