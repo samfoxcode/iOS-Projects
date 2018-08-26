@@ -40,8 +40,13 @@ class ViewController: UIViewController {
         
         // Populate a collection of random results as well as the correct one for internal use
         while internalResultCollection.count < numberOfChoicesDisplayed {
-            randomResult = internalResult + Int(arc4random_uniform(5))+1
-            if !(internalResultCollection.contains(randomResult)) {
+            if Int(arc4random_uniform(2)) == 1 {
+                randomResult = internalResult + Int(arc4random_uniform(5))+1
+            }
+            else {
+                randomResult = internalResult - Int(arc4random_uniform(5))+1
+            }
+            if !(internalResultCollection.contains(randomResult)) && randomResult != internalResult {
                 internalResultCollection.append(randomResult)
             }
         }
