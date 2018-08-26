@@ -36,6 +36,7 @@
 		220F7FBE2131BF57007DBAA8 /* Multiplication ExercisesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Multiplication ExercisesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		220F7FC22131BF57007DBAA8 /* Multiplication_ExercisesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Multiplication_ExercisesTests.swift; sourceTree = "<group>"; };
 		220F7FC42131BF57007DBAA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22802D1C21331F2900BC0E71 /* Multiplication Exercises.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Multiplication Exercises.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +78,7 @@
 		220F7FAC2131BF55007DBAA8 /* Multiplication Exercises */ = {
 			isa = PBXGroup;
 			children = (
+				22802D1C21331F2900BC0E71 /* Multiplication Exercises.entitlements */,
 				220F7FAD2131BF55007DBAA8 /* AppDelegate.swift */,
 				220F7FAF2131BF55007DBAA8 /* ViewController.swift */,
 				220F7FB12131BF55007DBAA8 /* Main.storyboard */,
@@ -146,6 +148,11 @@
 				TargetAttributes = {
 					220F7FA92131BF55007DBAA8 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					220F7FBD2131BF57007DBAA8 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -361,6 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Multiplication Exercises/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -379,6 +387,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Multiplication Exercises/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

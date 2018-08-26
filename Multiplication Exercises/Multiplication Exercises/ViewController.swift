@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     }
     
     func startAndRestartGame(){
+        // Initialize all values to their start value.
         answerChoicesSegmentedControl.selectedSegmentIndex = -1
         progressBar.progress = 0
         internalMultiplicand = 0
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
         attempts = 0
         totalCorrect = 0
         internalResultCollection = [Int]()
-        questionsStatus.text = "0/0 Questions Correct"
+        questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
         result.text = String("___")
         correctLabel.textColor = UIColor.black
         correctLabel.text = "You are..."
@@ -112,7 +113,7 @@ class ViewController: UIViewController {
                     progressBar.progress = progressBar.progress + 0.2
                 }
                 
-                questionsStatus.text = String(totalCorrect) + "/" + String(attempts) + " Questions Correct"
+                questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
                 
                 if totalCorrect == 5 {
                     let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
