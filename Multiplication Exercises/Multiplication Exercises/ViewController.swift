@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             else {
                 randomResult = internalResult - Int(arc4random_uniform(5))+1
             }
-            if !(internalResultCollection.contains(randomResult)) && randomResult != internalResult {
+            if !(internalResultCollection.contains(randomResult)) && randomResult != internalResult && randomResult > 0{
                 internalResultCollection.append(randomResult)
             }
         }
