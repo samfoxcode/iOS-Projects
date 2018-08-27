@@ -50,7 +50,7 @@ class ViewController: UIViewController {
                 internalResultCollection.append(randomResult)
             }
         }
-        // Put the correct value in randomly in the array
+        // Put the correct value randomly in the array
         internalResultCollection[Int(arc4random_uniform(4))] = internalResult
         
         var index = 0
@@ -64,6 +64,7 @@ class ViewController: UIViewController {
     
     func startAndRestartGame(){
         // Initialize all values to their start value.
+        answerChoicesSegmentedControl.isEnabled = true
         answerChoicesSegmentedControl.selectedSegmentIndex = -1
         progressBar.progress = 0
         internalMultiplicand = 0
@@ -77,58 +78,46 @@ class ViewController: UIViewController {
         correctLabel.textColor = UIColor.black
         correctLabel.text = "You are..."
         submitNextButton.setTitle("Submit", for: UIControlState.normal)
+        submitNextButton.isEnabled = false
         
         generateMultiplicationValues()
 
     }
+
+    @IBAction func segmentedControlAction(_ sender: Any) {
+        submitNextButton.isEnabled = true
+    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        startAndRestartGame()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func submitAndNextButton(_ sender: Any) {
         
         if submitNextButton.currentTitle == "Submit" {
-            if answerChoicesSegmentedControl.selectedSegmentIndex == -1{
-                let errorAlert = UIAlertController(title: "Must Select An Answer!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-                errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                self.present(errorAlert, animated: true, completion: nil)
+            let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
+            answerChoicesSegmentedControl.isEnabled = false
+            result.text = String(internalResult)
+                
+            if internalResultCollection[selectedChoice] != internalResult {
+                correctLabel.textColor = UIColor.red
+                correctLabel.text = "Wrong!"
+                attempts = attempts + 1
             }
             else {
-                let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
-                result.text = String(internalResult)
+                correctLabel.textColor = UIColor.green
+                correctLabel.text = "Correct!"
+                attempts = attempts + 1
+                totalCorrect = totalCorrect + 1
+                progressBar.progress = progressBar.progress + 0.2
+            }
                 
-                if internalResultCollection[selectedChoice] != internalResult {
-                    correctLabel.textColor = UIColor.red
-                    correctLabel.text = "Wrong!"
-                    attempts = attempts + 1
-                }
-                else {
-                    correctLabel.textColor = UIColor.green
-                    correctLabel.text = "Correct!"
-                    attempts = attempts + 1
-                    totalCorrect = totalCorrect + 1
-                    progressBar.progress = progressBar.progress + 0.2
-                }
+            questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
                 
-                questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
-                
-                if totalCorrect == 5 {
-                    let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                    startAndRestartGame()
-                }
-                else {
-                    submitNextButton.setTitle("Next", for: UIControlState.normal)
-                }
+            if totalCorrect == 5 {
+                let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                startAndRestartGame()
+            }
+            else {
+                submitNextButton.setTitle("Next", for: UIControlState.normal)
             }
         }
         else {
@@ -138,9 +127,22 @@ class ViewController: UIViewController {
             correctLabel.textColor = UIColor.black
             correctLabel.text = "You are..."
             submitNextButton.setTitle("Submit", for: UIControlState.normal)
+            submitNextButton.isEnabled = false
+            answerChoicesSegmentedControl.isEnabled = true
             answerChoicesSegmentedControl.selectedSegmentIndex = -1
         }
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        startAndRestartGame()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
 }

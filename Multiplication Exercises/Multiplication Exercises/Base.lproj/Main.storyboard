@@ -81,6 +81,9 @@
                                     <segment title="0"/>
                                     <segment title="0"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentedControlAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="gBJ-8S-Joz"/>
+                                </connections>
                             </segmentedControl>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lfh-2c-B7A">
                                 <rect key="frame" x="10" y="633" width="349" height="2"/>
