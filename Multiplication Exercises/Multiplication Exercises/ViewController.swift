@@ -64,6 +64,7 @@ class ViewController: UIViewController {
     
     func startAndRestartGame(){
         // Initialize all values to their start value.
+        
         answerChoicesSegmentedControl.isEnabled = true
         answerChoicesSegmentedControl.selectedSegmentIndex = -1
         progressBar.progress = 0
@@ -89,6 +90,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func submitAndNextButton(_ sender: Any) {
+        // Function for dealing with what to do if Submit or Next button are pressed.
         
         if submitNextButton.currentTitle == "Submit" {
             let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
