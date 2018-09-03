@@ -14,13 +14,15 @@ class ViewController: UIViewController {
     @IBOutlet var multiplier: UILabel!
     @IBOutlet var result: UILabel!
     @IBOutlet var questionsStatus: UILabel!
+    @IBOutlet var questionStatusAlias: UILabel!
     @IBOutlet var submitNextButton: UIButton!
     @IBOutlet var correctLabel: UILabel!
     @IBOutlet var answerChoicesSegmentedControl: UISegmentedControl!
     @IBOutlet var progressBar: UIProgressView!
+    @IBOutlet var hintButton: UIButton!
     
     var internalResultCollection = [Int]()
-    let numberOfChoicesDisplayed = 5
+    let numberOfChoicesDisplayed = 4
     var internalMultiplicand = 0
     var internalMultiplier = 0
     var internalResult = 0
@@ -77,11 +79,13 @@ class ViewController: UIViewController {
         totalCorrect = 0
         internalResultCollection = [Int]()
         questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
+        questionStatusAlias.text = questionsStatus.text
         result.text = String("___")
         correctLabel.textColor = UIColor.black
         correctLabel.text = "You are..."
         submitNextButton.setTitle("Submit", for: UIControlState.normal)
         submitNextButton.isEnabled = false
+        hintButton.isEnabled = true
         
         generateMultiplicationValues()
 
@@ -91,18 +95,24 @@ class ViewController: UIViewController {
         var value = 0
         var i = 0
         var remove = 0
-        while i < answerChoicesSegmentedControl.numberOfSegments {
-            value = Int(answerChoicesSegmentedControl.titleForSegment(at: i)!)!
-            if value == internalResult {
-                internalResultIndex = i
+        // Can only remove two random answers.
+        if answerChoicesSegmentedControl.numberOfSegments >= 3 {
+            while i < answerChoicesSegmentedControl.numberOfSegments {
+                value = Int(answerChoicesSegmentedControl.titleForSegment(at: i)!)!
+                if value == internalResult {
+                    internalResultIndex = i
+                }
+                i = i + 1
             }
-            i = i + 1
+            remove = internalResultIndex
+            while remove == internalResultIndex {
+                remove = Int(arc4random_uniform(UInt32(answerChoicesSegmentedControl.numberOfSegments)))
+            }
+            answerChoicesSegmentedControl.removeSegment(at: remove, animated: true)
         }
-        remove = internalResultIndex
-        while remove == internalResultIndex {
-            remove = Int(arc4random_uniform(4))
+        else {
+            hintButton.isEnabled = false
         }
-        answerChoicesSegmentedControl.removeSegment(at: remove, animated: true)
     }
     
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -115,8 +125,10 @@ class ViewController: UIViewController {
         if submitNextButton.currentTitle == "Submit" {
             let selectedChoice = answerChoicesSegmentedControl.selectedSegmentIndex
             answerChoicesSegmentedControl.isEnabled = false
+            hintButton.isEnabled = false
             result.text = String(internalResult)
-                
+            
+            // Since I know I will have something in my segmented control, I force unwrap the value.
             if Int(answerChoicesSegmentedControl.titleForSegment(at: selectedChoice)!)! != internalResult {
                 correctLabel.textColor = UIColor.red
                 correctLabel.text = "Wrong!"
@@ -131,6 +143,7 @@ class ViewController: UIViewController {
             }
                 
             questionsStatus.text = "\(totalCorrect)/\(attempts) Questions Correct"
+            questionStatusAlias.text = questionsStatus.text
                 
             if totalCorrect == 5 {
                 let alert = UIAlertController(title: "Congrats!", message: "You answered correctly 5 times, hit OK to restart!", preferredStyle: UIAlertControllerStyle.alert)
@@ -151,6 +164,7 @@ class ViewController: UIViewController {
             submitNextButton.setTitle("Submit", for: UIControlState.normal)
             submitNextButton.isEnabled = false
             answerChoicesSegmentedControl.isEnabled = true
+            hintButton.isEnabled = true
             answerChoicesSegmentedControl.selectedSegmentIndex = -1
         }
         
