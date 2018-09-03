@@ -9,8 +9,26 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBAction func changeBoard(_ sender: Any) {
+    
+    @IBOutlet var mainBoardView: UIImageView!
+    
+    @IBAction func changeBoard(sender: UIButton) {
+        switch sender.tag{
+            case 0:
+                mainBoardView.image = #imageLiteral(resourceName: "Board0")
+            case 1:
+                mainBoardView.image = #imageLiteral(resourceName: "Board1")
+            case 2:
+                mainBoardView.image = #imageLiteral(resourceName: "Board2")
+            case 3:
+                mainBoardView.image = #imageLiteral(resourceName: "Board3")
+            case 4:
+                mainBoardView.image = #imageLiteral(resourceName: "Board4")
+            case 5:
+                mainBoardView.image = #imageLiteral(resourceName: "Board5")
+            default:
+                return
+        }
     }
     
     @IBAction func solve(_ sender: Any) {

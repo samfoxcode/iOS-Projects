@@ -34,42 +34,42 @@
                                 <rect key="frame" x="47" y="74" width="105" height="105"/>
                                 <state key="normal" image="Board0button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyD-pV-TOr"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aq1-E5-8sU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4u-v2-fBd" userLabel="Board 1 Button">
                                 <rect key="frame" x="47" y="214" width="105" height="105"/>
                                 <state key="normal" image="Board1button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A5W-wq-ysU"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UUr-jy-mUe"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eQ-hZ-kgq" userLabel="Board 2 Button">
                                 <rect key="frame" x="47" y="355" width="105" height="105"/>
                                 <state key="normal" image="Board2button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hda-q7-cpN"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PWs-iE-UvR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1a-Jh-iCh" userLabel="Board 3 Button">
                                 <rect key="frame" x="616" y="74" width="105" height="105"/>
                                 <state key="normal" image="Board3button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LCq-gs-evh"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DAG-gv-h5N"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMR-mB-qJX" userLabel="Board 4 Button">
                                 <rect key="frame" x="616" y="214" width="105" height="105"/>
                                 <state key="normal" image="Board4button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="upb-yC-lyz"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lx2-hU-04E"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnt-eP-0wA" userLabel="Board 5 Button">
                                 <rect key="frame" x="616" y="355" width="105" height="105"/>
                                 <state key="normal" image="Board5button"/>
                                 <connections>
-                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wyf-be-6KM"/>
+                                    <action selector="changeBoardWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vNG-sU-Ogf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5Z-Nf-CP9">
@@ -132,6 +132,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mainBoardView" destination="1in-mG-INE" id="BKu-Vs-lY7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
