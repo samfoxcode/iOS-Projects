@@ -10,6 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBAction func changeBoard(_ sender: Any) {
+    }
+    
+    @IBAction func solve(_ sender: Any) {
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

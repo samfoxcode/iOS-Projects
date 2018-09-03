@@ -33,26 +33,44 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crT-0H-vwj" userLabel="Board 0 Button">
                                 <rect key="frame" x="47" y="74" width="105" height="105"/>
                                 <state key="normal" image="Board0button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyD-pV-TOr"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4u-v2-fBd" userLabel="Board 1 Button">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4u-v2-fBd" userLabel="Board 1 Button">
                                 <rect key="frame" x="47" y="214" width="105" height="105"/>
                                 <state key="normal" image="Board1button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A5W-wq-ysU"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eQ-hZ-kgq" userLabel="Board 2 Button">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0eQ-hZ-kgq" userLabel="Board 2 Button">
                                 <rect key="frame" x="47" y="355" width="105" height="105"/>
                                 <state key="normal" image="Board2button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hda-q7-cpN"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1a-Jh-iCh" userLabel="Board 3 Button">
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1a-Jh-iCh" userLabel="Board 3 Button">
                                 <rect key="frame" x="616" y="74" width="105" height="105"/>
                                 <state key="normal" image="Board3button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LCq-gs-evh"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMR-mB-qJX" userLabel="Board 4 Button">
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMR-mB-qJX" userLabel="Board 4 Button">
                                 <rect key="frame" x="616" y="214" width="105" height="105"/>
                                 <state key="normal" image="Board4button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="upb-yC-lyz"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnt-eP-0wA" userLabel="Board 5 Button">
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnt-eP-0wA" userLabel="Board 5 Button">
                                 <rect key="frame" x="616" y="355" width="105" height="105"/>
                                 <state key="normal" image="Board5button"/>
+                                <connections>
+                                    <action selector="changeBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wyf-be-6KM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5Z-Nf-CP9">
                                 <rect key="frame" x="361.5" y="490" width="45" height="42"/>
@@ -67,6 +85,9 @@
                                 <state key="normal" title="Reset">
                                     <color key="titleColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cu0-mU-fut"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ir-4d-Zgg">
                                 <rect key="frame" x="69" y="479" width="60" height="42"/>
@@ -74,6 +95,9 @@
                                 <state key="normal" title="Solve">
                                     <color key="titleColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="solve:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k7z-Ib-yv4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.47737208549222798" green="0.0" blue="0.022219302541327139" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
