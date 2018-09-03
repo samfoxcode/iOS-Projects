@@ -408,6 +408,20 @@
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="63"/>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiB-ge-com">
+                                <rect key="frame" x="274" y="493" width="72" height="55.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="hint">
+                                    <color key="titleColor" red="0.0" green="0.72946082229999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                </variation>
+                                <connections>
+                                    <action selector="hintRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9LQ-1e-iSQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.9992675315932843" green="1" blue="0.89939262353478777" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>

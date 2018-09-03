@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     var internalResult = 0
     var attempts = 0
     var totalCorrect = 0
-    
+    var internalResultIndex = 0
 
     func generateMultiplicationValues(){
         var randomResult = 0
@@ -51,7 +51,9 @@ class ViewController: UIViewController {
             }
         }
         // Put the correct value randomly in the array
-        internalResultCollection[Int(arc4random_uniform(4))] = internalResult
+        
+        internalResultIndex = Int(arc4random_uniform(4))
+        internalResultCollection[internalResultIndex] = internalResult
         
         var index = 0
         answerChoicesSegmentedControl.removeAllSegments()
@@ -85,6 +87,24 @@ class ViewController: UIViewController {
 
     }
 
+    @IBAction func hintRequest(_ sender: Any) {
+        var value = 0
+        var i = 0
+        var remove = 0
+        while i < answerChoicesSegmentedControl.numberOfSegments {
+            value = Int(answerChoicesSegmentedControl.titleForSegment(at: i)!)!
+            if value == internalResult {
+                internalResultIndex = i
+            }
+            i = i + 1
+        }
+        remove = internalResultIndex
+        while remove == internalResultIndex {
+            remove = Int(arc4random_uniform(4))
+        }
+        answerChoicesSegmentedControl.removeSegment(at: remove, animated: true)
+    }
+    
     @IBAction func segmentedControlAction(_ sender: Any) {
         submitNextButton.isEnabled = true
     }
@@ -97,7 +117,7 @@ class ViewController: UIViewController {
             answerChoicesSegmentedControl.isEnabled = false
             result.text = String(internalResult)
                 
-            if internalResultCollection[selectedChoice] != internalResult {
+            if Int(answerChoicesSegmentedControl.titleForSegment(at: selectedChoice)!)! != internalResult {
                 correctLabel.textColor = UIColor.red
                 correctLabel.text = "Wrong!"
                 attempts = attempts + 1
