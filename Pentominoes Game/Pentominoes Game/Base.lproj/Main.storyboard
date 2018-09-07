@@ -134,6 +134,7 @@
                     </view>
                     <connections>
                         <outlet property="mainBoardView" destination="1in-mG-INE" id="BKu-Vs-lY7"/>
+                        <outlet property="piecesHomeView" destination="bCq-k3-Kcs" id="Fys-16-PCd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
