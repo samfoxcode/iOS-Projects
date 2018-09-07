@@ -10,15 +10,12 @@ import UIKit
 
 
 extension UIImageView {
-    convenience init(piece id:String, x positionX: Int, y positionY: Int) {
+    convenience init(piece id:String) {
         let image = UIImage(named: id)
         self.init(image: image)
-        self.frame = CGRect(x: CGFloat(positionX), y: CGFloat(positionY), width: image!.size.width, height: image!.size.height)
         self.contentMode = .scaleAspectFit
     }
 }
-
-
 
 class ViewController: UIViewController {
     
@@ -28,7 +25,67 @@ class ViewController: UIViewController {
     let pentominoModel = Model()
     let pieceViews : [String:UIImageView]
     
+    func solvePieces(_ image: UIImage){
+        
+        let index : Int
+        switch image {
+        case #imageLiteral(resourceName: "Board0") :
+            return
+        case #imageLiteral(resourceName: "Board1") :
+            index = 0
+        case #imageLiteral(resourceName: "Board2"):
+            index = 1
+        case #imageLiteral(resourceName: "Board3"):
+            index = 2
+        case #imageLiteral(resourceName: "Board4"):
+            index = 3
+        case #imageLiteral(resourceName: "Board5"):
+            index = 4
+        default:
+            return
+        }
+        
+        for (key, piece) in pieceViews {
+            mainBoardView.addSubview(piece)
+            let solution = pentominoModel.allSolutions[index][key]
+
+            let newX = CGFloat((solution?.x)!)*30
+            let newY = CGFloat((solution?.y)!)*30
+            let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
+            piece.transform = CGAffineTransform(rotationAngle: radians)
+            if ((solution?.isFlipped)!) {
+                piece.transform = piece.transform.scaledBy(x: -1, y: 1)
+            }
+            piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
+        }
+    }
+    
+    func resetPieces(){
+        var xStart = 30
+        var yStart = 50
+        
+        var secondRow = false
+        var count = 1
+        for (_, gamePiece) in pieceViews {
+            gamePiece.transform = CGAffineTransform.identity
+            if secondRow {
+                yStart = yStart + 180
+                xStart = 30
+                secondRow = false
+            }
+            if count == 6 {
+                secondRow = true
+            }
+            count = count + 1
+            piecesHomeView.addSubview(gamePiece)
+            gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
+            xStart = xStart + Int(gamePiece.bounds.size.width)+30
+            
+        }
+    }
+    
     @IBAction func changeBoard(sender: UIButton) {
+        resetPieces()
         switch sender.tag{
             case 0:
                 mainBoardView.image = #imageLiteral(resourceName: "Board0")
@@ -47,97 +104,24 @@ class ViewController: UIViewController {
         }
     }
     
-    func movePieces(_ image: UIImage){
-        
-        let index : Int
-        switch image {
-            case #imageLiteral(resourceName: "Board0") :
-                return
-            case #imageLiteral(resourceName: "Board1") :
-                index = 0
-            case #imageLiteral(resourceName: "Board2"):
-                index = 1
-            case #imageLiteral(resourceName: "Board3"):
-                index = 2
-            case #imageLiteral(resourceName: "Board4"):
-                index = 3
-            case #imageLiteral(resourceName: "Board5"):
-                index = 4
-            default:
-                return
-        }
-        // TODO : figure out why the pieces all end up on top of each other
-        for (key, piece) in pieceViews {
-            //piece.removeFromSuperview()
-            mainBoardView.addSubview(piece)
-            let solution = pentominoModel.allSolutions[index][key]
-            
-            print(key)
-            print(piece)
-            print(piece.frame)
-            let newX = CGFloat((solution?.x)!)*30
-            let newY = CGFloat((solution?.y)!)*30
-            let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
-            piece.transform = CGAffineTransform(rotationAngle: radians)
-            if ((solution?.isFlipped)!) {
-                piece.transform = piece.transform.scaledBy(x: -1, y: 1)
-            }
-            piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
-        }
-    }
+    
     
     @IBAction func solve(_ sender: Any) {
-        movePieces(mainBoardView.image!)
+        solvePieces(mainBoardView.image!)
     }
     
     @IBAction func reset(_ sender: Any) {
-        var xStart = 30
-        var yStart = 50
-        
-        var secondRow = false
-        var count = 1
-        for (_, gamePiece) in pieceViews {
-            //piece.removeFromSuperview()
-                gamePiece.transform = CGAffineTransform.identity
-                if secondRow {
-                    yStart = yStart + 180
-                    xStart = 30
-                    secondRow = false
-                }
-                if count == 6 {
-                    secondRow = true
-                }
-                count = count + 1
-                piecesHomeView.addSubview(gamePiece)
-                gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
-                xStart = xStart + Int(gamePiece.bounds.size.width)+30
-
-        }
+        resetPieces()
     }
     
 
     required init?(coder aDecoder: NSCoder) {
         
-        var xStart = 30
-        var yStart = 50
-        
-        var secondRow = false
-        var count = 2
         var _pieceViews = [String:UIImageView]()
         
         for (key, gamePiece) in pentominoModel.pieces{
-            let aView = UIImageView(piece: gamePiece, x: xStart, y: yStart)
-            xStart = xStart + Int(aView.bounds.size.width)+30
-            if secondRow {
-                yStart = yStart + 180
-                xStart = 30
-                secondRow = false
-            }
-            if count == 6 {
-                secondRow = true
-            }
+            let aView = UIImageView(piece: gamePiece)
             _pieceViews[key] = aView
-            count = count + 1
         }
         pieceViews = _pieceViews
         
@@ -150,6 +134,8 @@ class ViewController: UIViewController {
         for (_, piece) in pieceViews {
             piecesHomeView.addSubview(piece)
         }
+        
+        resetPieces()
     }
 
     override func didReceiveMemoryWarning() {
