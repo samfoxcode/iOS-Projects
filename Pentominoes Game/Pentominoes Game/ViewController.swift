@@ -66,22 +66,21 @@ class ViewController: UIViewController {
             default:
                 return
         }
-        var flipX = 0
         // TODO : figure out why the pieces all end up on top of each other
         for (key, piece) in pieceViews {
-            piece.removeFromSuperview()
+            //piece.removeFromSuperview()
             mainBoardView.addSubview(piece)
             let solution = pentominoModel.allSolutions[index][key]
             
             print(key)
             print(piece)
-            print(solution)
             print(piece.frame)
             let newX = CGFloat((solution?.x)!)*30
             let newY = CGFloat((solution?.y)!)*30
-            piece.transform = piece.transform.rotated(by: (CGFloat((solution?.rotations)!))*CGFloat.pi*CGFloat(90)/CGFloat(180))
+            let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
+            piece.transform = CGAffineTransform(rotationAngle: radians)
             if ((solution?.isFlipped)!) {
-                piece.transform.scaledBy(x: -1, y: 1)
+                piece.transform = piece.transform.scaledBy(x: -1, y: 1)
             }
             piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
         }
@@ -92,6 +91,28 @@ class ViewController: UIViewController {
     }
     
     @IBAction func reset(_ sender: Any) {
+        var xStart = 30
+        var yStart = 50
+        
+        var secondRow = false
+        var count = 1
+        for (_, gamePiece) in pieceViews {
+            //piece.removeFromSuperview()
+                gamePiece.transform = CGAffineTransform.identity
+                if secondRow {
+                    yStart = yStart + 180
+                    xStart = 30
+                    secondRow = false
+                }
+                if count == 6 {
+                    secondRow = true
+                }
+                count = count + 1
+                piecesHomeView.addSubview(gamePiece)
+                gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
+                xStart = xStart + Int(gamePiece.bounds.size.width)+30
+
+        }
     }
     
 
@@ -101,12 +122,12 @@ class ViewController: UIViewController {
         var yStart = 50
         
         var secondRow = false
-        var count = 1
+        var count = 2
         var _pieceViews = [String:UIImageView]()
         
         for (key, gamePiece) in pentominoModel.pieces{
             let aView = UIImageView(piece: gamePiece, x: xStart, y: yStart)
-            xStart = xStart + Int(aView.image!.size.width)+30
+            xStart = xStart + Int(aView.bounds.size.width)+30
             if secondRow {
                 yStart = yStart + 180
                 xStart = 30
