@@ -24,9 +24,10 @@ class ViewController: UIViewController {
     
     let pentominoModel = Model()
     let pieceViews : [String:UIImageView]
+    var solved = false
     
     func solvePieces(_ image: UIImage){
-        
+        solved = true
         let index : Int
         switch image {
         case #imageLiteral(resourceName: "Board0") :
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
             return
         }
         
+        // Move the pieces to their appropiate positions on the appropiate board, with an animation.
         for (key, piece) in pieceViews {
             mainBoardView.addSubview(piece)
             let solution = pentominoModel.allSolutions[index][key]
@@ -56,14 +58,16 @@ class ViewController: UIViewController {
             if ((solution?.isFlipped)!) {
                 piece.transform = piece.transform.scaledBy(x: -1, y: 1)
             }
+            UIView.animate(withDuration: 0.5, delay: 0.1, animations: { () -> Void in
             piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
+            })
         }
     }
     
     func resetPieces(){
         var xStart = 30
         var yStart = 50
-        
+        solved = false
         var secondRow = false
         var count = 1
         for (_, gamePiece) in pieceViews {
@@ -78,17 +82,19 @@ class ViewController: UIViewController {
             }
             count = count + 1
             piecesHomeView.addSubview(gamePiece)
+            UIView.animate(withDuration: 0.5, delay: 0.1, animations: { () -> Void in
             gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
+        })
             xStart = xStart + Int(gamePiece.bounds.size.width)+30
             
         }
     }
     
     @IBAction func changeBoard(sender: UIButton) {
-        resetPieces()
         switch sender.tag{
             case 0:
                 mainBoardView.image = #imageLiteral(resourceName: "Board0")
+                resetPieces()
             case 1:
                 mainBoardView.image = #imageLiteral(resourceName: "Board1")
             case 2:
@@ -101,6 +107,9 @@ class ViewController: UIViewController {
                 mainBoardView.image = #imageLiteral(resourceName: "Board5")
             default:
                 return
+        }
+        if solved && mainBoardView.image != #imageLiteral(resourceName: "Board0") {
+            solvePieces(mainBoardView.image!)
         }
     }
     
