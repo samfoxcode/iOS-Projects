@@ -28,7 +28,7 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCq-k3-Kcs" userLabel="Game Pieces Area">
                                 <rect key="frame" x="20" y="540" width="728" height="464"/>
-                                <color key="backgroundColor" red="0.99926753160000004" green="1" blue="0.89939262350000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.83755146503454436" green="0.95287871621459408" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crT-0H-vwj" userLabel="Board 0 Button">
                                 <rect key="frame" x="47" y="74" width="105" height="105"/>
@@ -76,14 +76,14 @@
                                 <rect key="frame" x="361.5" y="490" width="45" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Hint">
-                                    <color key="titleColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="1" green="0.95612836513413269" blue="0.72064500846840573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9l-Lq-SKp">
                                 <rect key="frame" x="637" y="479" width="62" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Reset">
-                                    <color key="titleColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="1" green="0.95612836513413269" blue="0.72064500846840573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cu0-mU-fut"/>
@@ -93,14 +93,14 @@
                                 <rect key="frame" x="69" y="479" width="60" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Solve">
-                                    <color key="titleColor" red="1" green="0.81809022600000003" blue="0.46758905890000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="1" green="0.95612836513413269" blue="0.72064500846840573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="solve:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k7z-Ib-yv4"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.47737208549222798" green="0.0" blue="0.022219302541327139" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.0" green="0.18207041092122564" blue="0.60822134067357514" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="B9l-Lq-SKp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e5Z-Nf-CP9" secondAttribute="trailing" constant="230.5" id="0Bv-6R-4Hi"/>
                             <constraint firstItem="4Ir-4d-Zgg" firstAttribute="top" secondItem="0eQ-hZ-kgq" secondAttribute="bottom" constant="19" id="2zN-kD-Htv"/>

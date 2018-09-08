@@ -54,12 +54,15 @@ class ViewController: UIViewController {
             let newX = CGFloat((solution?.x)!)*30
             let newY = CGFloat((solution?.y)!)*30
             let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
+            piece.alpha = 0
+            
+            UIView.animate(withDuration: 0.8, delay: 0.1, animations: { () -> Void in
             piece.transform = CGAffineTransform(rotationAngle: radians)
             if ((solution?.isFlipped)!) {
                 piece.transform = piece.transform.scaledBy(x: -1, y: 1)
             }
-            UIView.animate(withDuration: 0.5, delay: 0.1, animations: { () -> Void in
             piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
+            piece.alpha = 1
             })
         }
     }
@@ -82,7 +85,9 @@ class ViewController: UIViewController {
             }
             count = count + 1
             piecesHomeView.addSubview(gamePiece)
-            UIView.animate(withDuration: 0.5, delay: 0.1, animations: { () -> Void in
+            gamePiece.alpha = 0
+            UIView.animate(withDuration: 0.6, delay: 0.1, animations: { () -> Void in
+            gamePiece.alpha = 1
             gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
         })
             xStart = xStart + Int(gamePiece.bounds.size.width)+30
