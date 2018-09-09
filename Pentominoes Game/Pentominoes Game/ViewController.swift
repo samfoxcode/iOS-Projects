@@ -86,11 +86,12 @@ class ViewController: UIViewController {
             }
             count = count + 1
             piecesHomeView.addSubview(gamePiece)
+            
             gamePiece.alpha = 0
             UIView.animate(withDuration: 0.6, delay: 0.1, animations: { () -> Void in
             gamePiece.alpha = 1
             gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
-        })
+            })
             xStart = xStart + Int(gamePiece.bounds.size.width)+30
             
         }
