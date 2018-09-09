@@ -54,6 +54,7 @@ class ViewController: UIViewController {
             let newX = CGFloat((solution?.x)!)*30
             let newY = CGFloat((solution?.y)!)*30
             let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
+            // Set the view's alpha so that we can animate a fade effect.
             piece.alpha = 0
             
             UIView.animate(withDuration: 0.8, delay: 0.1, animations: { () -> Void in
