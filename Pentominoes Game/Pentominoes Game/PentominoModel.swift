@@ -39,12 +39,5 @@ class Model {
         }
     }
     
-    func addGestures(_ views : [String:Any]){
-        
-        for (key, piece) in views {
-            
-        }
-        
-    }
 
 }
