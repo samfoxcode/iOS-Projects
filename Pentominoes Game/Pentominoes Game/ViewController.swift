@@ -48,25 +48,27 @@ class ViewController: UIViewController {
         
         // Move the pieces to their appropiate positions on the appropiate board, with an animation.
         for (key, piece) in pieceViews {
-            mainBoardView.addSubview(piece)
+            
             let solution = pentominoModel.allSolutions[index][key]
 
             let newX = CGFloat((solution?.x)!)*30
             let newY = CGFloat((solution?.y)!)*30
             let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
-            // Set the view's alpha so that we can animate a fade effect.
-            piece.alpha = 0
-            
-            UIView.animate(withDuration: 0.8, delay: 0.1, animations: { () -> Void in
+
+            piece.center = mainBoardView.convert(piece.center, from: piece.superview)
+            UIView.animate(withDuration: 1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
             piece.transform = CGAffineTransform(rotationAngle: radians)
             if ((solution?.isFlipped)!) {
                 piece.transform = piece.transform.scaledBy(x: -1, y: 1)
             }
+                
+            self.mainBoardView.addSubview(piece)
+            self.view.sendSubview(toBack: self.piecesHomeView)
             piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
-            piece.alpha = 1
             })
         }
     }
+    
     
     func resetPieces(){
         var xStart = 30
@@ -85,11 +87,10 @@ class ViewController: UIViewController {
                 secondRow = true
             }
             count = count + 1
-            piecesHomeView.addSubview(gamePiece)
-            
-            gamePiece.alpha = 0
-            UIView.animate(withDuration: 0.6, delay: 0.1, animations: { () -> Void in
-            gamePiece.alpha = 1
+            gamePiece.center = piecesHomeView.convert(gamePiece.center, from: gamePiece.superview)
+            UIView.animate(withDuration: 1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+            self.piecesHomeView.addSubview(gamePiece)
+            self.view.sendSubview(toBack: self.mainBoardView)
             gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
             })
             xStart = xStart + Int(gamePiece.bounds.size.width)+30
