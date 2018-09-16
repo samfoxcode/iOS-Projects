@@ -13,8 +13,8 @@
 		22395AEA213DCD8F006BC681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22395AE9213DCD8F006BC681 /* Assets.xcassets */; };
 		22395AED213DCD8F006BC681 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22395AEB213DCD8F006BC681 /* LaunchScreen.storyboard */; };
 		22395AF8213DCD8F006BC681 /* Pentominoes_GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22395AF7213DCD8F006BC681 /* Pentominoes_GameTests.swift */; };
-		22395B04213DCE52006BC681 /* PentominoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22395B02213DCE52006BC681 /* PentominoModel.swift */; };
-		22395B05213DCE52006BC681 /* Solutions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22395B03213DCE52006BC681 /* Solutions.plist */; };
+		2296C6AF214EAB1D007FA53C /* PentominoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C6AE214EAB1D007FA53C /* PentominoModel.swift */; };
+		2296C6B1214EAB34007FA53C /* Solutions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2296C6B0214EAB34007FA53C /* Solutions.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +38,8 @@
 		22395AF3213DCD8F006BC681 /* Pentominoes GameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pentominoes GameTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22395AF7213DCD8F006BC681 /* Pentominoes_GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pentominoes_GameTests.swift; sourceTree = "<group>"; };
 		22395AF9213DCD8F006BC681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		22395B02213DCE52006BC681 /* PentominoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PentominoModel.swift; path = "../../../../../Downloads/Pentominoes Assets/PentominoModel.swift"; sourceTree = "<group>"; };
-		22395B03213DCE52006BC681 /* Solutions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Solutions.plist; path = "../../../../../Downloads/Pentominoes Assets/Solutions.plist"; sourceTree = "<group>"; };
+		2296C6AE214EAB1D007FA53C /* PentominoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PentominoModel.swift; sourceTree = "<group>"; };
+		2296C6B0214EAB34007FA53C /* Solutions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Solutions.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +81,8 @@
 		22395AE1213DCD8D006BC681 /* Pentominoes Game */ = {
 			isa = PBXGroup;
 			children = (
-				22395B02213DCE52006BC681 /* PentominoModel.swift */,
-				22395B03213DCE52006BC681 /* Solutions.plist */,
+				2296C6B0214EAB34007FA53C /* Solutions.plist */,
+				2296C6AE214EAB1D007FA53C /* PentominoModel.swift */,
 				22395AE2213DCD8D006BC681 /* AppDelegate.swift */,
 				22395AE4213DCD8D006BC681 /* ViewController.swift */,
 				22395AE6213DCD8D006BC681 /* Main.storyboard */,
@@ -184,7 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22395AED213DCD8F006BC681 /* LaunchScreen.storyboard in Resources */,
-				22395B05213DCE52006BC681 /* Solutions.plist in Resources */,
+				2296C6B1214EAB34007FA53C /* Solutions.plist in Resources */,
 				22395AEA213DCD8F006BC681 /* Assets.xcassets in Resources */,
 				22395AE8213DCD8D006BC681 /* Main.storyboard in Resources */,
 			);
@@ -206,7 +206,7 @@
 			files = (
 				22395AE5213DCD8D006BC681 /* ViewController.swift in Sources */,
 				22395AE3213DCD8D006BC681 /* AppDelegate.swift in Sources */,
-				22395B04213DCE52006BC681 /* PentominoModel.swift in Sources */,
+				2296C6AF214EAB1D007FA53C /* PentominoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
