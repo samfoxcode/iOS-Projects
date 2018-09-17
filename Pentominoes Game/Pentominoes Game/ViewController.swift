@@ -152,8 +152,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
         switch sender.state {
         case .began:
-            //piece.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
             self.view.bringSubview(toFront: piece)
+            
+            // figure out how much the sender has moved in the main view from it's center, and update it accordingly.
             let translation = sender.translation(in: self.view)
             sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
             sender.setTranslation(CGPoint.zero, in: self.view)
@@ -163,19 +164,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
             sender.setTranslation(CGPoint.zero, in: self.view)
         case .ended:
-            print(piece.frame)
-            print(mainBoardView.frame)
-            if mainBoardView.bounds.contains(piece.bounds){
-                print("WHY")
-                piece.center = mainBoardView.convert(piece.center, from: piece.superview)
-                let translation = sender.translation(in: self.view)
-                sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-                sender.setTranslation(CGPoint.zero, in: self.view)
-                mainBoardView.isUserInteractionEnabled = true
+            let newCenter = self.view.convert(piece.center, from: piece.superview)
+            piece.center = newCenter
+            if mainBoardView.frame.contains(piece.center){
                 mainBoardView.addSubview(piece)
+                let newCenter = mainBoardView.convert(piece.center, from: piece.superview)
+                piece.center = newCenter
+                piece.center = sender.location(in: mainBoardView)
+                mainBoardView.isUserInteractionEnabled = true
             }
             else {
-                print("RESET")
                 resetPieces()
             }
         default:
