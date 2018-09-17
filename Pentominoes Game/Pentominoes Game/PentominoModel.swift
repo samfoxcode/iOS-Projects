@@ -31,6 +31,7 @@ class Model {
     let allSolutions : Solutions //[[String:[String:Int]]]
     var tranforms = [Int:Transformations]()
     let pieces = ["F":"PieceF.png", "I":"PieceI.png", "L":"PieceL.png", "N":"PieceN.png", "P":"PieceP.png", "T":"PieceT.png", "U":"PieceU.png", "V":"PieceV.png", "W":"PieceW.png", "X":"PieceX.png", "Y":"PieceY.png", "Z":"PieceZ.png"]
+    
     init () {
         let mainBundle = Bundle.main
         let solutionURL = mainBundle.url(forResource: "Solutions", withExtension: "plist")
@@ -43,6 +44,10 @@ class Model {
             print(error)
             allSolutions = []
         }
+    }
+
+    func getSolution(_ index: Int, _ key: String) -> Position? {
+        return allSolutions[index][key]
     }
     
 

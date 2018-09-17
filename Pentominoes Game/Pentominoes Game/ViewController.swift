@@ -24,14 +24,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let pentominoModel = Model()
     let pieceViews : [String:UIImageView]
+    let kScaleX : CGFloat = 1.2
+    let kScaleY : CGFloat = 1.2
+    let kScalePieceForBoard : CGFloat = 30.0
     var solved = false
     var mainTap : UITapGestureRecognizer!
     var countPerRow = 6
     var horizontalSpacing = 40
     var horizontalStart = 40
     var verticalStart = 50
-    let kScaleX : CGFloat = 1.2
-    let kScaleY : CGFloat = 1.2
     
     func solvePieces(_ image: UIImage){
         solved = true
@@ -56,12 +57,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Move the pieces to their appropiate positions on the appropiate board, with an animation.
         for (key, piece) in pieceViews {
             
-            let solution = pentominoModel.allSolutions[index][key]
-
-            let newX = CGFloat((solution?.x)!)*30
-            let newY = CGFloat((solution?.y)!)*30
+            // Get solution for single piece for specific board.
+            let solution = pentominoModel.getSolution(index, key)
+            
+            let newX = CGFloat((solution?.x)!)*kScalePieceForBoard
+            let newY = CGFloat((solution?.y)!)*kScalePieceForBoard
             let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
             piece.center = mainBoardView.convert(piece.center, from: piece.superview)
+            
             UIView.animate(withDuration: 1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
             piece.transform = CGAffineTransform(rotationAngle: radians)
             if ((solution?.isFlipped)!) {
@@ -83,6 +86,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         var count = 1
         for (_, gamePiece) in pieceViews {
             gamePiece.transform = CGAffineTransform.identity
+            
             if secondRow {
                 yStart = yStart + 135
                 xStart = horizontalStart
@@ -92,7 +96,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 secondRow = true
             }
             count = count + 1
-            if pentominoModel.tranforms[gamePiece.tag] != nil{
+            
+            // Remember where the piece started for future reference.
+            if pentominoModel.tranforms[gamePiece.tag] != nil {
                 pentominoModel.tranforms[gamePiece.tag]?.xPos = xStart
                 pentominoModel.tranforms[gamePiece.tag]?.yPos = yStart
             }
@@ -166,44 +172,57 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         piece.frame.origin.y = piece.frame.origin.y - y
     }
     
+    func getAndSetTranslation(_ piece: UIView, _ sender: UIPanGestureRecognizer){
+        self.view.bringSubview(toFront: piece)
+        let translation = sender.translation(in: self.view)
+        sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    func movePieceToBoard(_ piece: UIView, _ sender: UIPanGestureRecognizer){
+        piece.transform = CGAffineTransform.identity
+        
+        rotateHelper(piece)
+        
+        mainBoardView.addSubview(piece)
+        let newCenter = mainBoardView.convert(piece.center, from: piece.superview)
+        piece.center = newCenter
+        piece.center = sender.location(in: mainBoardView)
+        
+        snapPiece(piece)
+        
+        mainBoardView.isUserInteractionEnabled = true
+    }
+    
+    func movePieceToHome(_ piece: UIView){
+        piecesHomeView.addSubview(piece)
+        piece.transform = CGAffineTransform.identity
+        let newCenter = piecesHomeView.convert(piece.center, from: piece.superview)
+        piece.center = newCenter
+        let origX = pentominoModel.tranforms[piece.tag]?.xPos
+        let origY = pentominoModel.tranforms[piece.tag]?.yPos
+        piece.frame = CGRect(x: CGFloat(origX!), y: CGFloat(origY!), width: piece.bounds.size.width, height: piece.bounds.size.height)
+    }
+    
     @objc func movePiece(_ sender: UIPanGestureRecognizer) {
         let piece = sender.view!
 
         switch sender.state {
         case .began:
-            self.view.bringSubview(toFront: piece)
             piece.transform = piece.transform.scaledBy(x: kScaleX, y: kScaleY)
             
             // figure out how much the sender has moved in the main view from it's center, and update it accordingly.
-            let translation = sender.translation(in: self.view)
-            sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-            sender.setTranslation(CGPoint.zero, in: self.view)
+            getAndSetTranslation(piece, sender)
         case .changed:
-            self.view.bringSubview(toFront: piece)
-            let translation = sender.translation(in: self.view)
-            sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-            sender.setTranslation(CGPoint.zero, in: self.view)
+            getAndSetTranslation(piece, sender)
         case .ended:
             let newCenter = self.view.convert(piece.center, from: piece.superview)
             piece.center = newCenter
             if mainBoardView.frame.contains(piece.frame.origin){
-                piece.transform = CGAffineTransform.identity
-                rotateHelper(piece)
-                mainBoardView.addSubview(piece)
-                let newCenter = mainBoardView.convert(piece.center, from: piece.superview)
-                piece.center = newCenter
-                piece.center = sender.location(in: mainBoardView)
-                snapPiece(piece)
-                mainBoardView.isUserInteractionEnabled = true
+                movePieceToBoard(piece, sender)
             }
             else {
-                piecesHomeView.addSubview(piece)
-                piece.transform = CGAffineTransform.identity
-                let newCenter = piecesHomeView.convert(piece.center, from: piece.superview)
-                piece.center = newCenter
-                let origX = pentominoModel.tranforms[piece.tag]?.xPos
-                let origY = pentominoModel.tranforms[piece.tag]?.yPos
-                piece.frame = CGRect(x: CGFloat(origX!), y: CGFloat(origY!), width: piece.bounds.size.width, height: piece.bounds.size.height)
+                movePieceToHome(piece)
             }
         default:
             break
@@ -220,7 +239,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         pentominoModel.tranforms[piece.tag]?.rotatedTimes += 1
         rotateHelper(piece)
         snapPiece(piece)
-
     }
     
     @objc func flipPiece(_ sender: UITapGestureRecognizer){
@@ -267,8 +285,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         default:
             break
         }
-        resetPieces()
+        //resetPieces()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -276,17 +295,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         for (_, piece) in pieceViews {
             piecesHomeView.addSubview(piece)
         }
-        /*
-        if UIDevice.current.orientation.isPortrait {
-            countPerRow = 6
-            horizontalSpacing = 20
-            horizontalStart = 40
-        } else {
-            countPerRow = 12
-            horizontalSpacing = 10
-            horizontalStart = 20
-        }
-         */
+
         resetPieces()
         
     }
