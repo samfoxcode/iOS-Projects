@@ -17,7 +17,9 @@ struct Position : Codable {
 }
 
 struct Transformations {
-    var rotatedTimes : Int
+    var rotatedTimes = 0
+    var xPos = 0
+    var yPos = 0
 }
 // A solution is a dictionary mapping piece names ("T", "F", etc) to positions
 // All solutions are read in and maintained in an array
