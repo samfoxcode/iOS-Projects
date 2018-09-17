@@ -135,9 +135,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) {
         
         var _pieceViews = [String:UIImageView]()
-        
+        var count = 0
         for (key, gamePiece) in pentominoModel.pieces{
             let aView = UIImageView(piece: gamePiece)
+            aView.tag = count
+            count = count + 1
             _pieceViews[key] = aView
         }
         pieceViews = _pieceViews
@@ -156,18 +158,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
             sender.setTranslation(CGPoint.zero, in: self.view)
         case .changed:
+            self.view.bringSubview(toFront: piece)
             let translation = sender.translation(in: self.view)
             sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
             sender.setTranslation(CGPoint.zero, in: self.view)
         case .ended:
-            let translation = sender.translation(in: self.view)
-            sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-            sender.setTranslation(CGPoint.zero, in: self.view)
-            for _view in self.view.subviews {
-                if _view.frame.contains(piece.center) && _view != piece.superview{
-                    _view.addSubview(piece)
-                    break
-                }
+            print(piece.frame)
+            print(mainBoardView.frame)
+            if mainBoardView.bounds.contains(piece.bounds){
+                print("WHY")
+                piece.center = mainBoardView.convert(piece.center, from: piece.superview)
+                let translation = sender.translation(in: self.view)
+                sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
+                sender.setTranslation(CGPoint.zero, in: self.view)
+                mainBoardView.isUserInteractionEnabled = true
+                mainBoardView.addSubview(piece)
+            }
+            else {
+                print("RESET")
+                resetPieces()
             }
         default:
             break
@@ -176,7 +185,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func rotatePiece(_ sender: UITapGestureRecognizer){
         let piece = sender.view!
-        let radians = (CGFloat.pi*CGFloat(90))/CGFloat(180)
+        if let rotations = pentominoModel.tranforms[piece.tag]{
+            pentominoModel.tranforms[piece.tag]?.rotatedTimes += 1
+            print(rotations)
+        }
+        else {
+            pentominoModel.tranforms[piece.tag] = Transformations(rotatedTimes: 1)
+        }
+        let radians = (CGFloat((pentominoModel.tranforms[piece.tag]?.rotatedTimes)!) * CGFloat.pi*CGFloat(90))/CGFloat(180)
         piece.transform = CGAffineTransform(rotationAngle: radians)
     }
     

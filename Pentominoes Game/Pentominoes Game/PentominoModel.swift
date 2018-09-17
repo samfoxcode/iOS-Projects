@@ -16,6 +16,9 @@ struct Position : Codable {
     var rotations : Int
 }
 
+struct Transformations {
+    var rotatedTimes : Int
+}
 // A solution is a dictionary mapping piece names ("T", "F", etc) to positions
 // All solutions are read in and maintained in an array
 typealias Solution = [String:Position]
@@ -24,6 +27,7 @@ typealias Solutions = [Solution]
 class Model {
 
     let allSolutions : Solutions //[[String:[String:Int]]]
+    var tranforms = [Int:Transformations]()
     let pieces = ["F":"PieceF.png", "I":"PieceI.png", "L":"PieceL.png", "N":"PieceN.png", "P":"PieceP.png", "T":"PieceT.png", "U":"PieceU.png", "V":"PieceV.png", "W":"PieceW.png", "X":"PieceX.png", "Y":"PieceY.png", "Z":"PieceZ.png"]
     init () {
         let mainBundle = Bundle.main
