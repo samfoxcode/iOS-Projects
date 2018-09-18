@@ -27,15 +27,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let kScaleX : CGFloat = 1.2
     let kScaleY : CGFloat = 1.2
     let kScalePieceForBoard : CGFloat = 30.0
+    let kVerticalOffset = 120
     var solved = false
     var mainTap : UITapGestureRecognizer!
-    var countPerRow = 6
-    var horizontalSpacing = 40
+    var countPerRow = 8
+    var horizontalSpacing = 20
     var horizontalStart = 40
-    var verticalStart = 50
+    var verticalStart = 10
+    var hintImage = UIImage()
+    var hintCount = 0
+    var hintIndex = 0
+    let hintViews : [String:UIImageView]
     
-    func solvePieces(_ image: UIImage){
+    @IBAction func hintRequested(_ sender: Any) {
+        hintCount = hintCount + 1
+    }
+    
+    func solvePieces(_ image: UIImage, _ hint: Bool = false){
         solved = true
+        hintCount = 0
         let index : Int
         switch image {
         case #imageLiteral(resourceName: "Board0") :
@@ -53,7 +63,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         default:
             return
         }
-        
+        hintIndex = index
         // Move the pieces to their appropiate positions on the appropiate board, with an animation.
         for (key, piece) in pieceViews {
             
@@ -88,7 +98,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             gamePiece.transform = CGAffineTransform.identity
             
             if secondRow {
-                yStart = yStart + 135
+                yStart = yStart + kVerticalOffset
                 xStart = horizontalStart
                 secondRow = false
             }
@@ -117,20 +127,32 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func changeBoard(sender: UIButton) {
+        hintCount = 0
         switch sender.tag{
             case 0:
                 mainBoardView.image = #imageLiteral(resourceName: "Board0")
+                hintImage = #imageLiteral(resourceName: "Board0")
                 resetPieces()
             case 1:
                 mainBoardView.image = #imageLiteral(resourceName: "Board1")
+                hintImage = #imageLiteral(resourceName: "Board1")
+                hintIndex = 0
             case 2:
                 mainBoardView.image = #imageLiteral(resourceName: "Board2")
+                hintImage = #imageLiteral(resourceName: "Board2")
+                hintIndex = 1
             case 3:
                 mainBoardView.image = #imageLiteral(resourceName: "Board3")
+                hintImage = #imageLiteral(resourceName: "Board3")
+                hintIndex = 2
             case 4:
                 mainBoardView.image = #imageLiteral(resourceName: "Board4")
+                hintImage = #imageLiteral(resourceName: "Board4")
+                hintIndex = 3
             case 5:
                 mainBoardView.image = #imageLiteral(resourceName: "Board5")
+                hintImage = #imageLiteral(resourceName: "Board5")
+                hintIndex = 4
             default:
                 return
         }
@@ -161,6 +183,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             _pieceViews[key] = aView
         }
         pieceViews = _pieceViews
+        hintViews = pieceViews
         super.init(coder: aDecoder)
         addGestures()
     }
@@ -267,26 +290,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        switch toInterfaceOrientation {
-        case .portrait:
-            countPerRow = 6
-            horizontalSpacing = 40
-            horizontalStart = 40
-        case .landscapeLeft:
-            countPerRow = 12
-            horizontalSpacing = 10
-            horizontalStart = 20
-        case .landscapeRight:
-            countPerRow = 12
-            horizontalSpacing = 10
-            horizontalStart = 20
-        default:
-            break
-        }
-        //resetPieces()
-    }
     
     
     override func viewDidLoad() {
@@ -300,6 +303,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let hintViewController = segue.destination as! HintViewController
+        hintViewController.hintBoardView = mainBoardView
+        hintViewController.hintBoardView.image = mainBoardView.image
+        hintViewController.setHintImage(hintImage)
+        hintViewController.setHintIndex(hintIndex)
+        hintViewController.setHintViews(hintViews)
+        hintViewController.setHintCount(hintCount)
+        //hintViewController.showHint(mainBoardView.image!)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
