@@ -80,7 +80,7 @@
                                 </state>
                                 <connections>
                                     <action selector="hintRequested:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zxk-cf-dx8"/>
-                                    <segue destination="QKo-dz-CwZ" kind="presentation" id="nGZ-QE-bRA"/>
+                                    <segue destination="QKo-dz-CwZ" kind="presentation" modalPresentationStyle="formSheet" id="nGZ-QE-bRA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9l-Lq-SKp">
@@ -137,8 +137,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="hintButton" destination="e5Z-Nf-CP9" id="Olk-Hh-lvl"/>
                         <outlet property="mainBoardView" destination="1in-mG-INE" id="BKu-Vs-lY7"/>
                         <outlet property="piecesHomeView" destination="bCq-k3-Kcs" id="Fys-16-PCd"/>
+                        <outlet property="resetButton" destination="B9l-Lq-SKp" id="SMc-21-YVl"/>
+                        <outlet property="solveButton" destination="4Ir-4d-Zgg" id="7Qp-Oe-Yp2"/>
+                        <outletCollection property="boardButtons" destination="CMR-mB-qJX" collectionClass="NSMutableArray" id="ry6-hw-eK2"/>
+                        <outletCollection property="boardButtons" destination="E1a-Jh-iCh" collectionClass="NSMutableArray" id="AW5-7b-XHk"/>
+                        <outletCollection property="boardButtons" destination="tnt-eP-0wA" collectionClass="NSMutableArray" id="3Cv-o9-g8M"/>
+                        <outletCollection property="boardButtons" destination="crT-0H-vwj" collectionClass="NSMutableArray" id="lXQ-v1-Q05"/>
+                        <outletCollection property="boardButtons" destination="e4u-v2-fBd" collectionClass="NSMutableArray" id="ZtG-SH-m6W"/>
+                        <outletCollection property="boardButtons" destination="0eQ-hZ-kgq" collectionClass="NSMutableArray" id="wX6-ta-sYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -150,48 +159,35 @@
             <objects>
                 <viewController id="QKo-dz-CwZ" customClass="HintViewController" customModule="Pentominoes_Game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7gg-CT-Bai">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board0" translatesAutoresizingMaskIntoConstraints="NO" id="NpK-HB-Pnj" userLabel="Hint Board">
-                                <rect key="frame" x="174" y="88" width="420" height="420"/>
+                                <rect key="frame" x="60" y="88" width="420" height="420"/>
                                 <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="420" id="5PY-wF-kut"/>
-                                    <constraint firstAttribute="width" constant="420" id="8Ji-4L-Wld"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="420" id="TJz-VU-AZ5"/>
-                                    <constraint firstAttribute="height" constant="420" id="rlQ-Nf-HUR"/>
+                                    <constraint firstAttribute="width" constant="420" id="Xxs-bF-ZjD"/>
+                                    <constraint firstAttribute="height" constant="420" id="rsr-It-Ibd"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-92-HJ5">
-                                <rect key="frame" x="227" y="674" width="315" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Dismiss By Delegate">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3M-OQ-nCY">
+                                <rect key="frame" x="236" y="531" width="69" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDN-Mo-t0H">
-                                <rect key="frame" x="237" y="769" width="295" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Dismiss By Closure">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DK-J4-vX2">
-                                <rect key="frame" x="213" y="877" width="343" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Dismiss By Unwinding">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                                <connections>
+                                    <action selector="dismissHint:" destination="QKo-dz-CwZ" eventType="touchUpInside" id="S4R-MS-ktw"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.35030764249481861" green="0.0038503710297079284" blue="0.020175002153736441" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="NpK-HB-Pnj" firstAttribute="centerX" secondItem="7gg-CT-Bai" secondAttribute="centerX" id="bdA-Rl-GhB"/>
-                            <constraint firstItem="NpK-HB-Pnj" firstAttribute="top" secondItem="7bq-3u-ge7" secondAttribute="top" constant="68" id="qYe-S0-wWz"/>
+                            <constraint firstItem="NpK-HB-Pnj" firstAttribute="top" secondItem="7bq-3u-ge7" secondAttribute="top" constant="88" id="6Pa-3p-SSl"/>
+                            <constraint firstItem="Y3M-OQ-nCY" firstAttribute="top" secondItem="NpK-HB-Pnj" secondAttribute="bottom" constant="23" id="J70-48-ouu"/>
+                            <constraint firstItem="Y3M-OQ-nCY" firstAttribute="centerX" secondItem="7gg-CT-Bai" secondAttribute="centerX" id="VxW-2v-2u3"/>
+                            <constraint firstItem="NpK-HB-Pnj" firstAttribute="centerX" secondItem="7gg-CT-Bai" secondAttribute="centerX" id="mm3-r8-SPo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7bq-3u-ge7"/>
                     </view>
@@ -201,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adx-kq-AlP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981" y="100"/>
+            <point key="canvasLocation" x="980.46875" y="99.609375"/>
         </scene>
     </scenes>
     <resources>

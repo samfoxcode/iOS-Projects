@@ -17,33 +17,78 @@ extension UIImageView {
     }
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegate {
+    
+    //MARK: - Declarations
     
     @IBOutlet var mainBoardView: UIImageView!
     @IBOutlet var piecesHomeView: UIView!
+    @IBOutlet var hintButton: UIButton!
+    @IBOutlet var solveButton: UIButton!
+    @IBOutlet var resetButton: UIButton!
+    @IBOutlet var boardButtons: [UIButton]!
     
     let pentominoModel = Model()
     let pieceViews : [String:UIImageView]
-    let kScaleX : CGFloat = 1.2
-    let kScaleY : CGFloat = 1.2
+    let kScaleX : CGFloat = 1.1
+    let kScaleY : CGFloat = 1.1
     let kScalePieceForBoard : CGFloat = 30.0
     let kVerticalOffset = 120
+    let hintViews : [String:UIImageView]
+    let boards : [Int:UIImageView]
     var solved = false
     var mainTap : UITapGestureRecognizer!
     var countPerRow = 8
     var horizontalSpacing = 20
     var horizontalStart = 40
     var verticalStart = 10
-    var hintImage = UIImage()
     var hintCount = 0
     var hintIndex = 0
-    let hintViews : [String:UIImageView]
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        var _pieceViews = [String:UIImageView]()
+        var _hintViews = [String:UIImageView]()
+        var _boards = [Int:UIImageView]()
+        var count = 0
+        for (key, gamePiece) in pentominoModel.pieces{
+            let aView = UIImageView(piece: gamePiece)
+            aView.tag = count
+            let aHintView = UIImageView(piece: gamePiece)
+            aHintView.tag = count
+            count = count + 1
+            _pieceViews[key] = aView
+            _hintViews[key] = aHintView
+        }
+        for tag in 0..<6{
+            _boards[tag] = UIImageView(piece: "Board\(tag)")
+            _boards[tag]?.tag = tag
+        }
+        pieceViews = _pieceViews
+        hintViews = _hintViews
+        boards = _boards
+        super.init(coder: aDecoder)
+        addGestures()
+    }
+    
+    //MARK: - Actions
     
     @IBAction func hintRequested(_ sender: Any) {
         hintCount = hintCount + 1
     }
     
+    @IBAction func solve(_ sender: Any) {
+        solvePieces(mainBoardView.image!)
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+        resetPieces()
+    }
+    
+    //MARK: - Reset/Solve
+    
     func solvePieces(_ image: UIImage, _ hint: Bool = false){
+        solveButton.isEnabled = false
         solved = true
         hintCount = 0
         let index : Int
@@ -62,6 +107,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             index = 4
         default:
             return
+        }
+        for boardButton in boardButtons {
+            boardButton.isEnabled = false
         }
         hintIndex = index
         // Move the pieces to their appropiate positions on the appropiate board, with an animation.
@@ -89,6 +137,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     func resetPieces(){
+        for boardButton in boardButtons {
+            boardButton.isEnabled = true
+        }
+        solveButton.isEnabled = true
         var xStart = horizontalStart
         var yStart = verticalStart
         solved = false
@@ -113,7 +165,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 pentominoModel.tranforms[gamePiece.tag]?.yPos = yStart
             }
             else {
-                pentominoModel.tranforms[gamePiece.tag] = Transformations(rotatedTimes: 0, xPos: xStart, yPos: yStart)
+                pentominoModel.tranforms[gamePiece.tag] = Transformations(rotatedTimes: 0, flipped: 1, xPos: xStart, yPos: yStart)
             }
             gamePiece.center = piecesHomeView.convert(gamePiece.center, from: gamePiece.superview)
             UIView.animate(withDuration: 1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
@@ -126,87 +178,38 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    //MARK: - Configure Board
+    
     @IBAction func changeBoard(sender: UIButton) {
         hintCount = 0
-        switch sender.tag{
-            case 0:
-                mainBoardView.image = #imageLiteral(resourceName: "Board0")
-                hintImage = #imageLiteral(resourceName: "Board0")
-                resetPieces()
-            case 1:
-                mainBoardView.image = #imageLiteral(resourceName: "Board1")
-                hintImage = #imageLiteral(resourceName: "Board1")
-                hintIndex = 0
-            case 2:
-                mainBoardView.image = #imageLiteral(resourceName: "Board2")
-                hintImage = #imageLiteral(resourceName: "Board2")
-                hintIndex = 1
-            case 3:
-                mainBoardView.image = #imageLiteral(resourceName: "Board3")
-                hintImage = #imageLiteral(resourceName: "Board3")
-                hintIndex = 2
-            case 4:
-                mainBoardView.image = #imageLiteral(resourceName: "Board4")
-                hintImage = #imageLiteral(resourceName: "Board4")
-                hintIndex = 3
-            case 5:
-                mainBoardView.image = #imageLiteral(resourceName: "Board5")
-                hintImage = #imageLiteral(resourceName: "Board5")
-                hintIndex = 4
-            default:
-                return
+        mainBoardView.image = boards[sender.tag]?.image
+        if sender.tag == 0 {
+            hintButton.isEnabled = false
+            solveButton.isEnabled = false
+        }
+        else {
+            hintIndex = sender.tag - 1
+            solveButton.isEnabled = true
+            hintButton.isEnabled = true
         }
         if solved && mainBoardView.image != #imageLiteral(resourceName: "Board0") {
             solvePieces(mainBoardView.image!)
         }
     }
     
+    //MARK: - Moving Pieces
     
-    
-    @IBAction func solve(_ sender: Any) {
-        solvePieces(mainBoardView.image!)
-    }
-    
-    @IBAction func reset(_ sender: Any) {
-        resetPieces()
-    }
-    
-
-    required init?(coder aDecoder: NSCoder) {
-        
-        var _pieceViews = [String:UIImageView]()
-        var count = 0
-        for (key, gamePiece) in pentominoModel.pieces{
-            let aView = UIImageView(piece: gamePiece)
-            aView.tag = count
-            count = count + 1
-            _pieceViews[key] = aView
-        }
-        pieceViews = _pieceViews
-        hintViews = pieceViews
-        super.init(coder: aDecoder)
-        addGestures()
-    }
-    
-    func snapPiece(_ piece: UIView){
-        let x = piece.frame.origin.x.truncatingRemainder(dividingBy: 30)
-        let y = piece.frame.origin.y.truncatingRemainder(dividingBy: 30)
-        piece.frame.origin.x = piece.frame.origin.x - x
-        piece.frame.origin.y = piece.frame.origin.y - y
-    }
-    
-    func getAndSetTranslation(_ piece: UIView, _ sender: UIPanGestureRecognizer){
+    func getAndSetTranslation(_ piece: UIView, _ sender: UIPanGestureRecognizer) {
         self.view.bringSubview(toFront: piece)
         let translation = sender.translation(in: self.view)
         sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
-    func movePieceToBoard(_ piece: UIView, _ sender: UIPanGestureRecognizer){
-        piece.transform = CGAffineTransform.identity
-        
-        rotateHelper(piece)
-        
+    func movePieceToBoard(_ piece: UIView, _ sender: UIPanGestureRecognizer) {
+        // Reset size without losing rotations/flips.
+        piece.transform = piece.transform.scaledBy(x: 1/kScaleY, y: 1/kScaleY)
+
         mainBoardView.addSubview(piece)
         let newCenter = mainBoardView.convert(piece.center, from: piece.superview)
         piece.center = newCenter
@@ -252,23 +255,45 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    //MARK: - Transformations
+    
     func rotateHelper(_ piece: UIView){
-        let radians = (CGFloat((pentominoModel.tranforms[piece.tag]?.rotatedTimes)!) * CGFloat.pi*CGFloat(90))/CGFloat(180)
-        piece.transform = CGAffineTransform(rotationAngle: radians)
+        let radians = (CGFloat(1) * CGFloat.pi*CGFloat(90))/CGFloat(180)
+        piece.transform = piece.transform.rotated(by: radians)
     }
     
-    @objc func rotatePiece(_ sender: UITapGestureRecognizer){
+    @objc func rotatePiece(_ sender: UITapGestureRecognizer) {
         let piece = sender.view!
-        pentominoModel.tranforms[piece.tag]?.rotatedTimes += 1
-        rotateHelper(piece)
-        snapPiece(piece)
+        if piece.superview == mainBoardView {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+            self.pentominoModel.tranforms[piece.tag]?.rotatedTimes += 1
+            self.rotateHelper(piece)
+            self.snapPiece(piece)
+            })
+        }
     }
     
-    @objc func flipPiece(_ sender: UITapGestureRecognizer){
+    @objc func flipPiece(_ sender: UITapGestureRecognizer) {
         let piece = sender.view!
-        piece.transform = piece.transform.scaledBy(x: -1, y: 1)
-        snapPiece(piece)
+        if piece.superview == mainBoardView {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+            let flip = self.pentominoModel.tranforms[piece.tag]?.flipped == 1 ? -1 : 1
+            self.pentominoModel.tranforms[piece.tag]?.flipped = flip
+            piece.transform = CGAffineTransform(scaleX: 1.0, y: CGFloat(flip))
+
+            self.snapPiece(piece)
+            })
+        }
     }
+    
+    func snapPiece(_ piece: UIView){
+        let x = piece.frame.origin.x.truncatingRemainder(dividingBy: 30)
+        let y = piece.frame.origin.y.truncatingRemainder(dividingBy: 30)
+        piece.frame.origin.x = piece.frame.origin.x - x
+        piece.frame.origin.y = piece.frame.origin.y - y
+    }
+    
+    //MARK: - Gestures
     
     func addGestures(){
         for (_, piece) in pieceViews{
@@ -291,34 +316,39 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         return true
     }
     
+    //MARK: - View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        solveButton.isEnabled = false
+        hintButton.isEnabled = false
         for (_, piece) in pieceViews {
             piecesHomeView.addSubview(piece)
         }
 
         resetPieces()
-        
     }
 
+    //MARK: - Segues
+    
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let hintViewController = segue.destination as! HintViewController
         hintViewController.hintBoardView = mainBoardView
         hintViewController.hintBoardView.image = mainBoardView.image
-        hintViewController.setHintImage(hintImage)
+        
+        // Send the appropriate information to the hintViewController.
+        // Not sure if there is a better way. Tried exposing these values through
+        // the ViewController class, but that just didn't work, I think this is good.
+        hintViewController.setHintImage((boards[hintIndex+1]?.image)!)
         hintViewController.setHintIndex(hintIndex)
         hintViewController.setHintViews(hintViews)
         hintViewController.setHintCount(hintCount)
-        //hintViewController.showHint(mainBoardView.image!)
+        hintViewController.delegate = self
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 

@@ -18,6 +18,7 @@ struct Position : Codable {
 
 struct Transformations {
     var rotatedTimes = 0
+    var flipped = 1
     var xPos = 0
     var yPos = 0
 }

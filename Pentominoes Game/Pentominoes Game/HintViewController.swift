@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HintDelegate {
+    func dismiss()
+}
+
 class HintViewController: UIViewController {
 
     @IBOutlet var hintBoardView: UIImageView!
@@ -17,6 +21,7 @@ class HintViewController: UIViewController {
     var pieces = [String:UIImageView]()
     let kScalePieceForBoard : CGFloat = 30
     var hintCount = 0
+    var delegate : HintDelegate?
     
     func setHintImage(_ image: UIImage) {
         self.image = image
@@ -30,51 +35,43 @@ class HintViewController: UIViewController {
     func setHintCount(_ hintCount: Int) {
         self.hintCount = hintCount
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        hintBoardView.image = self.image
+    
+    @IBAction func dismissHint(_ sender: Any) {
+        delegate?.dismiss()
+    }
+    
+    func solveHintPieceHelper(_ piece: UIView, _ key: String) {
+        // Get solution for single piece for specific board.
+        let solution = hintPentominoModel.getSolution(index, key)
+        
+        let newX = CGFloat((solution?.x)!)*kScalePieceForBoard
+        let newY = CGFloat((solution?.y)!)*kScalePieceForBoard
+        let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
+        piece.center = hintBoardView.convert(piece.center, from: piece.superview)
+        piece.transform = CGAffineTransform(rotationAngle: radians)
+        if ((solution?.isFlipped)!) {
+            piece.transform = piece.transform.scaledBy(x: -1, y: 1)
+        }
+        self.hintBoardView.addSubview(piece)
+        piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
+    }
+    
+    func solveHint() {
         var count = 0
-        print(pieces)
         for (key, piece) in pieces {
-            
             if count >= hintCount {
                 break
             }
-            // Get solution for single piece for specific board.
-            let solution = hintPentominoModel.getSolution(index, key)
-            
-            let newX = CGFloat((solution?.x)!)*kScalePieceForBoard
-            let newY = CGFloat((solution?.y)!)*kScalePieceForBoard
-            let radians = (CGFloat((solution?.rotations)!)*CGFloat.pi*CGFloat(90))/CGFloat(180)
-            piece.center = hintBoardView.convert(piece.center, from: piece.superview)
-            
-            UIView.animate(withDuration: 1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
-                piece.transform = CGAffineTransform(rotationAngle: radians)
-                if ((solution?.isFlipped)!) {
-                    piece.transform = piece.transform.scaledBy(x: -1, y: 1)
-                }
-                self.hintBoardView.addSubview(piece)
-                piece.frame = CGRect(x: newX, y: newY, width: piece.frame.size.width, height: piece.frame.size.height)
-            })
+            solveHintPieceHelper(piece, key)
             count = count + 1
         }
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        hintBoardView.image = self.image
+        solveHint()
     }
-    */
+
 
 }
