@@ -257,7 +257,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
                 movePieceToBoard(piece, sender)
             }
             else {
-                movePieceToHome(piece)
+                self.movePieceToHome(piece)
             }
         default:
             break
