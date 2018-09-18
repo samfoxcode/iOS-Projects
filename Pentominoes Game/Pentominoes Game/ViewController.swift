@@ -140,10 +140,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     func resetPieces(_ fullReset: Bool = true){
         
         hintButton.isEnabled = true
-        for boardButton in boardButtons {
-            boardButton.isEnabled = true
+        if fullReset {
+            for boardButton in boardButtons {
+                boardButton.isEnabled = true
+            }
+            solveButton.isEnabled = true
         }
-        solveButton.isEnabled = true
         var xStart = horizontalStart
         var yStart = verticalStart
         solved = false
