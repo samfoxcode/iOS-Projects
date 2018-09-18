@@ -46,7 +46,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     var hintIndex = 0
     
     required init?(coder aDecoder: NSCoder) {
-        
+
         var _pieceViews = [String:UIImageView]()
         var _hintViews = [String:UIImageView]()
         var _boards = [Int:UIImageView]()
@@ -137,7 +137,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     }
     
     
-    func resetPieces(){
+    func resetPieces(_ fullReset: Bool = true){
         
         hintButton.isEnabled = true
         for boardButton in boardButtons {
@@ -150,6 +150,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
         var secondRow = false
         var count = 1
         for (_, gamePiece) in pieceViews {
+            
+            if piecesHomeView.subviews.contains(gamePiece) || fullReset {
             gamePiece.transform = CGAffineTransform.identity
             
             if secondRow {
@@ -177,7 +179,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
             gamePiece.frame = CGRect(x: CGFloat(xStart), y: CGFloat(yStart), width: gamePiece.bounds.size.width, height: gamePiece.bounds.size.height)
             })
             xStart = xStart + Int(gamePiece.bounds.size.width)+horizontalSpacing
-            
+            }
         }
     }
     
@@ -336,6 +338,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
         resetPieces()
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if UIDevice.current.orientation.isLandscape {
+            countPerRow = 10
+            resetPieces(false)
+        }
+        else{
+            countPerRow = 8
+            resetPieces(false)
+        }
+    }
     //MARK: - Segues
     
     func dismiss() {
