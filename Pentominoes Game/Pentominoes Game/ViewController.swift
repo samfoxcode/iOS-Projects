@@ -236,6 +236,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     @objc func movePiece(_ sender: UIPanGestureRecognizer) {
         let piece = sender.view!
 
+        for button in boardButtons {
+            self.view.sendSubview(toBack: button)
+        }
+        
         switch sender.state {
         case .began:
             piece.transform = piece.transform.scaledBy(x: kScaleX, y: kScaleY)
