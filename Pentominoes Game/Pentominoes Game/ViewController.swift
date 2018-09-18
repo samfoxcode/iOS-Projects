@@ -78,6 +78,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     }
     
     @IBAction func solve(_ sender: Any) {
+        hintButton.isEnabled = false
         solvePieces(mainBoardView.image!)
     }
     
@@ -137,6 +138,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     
     
     func resetPieces(){
+        
+        hintButton.isEnabled = true
         for boardButton in boardButtons {
             boardButton.isEnabled = true
         }
@@ -161,8 +164,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
             
             // Remember where the piece started for future reference.
             if pentominoModel.tranforms[gamePiece.tag] != nil {
-                pentominoModel.tranforms[gamePiece.tag]?.xPos = xStart
-                pentominoModel.tranforms[gamePiece.tag]?.yPos = yStart
+                pentominoModel.setXPos(gamePiece.tag, xStart)
+                pentominoModel.setYPos(gamePiece.tag, yStart)
             }
             else {
                 pentominoModel.tranforms[gamePiece.tag] = Transformations(rotatedTimes: 0, flipped: 1, xPos: xStart, yPos: yStart)
@@ -225,9 +228,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
         piece.transform = CGAffineTransform.identity
         let newCenter = piecesHomeView.convert(piece.center, from: piece.superview)
         piece.center = newCenter
-        let origX = pentominoModel.tranforms[piece.tag]?.xPos
-        let origY = pentominoModel.tranforms[piece.tag]?.yPos
-        piece.frame = CGRect(x: CGFloat(origX!), y: CGFloat(origY!), width: piece.bounds.size.width, height: piece.bounds.size.height)
+        let origX = pentominoModel.getXPos(piece.tag)
+        let origY = pentominoModel.getYPos(piece.tag)
+        piece.frame = CGRect(x: CGFloat(origX), y: CGFloat(origY), width: piece.bounds.size.width, height: piece.bounds.size.height)
     }
     
     @objc func movePiece(_ sender: UIPanGestureRecognizer) {
@@ -266,7 +269,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
         let piece = sender.view!
         if piece.superview == mainBoardView {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
-            self.pentominoModel.tranforms[piece.tag]?.rotatedTimes += 1
             self.rotateHelper(piece)
             self.snapPiece(piece)
             })
@@ -276,11 +278,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, HintDelegat
     @objc func flipPiece(_ sender: UITapGestureRecognizer) {
         let piece = sender.view!
         if piece.superview == mainBoardView {
+            let flip = pentominoModel.getFlipper(piece.tag) == 1 ? -1 : 1
+            pentominoModel.setFlipper(piece.tag, flip)
+            
             UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
-            let flip = self.pentominoModel.tranforms[piece.tag]?.flipped == 1 ? -1 : 1
-            self.pentominoModel.tranforms[piece.tag]?.flipped = flip
             piece.transform = CGAffineTransform(scaleX: 1.0, y: CGFloat(flip))
-
             self.snapPiece(piece)
             })
         }

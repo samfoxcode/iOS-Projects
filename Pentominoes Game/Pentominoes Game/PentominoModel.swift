@@ -50,6 +50,30 @@ class Model {
     func getSolution(_ index: Int, _ key: String) -> Position? {
         return allSolutions[index][key]
     }
+    func getXPos(_ tag: Int) -> Int {
+        return (tranforms[tag]?.xPos)!
+    }
+    func getYPos(_ tag: Int) -> Int {
+        return (tranforms[tag]?.yPos)!
+    }
+    func setXPos(_ tag: Int, _ x: Int) {
+        tranforms[tag]?.xPos = x
+    }
+    func setYPos(_ tag: Int, _ y: Int) {
+        tranforms[tag]?.yPos = y
+    }
+    func getRotationTimes(_ tag: Int) -> Int {
+        return (tranforms[tag]?.rotatedTimes)!
+    }
+    func getFlipper(_ tag: Int) -> Int {
+        return (tranforms[tag]?.flipped)!
+    }
+    func setRotationTimes(_ tag: Int, _ rotations: Int) {
+        tranforms[tag]?.flipped = rotations
+    }
+    func setFlipper(_ tag: Int, _ flip: Int) {
+        tranforms[tag]?.flipped = flip
+    }
     
 
 }
