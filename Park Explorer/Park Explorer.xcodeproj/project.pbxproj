@@ -13,6 +13,8 @@
 		2266B1242156BAE200E8FDB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2266B1232156BAE200E8FDB5 /* Assets.xcassets */; };
 		2266B1272156BAE200E8FDB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2266B1252156BAE200E8FDB5 /* LaunchScreen.storyboard */; };
 		2266B1322156BAE200E8FDB5 /* Park_ExplorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266B1312156BAE200E8FDB5 /* Park_ExplorerTests.swift */; };
+		2266B13D2157FFF400E8FDB5 /* ParkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266B13C2157FFF400E8FDB5 /* ParkModel.swift */; };
+		2266B17D215809C600E8FDB5 /* Parks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2266B17C215809C600E8FDB5 /* Parks.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		2266B12D2156BAE200E8FDB5 /* Park ExplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Park ExplorerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2266B1312156BAE200E8FDB5 /* Park_ExplorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Park_ExplorerTests.swift; sourceTree = "<group>"; };
 		2266B1332156BAE200E8FDB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2266B13C2157FFF400E8FDB5 /* ParkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkModel.swift; sourceTree = "<group>"; };
+		2266B17C215809C600E8FDB5 /* Parks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Parks.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +81,10 @@
 		2266B11B2156BAE000E8FDB5 /* Park Explorer */ = {
 			isa = PBXGroup;
 			children = (
+				2266B17C215809C600E8FDB5 /* Parks.plist */,
 				2266B11C2156BAE000E8FDB5 /* AppDelegate.swift */,
 				2266B11E2156BAE000E8FDB5 /* ViewController.swift */,
+				2266B13C2157FFF400E8FDB5 /* ParkModel.swift */,
 				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
 				2266B1232156BAE200E8FDB5 /* Assets.xcassets */,
 				2266B1252156BAE200E8FDB5 /* LaunchScreen.storyboard */,
@@ -179,6 +185,7 @@
 			files = (
 				2266B1272156BAE200E8FDB5 /* LaunchScreen.storyboard in Resources */,
 				2266B1242156BAE200E8FDB5 /* Assets.xcassets in Resources */,
+				2266B17D215809C600E8FDB5 /* Parks.plist in Resources */,
 				2266B1222156BAE000E8FDB5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2266B11F2156BAE000E8FDB5 /* ViewController.swift in Sources */,
+				2266B13D2157FFF400E8FDB5 /* ParkModel.swift in Sources */,
 				2266B11D2156BAE000E8FDB5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

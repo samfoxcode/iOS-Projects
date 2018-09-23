@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>Black Moshannon</string>
+		<key>count</key>
+		<integer>6</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Cherry Springs</string>
+		<key>count</key>
+		<integer>7</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Leonard Harrison</string>
+		<key>count</key>
+		<integer>3</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Ohiopyle</string>
+		<key>count</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Ricketts Glen</string>
+		<key>count</key>
+		<integer>5</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Whipple Dam</string>
+		<key>count</key>
+		<integer>5</integer>
+	</dict>
+</array>
+</plist>
