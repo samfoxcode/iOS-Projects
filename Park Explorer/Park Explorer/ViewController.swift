@@ -60,6 +60,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let point = CGPoint(x: CGFloat(i)*size.width, y: 0)
 
             // set title label's frame
+            
             let label = UILabel(frame: CGRect.zero)//page.subviews[0] // only subview
             let labelHeight : CGFloat = 20.0
             let labelWidth : CGFloat = size.width
@@ -90,13 +91,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 let imageHeightScale = size.width/(image?.size.width)!
                 //print(imageHeightScale)
                 let imageViewFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: (image?.size.height)!*imageHeightScale)
-                imageView.frame = imageViewFrame
-                imageView.center.x = imageScrollView.center.x
-                imageView.center.y = imageScrollView.center.y - offset
+                //imageView.frame = imageViewFrame
+                //imageView.center.x = imageScrollView.center.x
+                //imageView.center.y = imageScrollView.center.y - offset
                 
-                print(imageScrollView.subviews)
-                print(imageScrollView)
+                //print(imageScrollView.subviews)
+                //print(imageScrollView)
                 imageScrollView.addSubview(imageView)
+                imageView.center = CGPoint(x: imageScrollView.contentSize.width/2.0, y: imageScrollView.contentSize.height/2.0)
                 mainScrollView.addSubview(imageScrollView)
                 //print(imageScrollView.subviews)
             }
