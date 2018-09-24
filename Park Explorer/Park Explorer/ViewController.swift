@@ -24,16 +24,22 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     func configureScrollView() {
         mainScrollView.isPagingEnabled = true
+        /*
         print(numberOfParks)
         for i in 0..<numberOfParks {
             let view = UIScrollView(frame: CGRect.zero)
             let title = UILabel(frame: CGRect.zero)
+            //view.minimumZoomScale = 0.1
+            //view.maximumZoomScale = 10
+            //view.delegate = self
             title.text = parkModel.park(i).name
             title.textAlignment = .center
             view.addSubview(title)
             parkPages.append(view)
             mainScrollView.addSubview(view)
         }
+        */
+ 
     }
     
     override func viewDidLoad() {
@@ -52,14 +58,15 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         for i in 0..<parkModel.lengthOfParks() {
             // set each page's fram
             let point = CGPoint(x: CGFloat(i)*size.width, y: 0)
-            let frame = CGRect(origin: point, size: size)
-            let page = parkPages[i]
-            page.frame = frame
+
             // set title label's frame
-            let label = page.subviews[0] // only subview
+            let label = UILabel(frame: CGRect.zero)//page.subviews[0] // only subview
             let labelHeight : CGFloat = 20.0
-            let labelWidth : CGFloat = page.bounds.width
-            label.frame = CGRect(x: 0.0, y: CGFloat(30), width: labelWidth, height: labelHeight)
+            let labelWidth : CGFloat = size.width
+            label.frame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(30), width: labelWidth, height: labelHeight)
+            label.text = parkModel.park(i).name
+            label.textAlignment = .center
+            mainScrollView.addSubview(label)
             
             for pictureIndex in 0..<parkModel.parkInfoLength(i) {
                 print("\(parkModel.parkName(i))0\(pictureIndex)")
@@ -76,30 +83,31 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 
                 let scrollFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: size.height)
                 let imageScrollView = UIScrollView(frame: scrollFrame)
-                imageScrollView.contentSize = size
-                imageScrollView.addSubview(imageView)
+                imageScrollView.contentSize = CGSize(width: size.width, height: size.height)
                 imageScrollView.delegate = self
-                imageView.center = imageScrollView.center
-                imageScrollView.minimumZoomScale = 1
-                imageScrollView.maximumZoomScale = 10
+                //imageView.center = imageScrollView.center
                 
                 let imageHeightScale = size.width/(image?.size.width)!
-                print(imageHeightScale)
+                //print(imageHeightScale)
                 let imageViewFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: (image?.size.height)!*imageHeightScale)
                 imageView.frame = imageViewFrame
                 imageView.center.x = imageScrollView.center.x
                 imageView.center.y = imageScrollView.center.y - offset
                 
-                mainScrollView.addSubview(imageView)
+                print(imageScrollView.subviews)
+                print(imageScrollView)
+                imageScrollView.addSubview(imageView)
+                mainScrollView.addSubview(imageScrollView)
+                //print(imageScrollView.subviews)
             }
             
         }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        print(scrollView.subviews)
+        //print(scrollView.subviews[2])
         if scrollView != mainScrollView {
-        return scrollView.subviews[1]
+        return scrollView.subviews[2]
         }
         return nil
     }
