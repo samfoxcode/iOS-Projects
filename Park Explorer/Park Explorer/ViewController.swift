@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIScrollViewDelegate {
 
     let parkModel = Model()
     let numberOfParks : Int
@@ -38,7 +38,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureScrollView()
         for i in 0..<numberOfParks {
             print(parkModel.park(i))
@@ -48,7 +47,7 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         let size = self.view.bounds.size
         mainScrollView.contentSize = CGSize(width: size.width * CGFloat(parkModel.lengthOfParks()), height: size.height*7)
-        
+        var offset : CGFloat = 0.0
         // lay out all the pages on the scroll view
         for i in 0..<parkModel.lengthOfParks() {
             // set each page's fram
@@ -65,13 +64,48 @@ class ViewController: UIViewController {
             for pictureIndex in 0..<parkModel.parkInfoLength(i) {
                 print("\(parkModel.parkName(i))0\(pictureIndex)")
                 let image = UIImage(named: "\(parkModel.parkName(i))0\(pictureIndex+1)")
-                print(image)
+                //print(image)
                 let imageView = UIImageView(image: image)
-                imageView.frame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*(image?.size.height)!+60.0, width: size.width, height: (image?.size.height)!)
+                
+                if pictureIndex == 0 {
+                    offset = 60.0
+                }
+                else {
+                    offset = 0.0
+                }
+                
+                let scrollFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: size.height)
+                let imageScrollView = UIScrollView(frame: scrollFrame)
+                imageScrollView.contentSize = size
+                imageScrollView.addSubview(imageView)
+                imageScrollView.delegate = self
+                imageView.center = imageScrollView.center
+                imageScrollView.minimumZoomScale = 1
+                imageScrollView.maximumZoomScale = 10
+                
+                let imageHeightScale = size.width/(image?.size.width)!
+                print(imageHeightScale)
+                let imageViewFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: (image?.size.height)!*imageHeightScale)
+                imageView.frame = imageViewFrame
+                imageView.center.x = imageScrollView.center.x
+                imageView.center.y = imageScrollView.center.y - offset
+                
                 mainScrollView.addSubview(imageView)
             }
             
         }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        print(scrollView.subviews)
+        if scrollView != mainScrollView {
+        return scrollView.subviews[1]
+        }
+        return nil
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        // need to update position of image whenever zooming occurs
     }
     
     override func didReceiveMemoryWarning() {
