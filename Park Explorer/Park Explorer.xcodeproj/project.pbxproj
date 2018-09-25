@@ -152,9 +152,11 @@
 				TargetAttributes = {
 					2266B1182156BAE000E8FDB5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					2266B12C2156BAE200E8FDB5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 2266B1182156BAE000E8FDB5;
 					};
 				};
@@ -375,7 +377,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.psu.cse.sof5207.Park-Explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -393,7 +395,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.psu.cse.sof5207.Park-Explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -412,7 +414,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.psu.cse.sof5207.Park-ExplorerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Park Explorer.app/Park Explorer";
 			};
@@ -432,7 +434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.psu.cse.sof5207.Park-ExplorerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Park Explorer.app/Park Explorer";
 			};
