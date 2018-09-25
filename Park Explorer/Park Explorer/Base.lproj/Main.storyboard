@@ -21,18 +21,64 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60H-eI-8Ib" userLabel="Main Scroll View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </scrollView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="hrh-o4-PGu">
+                                <rect key="frame" x="291" y="299.5" width="68" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="7T2-mJ-h6G"/>
+                                    <constraint firstAttribute="width" constant="68" id="jqF-2E-7Im"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upArrow" translatesAutoresizingMaskIntoConstraints="NO" id="1vk-Kx-jta">
+                                <rect key="frame" x="153" y="20" width="68" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="9Yr-oM-hao"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="NYW-f4-txO"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="wI1-pe-73u"/>
+                                    <constraint firstAttribute="height" constant="68" id="yGS-ig-E6t"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftArrow" translatesAutoresizingMaskIntoConstraints="NO" id="gBS-Ei-DAs">
+                                <rect key="frame" x="16" y="300" width="68" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="HMl-VB-pQV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="IVA-Z1-Wdx"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="Lf6-vd-E7E"/>
+                                    <constraint firstAttribute="height" constant="68" id="vE0-tG-C0O"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Ri9-PF-rHu">
+                                <rect key="frame" x="153" y="579" width="68" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="QqP-GU-7gF"/>
+                                    <constraint firstAttribute="height" constant="68" id="XxV-Q4-7Gs"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="nTE-mD-XdI"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="oJo-6p-fEx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="1vk-Kx-jta" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8cD-Ct-bgx"/>
+                            <constraint firstItem="hrh-o4-PGu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="DIl-NJ-kRs"/>
+                            <constraint firstItem="1vk-Kx-jta" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ISs-aU-M6p"/>
+                            <constraint firstItem="gBS-Ei-DAs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ipx-xr-VhG"/>
                             <constraint firstItem="60H-eI-8Ib" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Npv-An-yhn"/>
+                            <constraint firstItem="Ri9-PF-rHu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QKK-kA-bSV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ri9-PF-rHu" secondAttribute="bottom" constant="20" id="UQc-tD-5EW"/>
                             <constraint firstItem="60H-eI-8Ib" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ZiP-qe-NO0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hrh-o4-PGu" secondAttribute="trailing" constant="16" id="c7A-h9-nrv"/>
+                            <constraint firstItem="gBS-Ei-DAs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="cT7-2T-R8w"/>
                             <constraint firstItem="60H-eI-8Ib" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dOB-eH-JqI"/>
                             <constraint firstItem="60H-eI-8Ib" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qfO-oo-H3k"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="downArrow" destination="Ri9-PF-rHu" id="Izk-qD-ScA"/>
+                        <outlet property="leftArrow" destination="gBS-Ei-DAs" id="RTB-vh-y7n"/>
                         <outlet property="mainScrollView" destination="60H-eI-8Ib" id="OW9-tY-Mwl"/>
+                        <outlet property="rightArrow" destination="hrh-o4-PGu" id="LRX-lY-Net"/>
+                        <outlet property="upArrow" destination="1vk-Kx-jta" id="Lfu-HO-ACx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -40,4 +86,10 @@
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="downArrow" width="512" height="512"/>
+        <image name="leftArrow" width="512" height="512"/>
+        <image name="rightArrow" width="512" height="512"/>
+        <image name="upArrow" width="512" height="512"/>
+    </resources>
 </document>

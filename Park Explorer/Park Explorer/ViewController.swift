@@ -18,6 +18,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     var pictureLimit = [Int:Int]()
     var currentParkPage = 0
     var disabled = false
+    var leftAndRight = true
+    var down = true
+    @IBOutlet var leftArrow: UIImageView!
+    @IBOutlet var rightArrow: UIImageView!
+    @IBOutlet var upArrow: UIImageView!
+    @IBOutlet var downArrow: UIImageView!
     
     @IBOutlet var mainScrollView: UIScrollView!
     
@@ -120,6 +126,24 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         yOffset = mainScrollView.contentOffset.y
         currentParkPage = Int(xOffset/self.view.bounds.width)
         print(currentParkPage)
+        upArrow.isHidden = false
+
+        if scrollView == mainScrollView && leftAndRight {
+            rightArrow.isHidden = false
+            leftArrow.isHidden = false
+        }
+        if scrollView == mainScrollView && down {
+            downArrow.isHidden = false
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == mainScrollView {
+            rightArrow.isHidden = true
+            leftArrow.isHidden = true
+            upArrow.isHidden = true
+            downArrow.isHidden = true
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -129,14 +153,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         if mainScrollView.contentOffset.y >= (CGFloat(pictureLimit[currentParkPage]!)*self.view.bounds.height){
             print("HIT")
             mainScrollView.contentOffset.y = yOffset
+            down = false
+        }
+        else {
+            down = true
         }
 
         if mainScrollView.contentOffset.y > 0 && scrollView == mainScrollView {
             mainScrollView.showsHorizontalScrollIndicator = false
             mainScrollView.contentOffset.x = xOffset
+            leftAndRight = false
         }
         else {
             mainScrollView.showsHorizontalScrollIndicator = true
+            leftAndRight = true
         }
         
     }
