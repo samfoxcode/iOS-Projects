@@ -13,7 +13,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     let parkModel = Model()
     let numberOfParks : Int
     var parkPages = [UIView]()
-    
+    var offset : CGFloat = 0.0
     @IBOutlet var mainScrollView: UIScrollView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,6 +24,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     func configureScrollView() {
         mainScrollView.isPagingEnabled = true
+        mainScrollView.delegate = self
         /*
         print(numberOfParks)
         for i in 0..<numberOfParks {
@@ -99,7 +100,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 //print(imageScrollView)
                 imageScrollView.minimumZoomScale = 0.1
                 imageScrollView.maximumZoomScale = 10.0
-                
+                imageScrollView.tag = pictureIndex
                 imageScrollView.zoomScale = imageHeightScale
                 //imageScrollView.zoomScale  = scaleSize
                 imageScrollView.addSubview(imageView)
@@ -135,6 +136,23 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         return nil
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // Save the offset of the current page before it changes, then set it in scrollViewDidScroll
+        offset = mainScrollView.contentOffset.x
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(mainScrollView.contentOffset.x)
+        print(scrollView)
+        if mainScrollView.contentOffset.y > 0 && scrollView == mainScrollView {
+            mainScrollView.showsHorizontalScrollIndicator = false
+            mainScrollView.contentOffset.x = offset
+        }
+        else {
+            mainScrollView.showsHorizontalScrollIndicator = true
+        }
+    }
+ 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         // Update imageView center
         if scrollView != mainScrollView && scrollView.subviews.count > 0 {
