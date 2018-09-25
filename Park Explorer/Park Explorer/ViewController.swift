@@ -12,14 +12,22 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     let parkModel = Model()
     let numberOfParks : Int
+    let kFirstPictureOffset : CGFloat = 60.0
+    let kParkTitleHeight : CGFloat = 20.0
+    let kParkTitleVerticalHeight : CGFloat = 30.0
+    let kMinZoomScale : CGFloat = 1.0
+    let kMaxZoomScale : CGFloat = 10.0
     var parkPages = [UIView]()
     var xOffset : CGFloat = 0.0
     var yOffset : CGFloat = 0.0
     var pictureLimit = [Int:Int]()
     var currentParkPage = 0
     var disabled = false
-    var leftAndRight = true
-    var down = true
+    var leftArrowVisible = false
+    var rightArrowVisible = true
+    var upArrowVisible = false
+    var downArrowVisible = true
+    
     @IBOutlet var leftArrow: UIImageView!
     @IBOutlet var rightArrow: UIImageView!
     @IBOutlet var upArrow: UIImageView!
@@ -33,17 +41,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    func configureScrollView() {
+    func configureMainScrollView() {
         mainScrollView.isPagingEnabled = true
         mainScrollView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureScrollView()
-        for i in 0..<numberOfParks {
-            print(parkModel.park(i))
-        }
+        configureMainScrollView()
     }
 
     override func viewDidLayoutSubviews() {
@@ -56,9 +61,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
             // Set title label's frame.
             let label = UILabel(frame: CGRect.zero)
-            let labelHeight : CGFloat = 20.0
+            let labelHeight : CGFloat = kParkTitleHeight
             let labelWidth : CGFloat = size.width
-            label.frame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(30), width: labelWidth, height: labelHeight)
+            label.frame = CGRect(x: CGFloat(i)*size.width, y: kParkTitleVerticalHeight, width: labelWidth, height: labelHeight)
             label.text = parkModel.park(i).name
             label.textAlignment = .center
             mainScrollView.addSubview(label)
@@ -71,22 +76,21 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 let imageView = UIImageView(image: image)
                 
                 if pictureIndex == 0 {
-                    offset = 60.0
+                    offset = kFirstPictureOffset
                 }
                 else {
                     offset = 0.0
                 }
                 
-                
                 let scrollFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: size.height-offset)
                 let imageScrollView = UIScrollView(frame: scrollFrame)
-                imageScrollView.contentSize = CGSize(width: size.width, height: size.height)
+                imageScrollView.contentSize = CGSize(width: size.width, height: size.height-offset)
                 imageScrollView.delegate = self
                 let imageHeightScale = size.width/(image?.size.width)!
                 let imageViewSize = CGSize(width: (image?.size.width)!*imageHeightScale, height: (image?.size.height)!*imageHeightScale)
                 imageView.frame.size = imageViewSize
-                imageScrollView.minimumZoomScale = 1.0
-                imageScrollView.maximumZoomScale = 10.0
+                imageScrollView.minimumZoomScale = kMinZoomScale
+                imageScrollView.maximumZoomScale = kMaxZoomScale
                 imageScrollView.tag = pictureIndex
                 imageScrollView.zoomScale = imageHeightScale
                 
@@ -125,15 +129,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         xOffset = mainScrollView.contentOffset.x
         yOffset = mainScrollView.contentOffset.y
         currentParkPage = Int(xOffset/self.view.bounds.width)
-        print(currentParkPage)
-        upArrow.isHidden = false
 
-        if scrollView == mainScrollView && leftAndRight {
-            rightArrow.isHidden = false
-            leftArrow.isHidden = false
-        }
-        if scrollView == mainScrollView && down {
-            downArrow.isHidden = false
+        if scrollView == mainScrollView {
+            if leftArrowVisible && currentParkPage > 0 && yOffset/self.view.bounds.height <= 1 {
+                leftArrow.isHidden = false
+            }
+            if downArrowVisible {
+                downArrow.isHidden = false
+            }
+            if rightArrowVisible && yOffset/self.view.bounds.height <= 1 {
+                rightArrow.isHidden = false
+            }
+            if upArrowVisible && yOffset/self.view.bounds.height >= 1 {
+                upArrow.isHidden = false
+            }
         }
     }
     
@@ -147,26 +156,27 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(mainScrollView.contentOffset.y)
-        print(self.view.bounds.height)
-        print(pictureLimit[currentParkPage]!)
         if mainScrollView.contentOffset.y >= (CGFloat(pictureLimit[currentParkPage]!)*self.view.bounds.height){
-            print("HIT")
             mainScrollView.contentOffset.y = yOffset
-            down = false
+            downArrowVisible = false
         }
         else {
-            down = true
+            downArrowVisible = true
         }
 
         if mainScrollView.contentOffset.y > 0 && scrollView == mainScrollView {
             mainScrollView.showsHorizontalScrollIndicator = false
             mainScrollView.contentOffset.x = xOffset
-            leftAndRight = false
+            
+            leftArrowVisible = false
+            rightArrowVisible = false
+            upArrowVisible = true
         }
         else {
             mainScrollView.showsHorizontalScrollIndicator = true
-            leftAndRight = true
+            leftArrowVisible = true
+            rightArrowVisible = true
+            upArrowVisible = false
         }
         
     }
