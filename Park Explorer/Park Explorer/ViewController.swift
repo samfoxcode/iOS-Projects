@@ -45,10 +45,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         mainScrollView.contentSize = CGSize(width: size.width * CGFloat(parkModel.lengthOfParks()), height: size.height*7)
         var offset : CGFloat = 0.0
         
-        // lay out all the pages on the scroll view
+        // Lay out all the pages on the scroll view.
         for i in 0..<parkModel.lengthOfParks() {
 
-            // set title label's frame
+            // Set title label's frame.
             let label = UILabel(frame: CGRect.zero)
             let labelHeight : CGFloat = 20.0
             let labelWidth : CGFloat = size.width
@@ -100,7 +100,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        //where we'd expect the image to be centered
+        // Center the image.
         let imageCenter = CGPoint(x: scrollView.bounds.width/2.0,
                                   y: scrollView.bounds.height/2.0)
         return imageCenter
@@ -142,7 +142,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
  
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        // Update imageView center
+        // Update imageView center and if user is currently zoomed in on an image, disabling scrolling on mainScrollView
         if scrollView != mainScrollView && scrollView.subviews.count > 0 {
             if scrollView.zoomScale != 1.0 {
                 disabled = true
