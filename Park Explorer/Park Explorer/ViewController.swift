@@ -82,23 +82,28 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     offset = 0.0
                 }
                 
-                let scrollFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: size.height)
+                let scrollFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: size.height-offset)
                 let imageScrollView = UIScrollView(frame: scrollFrame)
                 imageScrollView.contentSize = CGSize(width: size.width, height: size.height)
                 imageScrollView.delegate = self
                 //imageView.center = imageScrollView.center
-                
                 let imageHeightScale = size.width/(image?.size.width)!
                 //print(imageHeightScale)
-                let imageViewFrame = CGRect(x: CGFloat(i)*size.width, y: CGFloat(pictureIndex)*size.height+offset, width: size.width, height: (image?.size.height)!*imageHeightScale)
+                let imageViewSize = CGSize(width: (image?.size.width)!*imageHeightScale, height: (image?.size.height)!*imageHeightScale)
+                imageView.frame.size = imageViewSize
                 //imageView.frame = imageViewFrame
                 //imageView.center.x = imageScrollView.center.x
                 //imageView.center.y = imageScrollView.center.y - offset
                 
                 //print(imageScrollView.subviews)
                 //print(imageScrollView)
+                imageScrollView.minimumZoomScale = 0.1
+                imageScrollView.maximumZoomScale = 10.0
+                
+                imageScrollView.zoomScale = imageHeightScale
+                //imageScrollView.zoomScale  = scaleSize
                 imageScrollView.addSubview(imageView)
-                imageView.center = CGPoint(x: imageScrollView.contentSize.width/2.0, y: imageScrollView.contentSize.height/2.0)
+                imageView.center = CGPoint(x: imageScrollView.contentSize.width/2.0, y: (imageScrollView.contentSize.height-offset)/2.0)
                 mainScrollView.addSubview(imageScrollView)
                 //print(imageScrollView.subviews)
             }
@@ -106,16 +111,35 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func scaleFor(size:CGSize) -> CGFloat {
+        let viewSize = self.view.bounds.size
+        let widthScale = viewSize.width/size.width
+        let heightScale = viewSize.height/size.height
+        return min(widthScale,heightScale)
+    }
+
+    func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
+        //where we'd expect the image to be centered
+        let imageCenter = CGPoint(x: scrollView.bounds.width/2.0,
+                                  y: scrollView.bounds.height/2.0)
+        return imageCenter
+    }
+
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        //print(scrollView.subviews[2])
-        if scrollView != mainScrollView {
-        return scrollView.subviews[2]
+        if scrollView != mainScrollView && scrollView.subviews.count > 0 {
+            //print(scrollView)
+            //print(scrollView.subviews)
+            return scrollView.subviews[0]
         }
         return nil
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        // need to update position of image whenever zooming occurs
+        // Update imageView center
+        if scrollView != mainScrollView && scrollView.subviews.count > 0 {
+            scrollView.subviews[0].center = centerForImage(scrollView)
+        }
     }
     
     override func didReceiveMemoryWarning() {
