@@ -71,8 +71,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             pictureLimit[i] = parkModel.parkInfoLength(i)
             
             for pictureIndex in 0..<parkModel.parkInfoLength(i) {
-                print("\(parkModel.parkName(i))0\(pictureIndex)")
-                let image = UIImage(named: "\(parkModel.parkName(i))0\(pictureIndex+1)")
+                
+                let parkName = "\(parkModel.parkName(i))0\(pictureIndex+1)"
+                let image = UIImage(named: parkName)
                 let imageView = UIImageView(image: image)
                 
                 if pictureIndex == 0 {
@@ -86,16 +87,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 let imageScrollView = UIScrollView(frame: scrollFrame)
                 imageScrollView.contentSize = CGSize(width: size.width, height: size.height-offset)
                 imageScrollView.delegate = self
+                
                 let imageHeightScale = size.width/(image?.size.width)!
                 let imageViewSize = CGSize(width: (image?.size.width)!*imageHeightScale, height: (image?.size.height)!*imageHeightScale)
                 imageView.frame.size = imageViewSize
+                
                 imageScrollView.minimumZoomScale = kMinZoomScale
                 imageScrollView.maximumZoomScale = kMaxZoomScale
-                imageScrollView.tag = pictureIndex
                 imageScrollView.zoomScale = imageHeightScale
                 
                 imageScrollView.addSubview(imageView)
                 imageView.center = CGPoint(x: imageScrollView.contentSize.width/2.0, y: (imageScrollView.contentSize.height-offset)/2.0)
+                
                 mainScrollView.addSubview(imageScrollView)
             }
             
@@ -111,8 +114,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
         // Center the image.
-        let imageCenter = CGPoint(x: scrollView.bounds.width/2.0,
-                                  y: scrollView.bounds.height/2.0)
+        let imageCenter = CGPoint(x: scrollView.bounds.width/2.0, y: scrollView.bounds.height/2.0)
         return imageCenter
     }
 

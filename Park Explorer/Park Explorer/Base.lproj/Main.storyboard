@@ -29,7 +29,7 @@
                                 </constraints>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upArrow" translatesAutoresizingMaskIntoConstraints="NO" id="1vk-Kx-jta">
-                                <rect key="frame" x="153" y="20" width="68" height="68"/>
+                                <rect key="frame" x="153.5" y="20" width="68" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="9Yr-oM-hao"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="NYW-f4-txO"/>
@@ -38,7 +38,7 @@
                                 </constraints>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftArrow" translatesAutoresizingMaskIntoConstraints="NO" id="gBS-Ei-DAs">
-                                <rect key="frame" x="16" y="300" width="68" height="68"/>
+                                <rect key="frame" x="16" y="299.5" width="68" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="HMl-VB-pQV"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="IVA-Z1-Wdx"/>
@@ -47,7 +47,7 @@
                                 </constraints>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Ri9-PF-rHu">
-                                <rect key="frame" x="153" y="579" width="68" height="68"/>
+                                <rect key="frame" x="153.5" y="579" width="68" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="QqP-GU-7gF"/>
                                     <constraint firstAttribute="height" constant="68" id="XxV-Q4-7Gs"/>
