@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>Black Moshannon</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon01</string>
+				<key>caption</key>
+				<string>Panoramic View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon02</string>
+				<key>caption</key>
+				<string>Scenic View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon03</string>
+				<key>caption</key>
+				<string>The Cabins</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon04</string>
+				<key>caption</key>
+				<string>Colorful View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon05</string>
+				<key>caption</key>
+				<string>Picnic Area</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Black Moshannon06</string>
+				<key>caption</key>
+				<string>The Dock</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Cherry Springs</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs01</string>
+				<key>caption</key>
+				<string>Walkway View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs02</string>
+				<key>caption</key>
+				<string>Sunrise View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs03</string>
+				<key>caption</key>
+				<string>Colorful Night Sky</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs04</string>
+				<key>caption</key>
+				<string>Star Gazing</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs05</string>
+				<key>caption</key>
+				<string>Dramatic View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs06</string>
+				<key>caption</key>
+				<string>Time Lapse View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Cherry Springs07</string>
+				<key>caption</key>
+				<string>Just Before Sunrise</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Leonard Harrison</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Leonard Harrison01</string>
+				<key>caption</key>
+				<string>View of the Canyon</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Leonard Harrison02</string>
+				<key>caption</key>
+				<string>Another View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Leonard Harrison03</string>
+				<key>caption</key>
+				<string>Waterfall</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Ohiopyle</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Ohiopyle01</string>
+				<key>caption</key>
+				<string>Whitewater</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ohiopyle02</string>
+				<key>caption</key>
+				<string>Waterfall</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ohiopyle03</string>
+				<key>caption</key>
+				<string>Winter Scene</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ohiopyle04</string>
+				<key>caption</key>
+				<string>Fall Morning</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ohiopyle05</string>
+				<key>caption</key>
+				<string>Trestle Bridge</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Ricketts Glen</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Ricketts Glen01</string>
+				<key>caption</key>
+				<string>Double Falls</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ricketts Glen02</string>
+				<key>caption</key>
+				<string>Stairway</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ricketts Glen03</string>
+				<key>caption</key>
+				<string>Cascade Falls</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ricketts Glen04</string>
+				<key>caption</key>
+				<string>Autumn Falls</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Ricketts Glen05</string>
+				<key>caption</key>
+				<string>Rapid Falls</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Whipple Dam</string>
+		<key>photos</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>Whipple Dam01</string>
+				<key>caption</key>
+				<string>Serene View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Whipple Dam02</string>
+				<key>caption</key>
+				<string>Dam Spillway</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Whipple Dam03</string>
+				<key>caption</key>
+				<string>Park Sign</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Whipple Dam04</string>
+				<key>caption</key>
+				<string>Autumn View</string>
+			</dict>
+			<dict>
+				<key>imageName</key>
+				<string>Whipple Dam05</string>
+				<key>caption</key>
+				<string>Foggy Morning</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

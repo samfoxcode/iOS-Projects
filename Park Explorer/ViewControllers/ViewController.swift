@@ -64,7 +64,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let labelHeight : CGFloat = kParkTitleHeight
             let labelWidth : CGFloat = size.width
             label.frame = CGRect(x: CGFloat(i)*size.width, y: kParkTitleVerticalHeight, width: labelWidth, height: labelHeight)
-            label.text = parkModel.park(i).name
+            let parkName = parkModel.park(i)
+            label.text = parkName
             label.textAlignment = .center
             mainScrollView.addSubview(label)
             
@@ -72,7 +73,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             
             for pictureIndex in 0..<parkModel.parkInfoLength(i) {
                 
-                let parkName = "\(parkModel.parkName(i))0\(pictureIndex+1)"
+                let parkName = "\(parkName)0\(pictureIndex+1)"
                 let image = UIImage(named: parkName)
                 let imageView = UIImageView(image: image)
                 

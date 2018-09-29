@@ -16,7 +16,9 @@
 		2266B13D2157FFF400E8FDB5 /* ParkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266B13C2157FFF400E8FDB5 /* ParkModel.swift */; };
 		2266B17D215809C600E8FDB5 /* Parks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2266B17C215809C600E8FDB5 /* Parks.plist */; };
 		227370AD215F124200134B8E /* ParkTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227370AC215F124200134B8E /* ParkTable.storyboard */; };
+		22999933215FFEAB00DA70FA /* ParkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22999932215FFEAB00DA70FA /* ParkTableViewCell.swift */; };
 		22F2557A215F150F00F0150F /* ParkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F25579215F150F00F0150F /* ParkTableViewController.swift */; };
+		22F2557F215FEA8200F0150F /* StateParks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F2557E215FEA8200F0150F /* StateParks.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +45,9 @@
 		2266B13C2157FFF400E8FDB5 /* ParkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkModel.swift; sourceTree = "<group>"; };
 		2266B17C215809C600E8FDB5 /* Parks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Parks.plist; sourceTree = "<group>"; };
 		227370AC215F124200134B8E /* ParkTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ParkTable.storyboard; sourceTree = "<group>"; };
+		22999932215FFEAB00DA70FA /* ParkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkTableViewCell.swift; sourceTree = "<group>"; };
 		22F25579215F150F00F0150F /* ParkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkTableViewController.swift; sourceTree = "<group>"; };
+		22F2557E215FEA8200F0150F /* StateParks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StateParks.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,9 @@
 		2266B1102156BAE000E8FDB5 = {
 			isa = PBXGroup;
 			children = (
+				22F2557D215F25D900F0150F /* StoryBoards */,
+				22F2557C215F25CB00F0150F /* Model */,
+				22F2557B215F259B00F0150F /* ViewControllers */,
 				2266B11B2156BAE000E8FDB5 /* Park Explorer */,
 				2266B1302156BAE200E8FDB5 /* Park ExplorerTests */,
 				2266B11A2156BAE000E8FDB5 /* Products */,
@@ -85,16 +92,12 @@
 		2266B11B2156BAE000E8FDB5 /* Park Explorer */ = {
 			isa = PBXGroup;
 			children = (
+				22F2557E215FEA8200F0150F /* StateParks.plist */,
 				2266B17C215809C600E8FDB5 /* Parks.plist */,
 				2266B11C2156BAE000E8FDB5 /* AppDelegate.swift */,
-				2266B11E2156BAE000E8FDB5 /* ViewController.swift */,
-				2266B13C2157FFF400E8FDB5 /* ParkModel.swift */,
-				227370AC215F124200134B8E /* ParkTable.storyboard */,
-				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
 				2266B1232156BAE200E8FDB5 /* Assets.xcassets */,
 				2266B1252156BAE200E8FDB5 /* LaunchScreen.storyboard */,
 				2266B1282156BAE200E8FDB5 /* Info.plist */,
-				22F25579215F150F00F0150F /* ParkTableViewController.swift */,
 			);
 			path = "Park Explorer";
 			sourceTree = "<group>";
@@ -106,6 +109,33 @@
 				2266B1332156BAE200E8FDB5 /* Info.plist */,
 			);
 			path = "Park ExplorerTests";
+			sourceTree = "<group>";
+		};
+		22F2557B215F259B00F0150F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2266B11E2156BAE000E8FDB5 /* ViewController.swift */,
+				22F25579215F150F00F0150F /* ParkTableViewController.swift */,
+				22999932215FFEAB00DA70FA /* ParkTableViewCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		22F2557C215F25CB00F0150F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2266B13C2157FFF400E8FDB5 /* ParkModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		22F2557D215F25D900F0150F /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				227370AC215F124200134B8E /* ParkTable.storyboard */,
+				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
+			);
+			path = StoryBoards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +223,7 @@
 			files = (
 				2266B1272156BAE200E8FDB5 /* LaunchScreen.storyboard in Resources */,
 				227370AD215F124200134B8E /* ParkTable.storyboard in Resources */,
+				22F2557F215FEA8200F0150F /* StateParks.plist in Resources */,
 				2266B1242156BAE200E8FDB5 /* Assets.xcassets in Resources */,
 				2266B17D215809C600E8FDB5 /* Parks.plist in Resources */,
 				2266B1222156BAE000E8FDB5 /* Main.storyboard in Resources */,
@@ -215,6 +246,7 @@
 			files = (
 				2266B11F2156BAE000E8FDB5 /* ViewController.swift in Sources */,
 				22F2557A215F150F00F0150F /* ParkTableViewController.swift in Sources */,
+				22999933215FFEAB00DA70FA /* ParkTableViewCell.swift in Sources */,
 				2266B13D2157FFF400E8FDB5 /* ParkModel.swift in Sources */,
 				2266B11D2156BAE000E8FDB5 /* AppDelegate.swift in Sources */,
 			);
