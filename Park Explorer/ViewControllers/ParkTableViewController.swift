@@ -12,7 +12,7 @@ class ParkTableViewController: UITableViewController {
 
     @IBOutlet var ParkTableView: UITableView!
     
-    let ParkModel = Model()
+    let parkModel = Model()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +28,25 @@ class ParkTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return ParkModel.lengthOfParks()
+        return parkModel.lengthOfParks()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return ParkModel.parkInfoLength(section)
+        return parkModel.parkInfoLength(section)
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ParkModel.park(section)
+        return parkModel.park(section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ParkCell", for: indexPath) as! ParkTableViewCell
-        let parkName = ParkModel.park(indexPath.section)
+        let parkName = parkModel.park(indexPath.section)
         let parkImageName = parkName+"0\(indexPath.row+1)"
         let parkImage = UIImage(named: parkImageName)
         cell.parkImageView.image = parkImage
-        cell.captionTextView.text = ParkModel.parkCaption(indexPath.section, indexPath.row, parkImageName)
+        cell.captionTextView.text = parkModel.parkCaption(indexPath.section, indexPath.row, parkImageName)
         return cell
         
     }
