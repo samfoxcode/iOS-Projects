@@ -41,24 +41,23 @@ class ParkZoomViewController: UIViewController, UIScrollViewDelegate {
     
     func centerForImage() -> CGPoint {
         // Center the image.
-        let imageCenter = CGPoint(x: self.view.bounds.width/2.0, y: self.view.bounds.height/2.0)
+        let imageCenter = CGPoint(x: parkScrollView.contentSize.width/2.0, y: parkScrollView.frame.size.height/2.0)
         return imageCenter
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView.subviews.count > 0 {
+            print(scrollView.subviews)
             return scrollView.subviews[0]
         }
         return nil
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        // Update imageView center and if user is currently zoomed in on an image, disabling scrolling on mainScrollView
         if scrollView == parkScrollView{
             scrollView.subviews[0].center = centerForImage()
         }
         if scrollView.zoomScale == 1.0 {
-            print("HIT")
             delegate?.dismiss()
         }
     }
@@ -73,14 +72,5 @@ class ParkZoomViewController: UIViewController, UIScrollViewDelegate {
         parkScrollView.contentSize = size
         parkScrollView.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

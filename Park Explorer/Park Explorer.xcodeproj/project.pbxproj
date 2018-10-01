@@ -125,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				2299993421614BDD00DA70FA /* ParkCollectionViewController.swift */,
+				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
 				229999382161655900DA70FA /* ParkCollectionReusableView.swift */,
 				2299993A21616F0900DA70FA /* ParkZoomViewController.swift */,
 				2266B11E2156BAE000E8FDB5 /* ViewController.swift */,
@@ -147,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				227370AC215F124200134B8E /* ParkTable.storyboard */,
-				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
 				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
 			);
 			path = StoryBoards;
