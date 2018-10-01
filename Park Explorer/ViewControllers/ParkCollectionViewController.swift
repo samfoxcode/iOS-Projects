@@ -14,7 +14,8 @@ class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
 
     @IBOutlet var parkCollectionView: UICollectionView!
     let parkModel = Model()
-    
+    var parkScrollViewGlobal : UIScrollView?
+    var parkImageGlobal : UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,9 +75,63 @@ class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        parkCollectionView.frame.size = size
+        if let view = parkCollectionView {
+            view.frame.size = size
+        }
+        if let image = parkImageGlobal {
+            let imageHeightScale = size.width/(image.size.width)
+            let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
+            parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+            parkScrollViewGlobal!.zoomScale = imageHeightScale
+            parkScrollViewGlobal!.contentSize = size
+            parkScrollViewGlobal!.frame.size = size
+            parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let parkName = parkModel.park(indexPath.section)
+        let parkImageName = parkName+"0\(indexPath.row+1)"
+        parkImageGlobal = UIImage(named: parkImageName)
+        parkScrollViewGlobal = UIScrollView(frame: self.view.frame)
+        parkScrollViewGlobal!.backgroundColor = UIColor.white
+        let imageView = UIImageView(image: parkImageGlobal)
+        let imageHeightScale = self.view.bounds.width/(parkImageGlobal?.size.width)!
+        let imageViewSize = CGSize(width: (parkImageGlobal?.size.width)!*imageHeightScale, height: (parkImageGlobal?.size.height)!*imageHeightScale)
+        imageView.frame.size = imageViewSize
+        parkScrollViewGlobal!.minimumZoomScale = 1.0
+        parkScrollViewGlobal!.maximumZoomScale = 10.0
+        parkScrollViewGlobal!.zoomScale = imageHeightScale
+        parkScrollViewGlobal!.contentSize = self.view.bounds.size
+        imageView.center = CGPoint(x: self.view.bounds.width/2.0, y: (self.view.bounds.height)/2.0)
+        parkScrollViewGlobal!.addSubview(imageView)
+        parkScrollViewGlobal!.delegate = self
+        self.view.addSubview(parkScrollViewGlobal!)
+        self.view.bringSubviewToFront(parkScrollViewGlobal!)
     }
     
+    func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
+        // Center the image.
+        let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
+        return imageCenter
+    }
+    
+    override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        if scrollView.subviews.count > 0 {
+            print(scrollView.subviews)
+            return scrollView.subviews[0]
+        }
+        return nil
+    }
+    
+    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        scrollView.subviews[0].center = centerForImage(scrollView)
+        if scrollView.zoomScale == 1.0 {
+            scrollView.subviews[0].removeFromSuperview()
+            scrollView.removeFromSuperview()
+            self.view.bringSubviewToFront(parkCollectionView)
+        }
+    }
     // MARK: UICollectionViewDelegate
 
     /*

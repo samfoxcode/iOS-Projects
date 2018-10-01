@@ -76,7 +76,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="parkImageView" destination="WTM-Dx-kMF" id="WvP-Lg-6Ms"/>
-                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="dRy-fJ-9ap"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -181,7 +180,6 @@
                                 <connections>
                                     <outlet property="captionTextView" destination="RTh-Bh-mph" id="eGN-ag-ZRj"/>
                                     <outlet property="parkImageView" destination="zxK-se-7Sf" id="fSS-e7-pLL"/>
-                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="Ac7-h0-HqI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -214,7 +212,4 @@
             <point key="canvasLocation" x="-324" y="778"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="dRy-fJ-9ap"/>
-    </inferredMetricsTieBreakers>
 </document>
