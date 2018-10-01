@@ -8,17 +8,17 @@
 
 import UIKit
 
-class ParkTableViewController: UITableViewController, ZoomDelegate {
+class ParkTableViewController: UITableViewController {
 
     @IBOutlet var parkTableView: UITableView!
     
     let parkModel = Model()
-    
+    let scrollViewManager = ScrollViewManager()
     var collapse = false
     var collapseSection = 0
     var collapsedSections = [Int]()
-    var parkScrollViewGlobal : UIScrollView?
-    var parkImageGlobal : UIImage?
+    //var parkScrollViewGlobal : UIScrollView?
+    //var parkImageGlobal : UIImage?
     
     @IBAction func collapseSectionAction(_ sender: UIButton) {
         if collapsedSections.contains(sender.tag){
@@ -71,11 +71,15 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        scrollViewManager.populateScrollView(indexPath, parkModel, self.view)
+        
+        /*
         let parkName = parkModel.park(indexPath.section)
         let parkImageName = parkName+"0\(indexPath.row+1)"
         parkImageGlobal = UIImage(named: parkImageName)
         parkScrollViewGlobal = UIScrollView(frame: self.view.frame)
-        parkScrollViewGlobal!.backgroundColor = UIColor.white
+        parkScrollViewGlobal!.backgroundColor = UIColor.darkGray
         let imageView = UIImageView(image: parkImageGlobal)
         let imageHeightScale = self.view.bounds.width/(parkImageGlobal?.size.width)!
         let imageViewSize = CGSize(width: (parkImageGlobal?.size.width)!*imageHeightScale, height: (parkImageGlobal?.size.height)!*imageHeightScale)
@@ -89,9 +93,10 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
         parkScrollViewGlobal!.delegate = self
         self.view.addSubview(parkScrollViewGlobal!)
         self.view.bringSubviewToFront(parkScrollViewGlobal!)
-        
+        */
     }
     
+    /*
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
         // Center the image.
         let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
@@ -114,16 +119,19 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
             self.view.bringSubviewToFront(parkTableView)
         }
     }
+ 
+    */
     
+ 
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if let image = parkImageGlobal {
-            let imageHeightScale = size.width/(image.size.width)
-            let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
-            parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
-            parkScrollViewGlobal!.zoomScale = imageHeightScale
-            parkScrollViewGlobal!.contentSize = size
-            parkScrollViewGlobal!.frame.size = size
-            parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        if (scrollViewManager.parkImageGlobal != nil) {
+            //let imageHeightScale = size.width/(image.size.width)
+            //let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
+            //scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+            //scrollViewManager.parkScrollViewGlobal!.zoomScale = imageHeightScale
+            scrollViewManager.parkScrollViewGlobal!.contentSize = size
+            scrollViewManager.parkScrollViewGlobal!.frame.size = size
+            scrollViewManager.parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
         }
     }
 
@@ -137,25 +145,5 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
     }
     */
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "ZoomSegue":
-            let zoomController = segue.destination as! ParkZoomViewController
-            let index = parkTableView.indexPathForSelectedRow!
-            let park = parkModel.park(index[0])
-            let image = UIImage(named: park+"0\(index[1]+1)")
-            zoomController.delegate = self
-            zoomController.configure(image!)
-        default:
-            assert(false, "Unhandled Segue")
-        }
-    }
-    
-    func dismiss() {
-        self.dismiss(animated: true, completion: nil)
-    }
 
 }

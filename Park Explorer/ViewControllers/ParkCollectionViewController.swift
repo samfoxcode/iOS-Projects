@@ -10,12 +10,12 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
+class ParkCollectionViewController: UICollectionViewController {
 
     @IBOutlet var parkCollectionView: UICollectionView!
     let parkModel = Model()
-    var parkScrollViewGlobal : UIScrollView?
-    var parkImageGlobal : UIImage?
+    let scrollViewManager = ScrollViewManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,60 +78,21 @@ class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
         if let view = parkCollectionView {
             view.frame.size = size
         }
-        if let image = parkImageGlobal {
-            let imageHeightScale = size.width/(image.size.width)
-            let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
-            parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
-            parkScrollViewGlobal!.zoomScale = imageHeightScale
-            parkScrollViewGlobal!.contentSize = size
-            parkScrollViewGlobal!.frame.size = size
-            parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        if (scrollViewManager.parkImageGlobal != nil) {
+            //let imageHeightScale = size.width/(image.size.width)
+            //let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
+            //scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+            //scrollViewManager.parkScrollViewGlobal!.zoomScale = imageHeightScale
+            scrollViewManager.parkScrollViewGlobal!.contentSize = size
+            scrollViewManager.parkScrollViewGlobal!.frame.size = size
+            scrollViewManager.parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
         }
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let parkName = parkModel.park(indexPath.section)
-        let parkImageName = parkName+"0\(indexPath.row+1)"
-        parkImageGlobal = UIImage(named: parkImageName)
-        parkScrollViewGlobal = UIScrollView(frame: self.view.frame)
-        parkScrollViewGlobal!.backgroundColor = UIColor.white
-        let imageView = UIImageView(image: parkImageGlobal)
-        let imageHeightScale = self.view.bounds.width/(parkImageGlobal?.size.width)!
-        let imageViewSize = CGSize(width: (parkImageGlobal?.size.width)!*imageHeightScale, height: (parkImageGlobal?.size.height)!*imageHeightScale)
-        imageView.frame.size = imageViewSize
-        parkScrollViewGlobal!.minimumZoomScale = 1.0
-        parkScrollViewGlobal!.maximumZoomScale = 10.0
-        parkScrollViewGlobal!.zoomScale = imageHeightScale
-        parkScrollViewGlobal!.contentSize = self.view.bounds.size
-        imageView.center = CGPoint(x: self.view.bounds.width/2.0, y: (self.view.bounds.height)/2.0)
-        parkScrollViewGlobal!.addSubview(imageView)
-        parkScrollViewGlobal!.delegate = self
-        self.view.addSubview(parkScrollViewGlobal!)
-        self.view.bringSubviewToFront(parkScrollViewGlobal!)
+        scrollViewManager.populateScrollView(indexPath, parkModel, self.view)
     }
     
-    func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        // Center the image.
-        let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
-        return imageCenter
-    }
-    
-    override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if scrollView.subviews.count > 0 {
-            print(scrollView.subviews)
-            return scrollView.subviews[0]
-        }
-        return nil
-    }
-    
-    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        scrollView.subviews[0].center = centerForImage(scrollView)
-        if scrollView.zoomScale == 1.0 {
-            scrollView.subviews[0].removeFromSuperview()
-            scrollView.removeFromSuperview()
-            self.view.bringSubviewToFront(parkCollectionView)
-        }
-    }
     // MARK: UICollectionViewDelegate
 
     /*
@@ -162,23 +123,5 @@ class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
     
     }
     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "ZoomSegue":
-            let zoomController = segue.destination as! ParkZoomViewController
-            let index = parkCollectionView.indexPathsForSelectedItems!
-            print(index)
-            let park = parkModel.park(index[0][0])
-            let image = UIImage(named: park+"0\(index[0][1]+1)")
-            zoomController.delegate = self
-            zoomController.configure(image!)
-        default:
-            assert(false, "Unhandled Segue")
-        }
-    }
-    
-    func dismiss() {
-        self.dismiss(animated: true, completion: nil)
-    }
 
 }
