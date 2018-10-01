@@ -79,9 +79,9 @@ class ParkCollectionViewController: UICollectionViewController {
             view.frame.size = size
         }
         if (scrollViewManager.parkImageGlobal != nil) {
-            //let imageHeightScale = size.width/(image.size.width)
-            //let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
-            //scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+            let imageHeightScale = scrollViewManager.parkScrollViewGlobal!.zoomScale
+            let imageViewSize = CGSize(width: (scrollViewManager.parkImageGlobal!.size.width)*imageHeightScale, height: (scrollViewManager.parkImageGlobal!.size.height)*imageHeightScale)
+            scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
             //scrollViewManager.parkScrollViewGlobal!.zoomScale = imageHeightScale
             scrollViewManager.parkScrollViewGlobal!.contentSize = size
             scrollViewManager.parkScrollViewGlobal!.frame.size = size
@@ -90,7 +90,7 @@ class ParkCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        scrollViewManager.populateScrollView(indexPath, parkModel, self.view)
+        scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkCollectionView)
     }
     
     // MARK: UICollectionViewDelegate

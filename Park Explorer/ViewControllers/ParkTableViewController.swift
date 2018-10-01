@@ -17,8 +17,6 @@ class ParkTableViewController: UITableViewController {
     var collapse = false
     var collapseSection = 0
     var collapsedSections = [Int]()
-    //var parkScrollViewGlobal : UIScrollView?
-    //var parkImageGlobal : UIImage?
     
     @IBAction func collapseSectionAction(_ sender: UIButton) {
         if collapsedSections.contains(sender.tag){
@@ -32,6 +30,7 @@ class ParkTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        parkTableView.scrollsToTop = true
     }
 
     // MARK: - Table view data source
@@ -71,56 +70,10 @@ class ParkTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        scrollViewManager.populateScrollView(indexPath, parkModel, self.view)
-        
-        /*
-        let parkName = parkModel.park(indexPath.section)
-        let parkImageName = parkName+"0\(indexPath.row+1)"
-        parkImageGlobal = UIImage(named: parkImageName)
-        parkScrollViewGlobal = UIScrollView(frame: self.view.frame)
-        parkScrollViewGlobal!.backgroundColor = UIColor.darkGray
-        let imageView = UIImageView(image: parkImageGlobal)
-        let imageHeightScale = self.view.bounds.width/(parkImageGlobal?.size.width)!
-        let imageViewSize = CGSize(width: (parkImageGlobal?.size.width)!*imageHeightScale, height: (parkImageGlobal?.size.height)!*imageHeightScale)
-        imageView.frame.size = imageViewSize
-        parkScrollViewGlobal!.minimumZoomScale = 1.0
-        parkScrollViewGlobal!.maximumZoomScale = 10.0
-        parkScrollViewGlobal!.zoomScale = imageHeightScale
-        parkScrollViewGlobal!.contentSize = self.view.bounds.size
-        imageView.center = CGPoint(x: self.view.bounds.width/2.0, y: (self.view.bounds.height)/2.0)
-        parkScrollViewGlobal!.addSubview(imageView)
-        parkScrollViewGlobal!.delegate = self
-        self.view.addSubview(parkScrollViewGlobal!)
-        self.view.bringSubviewToFront(parkScrollViewGlobal!)
-        */
+        parkTableView.isScrollEnabled  = false
+        scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkTableView)
+        parkTableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    /*
-    func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        // Center the image.
-        let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
-        return imageCenter
-    }
-    
-    override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if scrollView.subviews.count > 0 {
-            print(scrollView.subviews)
-            return scrollView.subviews[0]
-        }
-        return nil
-    }
-    
-    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        scrollView.subviews[0].center = centerForImage(scrollView)
-        if scrollView.zoomScale == 1.0 {
-            scrollView.subviews[0].removeFromSuperview()
-            scrollView.removeFromSuperview()
-            self.view.bringSubviewToFront(parkTableView)
-        }
-    }
- 
-    */
     
  
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -135,6 +88,7 @@ class ParkTableViewController: UITableViewController {
         }
     }
 
+    
     /*
     // MARK: - Navigation
 

@@ -13,12 +13,14 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     
     var parkImageGlobal : UIImage?
     var parkScrollViewGlobal : UIScrollView?
+    var tableView : UITableView?
+    var collectionView : UICollectionView?
     
-    func populateScrollView(_ indexPath : IndexPath, _ parkModel : Model, _ mainView : UIView) {
+    func populateScrollView(_ indexPath : IndexPath, _ parkModel : Model, _ mainView : UIView, _ view : Any?) {
         let parkName = parkModel.park(indexPath.section)
         let parkImageName = parkName+"0\(indexPath.row+1)"
         parkImageGlobal = UIImage(named: parkImageName)
-        parkScrollViewGlobal = UIScrollView(frame: mainView.frame)
+        parkScrollViewGlobal = UIScrollView(frame: CGRect(origin: mainView.bounds.origin, size: mainView.frame.size))
         parkScrollViewGlobal!.backgroundColor = UIColor.darkGray
         let imageView = UIImageView(image: parkImageGlobal)
         let imageHeightScale = mainView.bounds.width/(parkImageGlobal?.size.width)!
@@ -31,8 +33,16 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         imageView.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
         parkScrollViewGlobal!.addSubview(imageView)
         parkScrollViewGlobal!.delegate = self
-        mainView.addSubview(parkScrollViewGlobal!)
+        mainView.addSubview(self.parkScrollViewGlobal!)
         mainView.bringSubviewToFront(parkScrollViewGlobal!)
+        
+        if let checkView = view as? UITableView {
+            self.tableView = checkView
+        }
+        if let checkView = view as? UICollectionView {
+            self.collectionView = checkView
+        }
+        
     }
     
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
@@ -51,8 +61,14 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         scrollView.subviews[0].center = centerForImage(scrollView)
-        if scrollView.zoomScale == 1.0 {
-            scrollView.subviews[0].removeFromSuperview()
+        if scrollView.zoomScale <= 1.0 {
+            //scrollView.subviews[0].removeFromSuperview()
+            if let enableTableView = tableView {
+                enableTableView.isScrollEnabled = true
+            }
+            if let enableCollectView = collectionView {
+                enableCollectView.isScrollEnabled = true
+            }
             scrollView.removeFromSuperview()
         }
     }
