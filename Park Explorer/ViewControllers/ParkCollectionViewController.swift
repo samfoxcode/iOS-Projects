@@ -10,8 +10,9 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class ParkCollectionViewController: UICollectionViewController {
+class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
 
+    @IBOutlet var parkCollectionView: UICollectionView!
     let parkModel = Model()
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class ParkCollectionViewController: UICollectionViewController {
         cell.parkImageView.image = parkImage
         return cell
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -70,6 +71,10 @@ class ParkCollectionViewController: UICollectionViewController {
         default:
             assert(false, "Unexpected element kind")
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        parkCollectionView.reloadData()
     }
     
     // MARK: UICollectionViewDelegate
@@ -102,5 +107,23 @@ class ParkCollectionViewController: UICollectionViewController {
     
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "ZoomSegue":
+            let zoomController = segue.destination as! ParkZoomViewController
+            let index = parkCollectionView.indexPathsForSelectedItems!
+            print(index)
+            let park = parkModel.park(index[0][0])
+            let image = UIImage(named: park+"0\(index[0][1]+1)")
+            zoomController.delegate = self
+            zoomController.configure(image!)
+        default:
+            assert(false, "Unhandled Segue")
+        }
+    }
+    
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
 }

@@ -6,9 +6,40 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Park Zoom View Controller-->
+        <scene sceneID="txL-0h-X8w">
+            <objects>
+                <viewController id="j5O-Cu-VGF" customClass="ParkZoomViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GkL-e3-8fZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="805-13-FYM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <viewLayoutGuide key="safeArea" id="GF1-rG-0FK"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="805-13-FYM" firstAttribute="top" secondItem="GkL-e3-8fZ" secondAttribute="top" id="B2j-O4-MPS"/>
+                            <constraint firstItem="805-13-FYM" firstAttribute="bottom" secondItem="sjS-fW-9nZ" secondAttribute="bottom" id="c04-6w-t53"/>
+                            <constraint firstItem="805-13-FYM" firstAttribute="trailing" secondItem="sjS-fW-9nZ" secondAttribute="trailing" id="fGH-pi-Tnf"/>
+                            <constraint firstItem="805-13-FYM" firstAttribute="leading" secondItem="sjS-fW-9nZ" secondAttribute="leading" id="zs0-qt-829"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sjS-fW-9nZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="parkScrollView" destination="805-13-FYM" id="p6M-C0-fZi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yam-NU-6Fy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1216.8" y="-11.244377811094454"/>
+        </scene>
         <!--ParkCollectionViewController-->
         <scene sceneID="ZZF-J3-4L6">
             <objects>
@@ -18,27 +49,33 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="85B-c7-PbB">
-                            <size key="itemSize" width="75" height="75"/>
+                            <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ParkCollectionCell" id="F8i-RK-kxi" customClass="ParkCollectionViewCell" customModule="Park_Explorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="75" height="75"/>
+                                <rect key="frame" x="10" y="60" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WTM-Dx-kMF">
-                                            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WTM-Dx-kMF">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         </imageView>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="WTM-Dx-kMF" firstAttribute="top" secondItem="F8i-RK-kxi" secondAttribute="top" id="8d9-gj-g8A"/>
+                                    <constraint firstAttribute="bottom" secondItem="WTM-Dx-kMF" secondAttribute="bottom" id="Egj-lq-Snk"/>
+                                    <constraint firstAttribute="trailing" secondItem="WTM-Dx-kMF" secondAttribute="trailing" id="NcM-PR-EoN"/>
+                                    <constraint firstItem="WTM-Dx-kMF" firstAttribute="leading" secondItem="F8i-RK-kxi" secondAttribute="leading" id="h0q-jg-Q0v"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="parkImageView" destination="WTM-Dx-kMF" id="WvP-Lg-6Ms"/>
+                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="dRy-fJ-9ap"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -60,6 +97,9 @@
                         </collectionReusableView>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Collection View of Parks" id="Hcc-FI-hFi" userLabel="Collection View of Parks"/>
+                    <connections>
+                        <outlet property="parkCollectionView" destination="d6F-PE-OPa" id="6uJ-kQ-JUa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQa-Lr-0cQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -85,7 +125,6 @@
                                             <rect key="frame" x="16" y="22" width="152" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="152" id="7kM-GG-yUA"/>
                                                 <constraint firstAttribute="width" constant="152" id="BSq-t5-FnR"/>
                                                 <constraint firstAttribute="height" constant="44" id="ixs-L8-9m2"/>
                                             </constraints>
@@ -96,9 +135,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZXH-Op-025">
                                             <rect key="frame" x="284" y="7" width="75" height="75"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="FgK-D1-ho5"/>
                                                 <constraint firstAttribute="width" constant="75" id="Zg1-D8-e4F"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="cgU-Oh-Fos"/>
                                                 <constraint firstAttribute="height" constant="75" id="jEc-8L-MvH"/>
                                             </constraints>
                                         </imageView>
@@ -115,6 +152,7 @@
                                 <connections>
                                     <outlet property="captionTextView" destination="1Hl-m4-MWw" id="W6M-h6-vXV"/>
                                     <outlet property="parkImageView" destination="ZXH-Op-025" id="FPK-eT-Ga5"/>
+                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="fCI-7l-OZM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -126,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4U-UP-CRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="420" y="777.66116941529242"/>
+            <point key="canvasLocation" x="415" y="778"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="VBd-Sy-mjF">
@@ -147,4 +185,7 @@
             <point key="canvasLocation" x="-324" y="778"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fCI-7l-OZM"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ParkTableViewController: UITableViewController {
+class ParkTableViewController: UITableViewController, ZoomDelegate {
 
-    @IBOutlet var ParkTableView: UITableView!
+    @IBOutlet var parkTableView: UITableView!
     
     let parkModel = Model()
     
@@ -105,5 +105,26 @@ class ParkTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "ZoomSegue":
+            let zoomController = segue.destination as! ParkZoomViewController
+            let index = parkTableView.indexPathForSelectedRow!
+            let park = parkModel.park(index[0])
+            let image = UIImage(named: park+"0\(index[1]+1)")
+            zoomController.delegate = self
+            zoomController.configure(image!)
+        default:
+            assert(false, "Unhandled Segue")
+        }
+    }
+    
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
 
 }
