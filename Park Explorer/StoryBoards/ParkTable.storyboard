@@ -136,7 +136,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="headerButton" destination="l8G-3f-hN2" id="nLB-ds-aLQ"/>
-                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="fCI-7l-OZM"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParkCell" rowHeight="89" id="UyJ-Lb-kyU" customClass="ParkTableViewCell" customModule="Park_Explorer" customModuleProvider="target">
@@ -177,6 +176,7 @@
                                 <connections>
                                     <outlet property="captionTextView" destination="RTh-Bh-mph" id="eGN-ag-ZRj"/>
                                     <outlet property="parkImageView" destination="zxK-se-7Sf" id="fSS-e7-pLL"/>
+                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="Ac7-h0-HqI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -210,6 +210,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fCI-7l-OZM"/>
+        <segue reference="Ac7-h0-HqI"/>
     </inferredMetricsTieBreakers>
 </document>
