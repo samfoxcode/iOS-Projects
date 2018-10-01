@@ -74,7 +74,7 @@ class ParkCollectionViewController: UICollectionViewController, ZoomDelegate {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        parkCollectionView.reloadData()
+        parkCollectionView.frame.size = size
     }
     
     // MARK: UICollectionViewDelegate

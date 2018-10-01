@@ -109,50 +109,74 @@
         <scene sceneID="EQd-RX-lWt">
             <objects>
                 <viewController id="X6h-X1-hDf" userLabel="ParkTableViewController" customClass="ParkTableViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ujg-48-G6X">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="42" sectionFooterHeight="28" id="Ujg-48-G6X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParkCell" rowHeight="89" id="QYB-zX-kNq" customClass="ParkTableViewCell" customModule="Park_Explorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="89"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParkHeaderCell" rowHeight="42" id="QYB-zX-kNq" customClass="HeaderTableViewCell" customModule="Park_Explorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="42" width="375" height="42"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QYB-zX-kNq" id="EFX-T9-2rq">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="41.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8G-3f-hN2">
+                                            <rect key="frame" x="16" y="5" width="343" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" red="0.0" green="0.18207041090000001" blue="0.6082213407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="collapseSectionAction:" destination="X6h-X1-hDf" eventType="touchUpInside" id="mn4-2H-fpo"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="headerButton" destination="l8G-3f-hN2" id="nLB-ds-aLQ"/>
+                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="fCI-7l-OZM"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParkCell" rowHeight="89" id="UyJ-Lb-kyU" customClass="ParkTableViewCell" customModule="Park_Explorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="84" width="375" height="89"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UyJ-Lb-kyU" id="M8T-7L-Gu6">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="88.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Hl-m4-MWw">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTh-Bh-mph">
                                             <rect key="frame" x="16" y="22" width="152" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="152" id="BSq-t5-FnR"/>
-                                                <constraint firstAttribute="height" constant="44" id="ixs-L8-9m2"/>
+                                                <constraint firstAttribute="height" constant="44" id="D5d-mr-E8L"/>
+                                                <constraint firstAttribute="width" constant="152" id="u0d-9F-zAT"/>
                                             </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZXH-Op-025">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zxK-se-7Sf">
                                             <rect key="frame" x="284" y="7" width="75" height="75"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="75" id="Zg1-D8-e4F"/>
-                                                <constraint firstAttribute="height" constant="75" id="jEc-8L-MvH"/>
+                                                <constraint firstAttribute="height" constant="75" id="dxJ-Ro-fN0"/>
+                                                <constraint firstAttribute="width" constant="75" id="yU5-G9-b26"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="ZXH-Op-025" secondAttribute="trailing" constant="16" id="5Dh-5N-Wf0"/>
-                                        <constraint firstItem="1Hl-m4-MWw" firstAttribute="leading" secondItem="EFX-T9-2rq" secondAttribute="leadingMargin" id="Euo-8e-sne"/>
-                                        <constraint firstAttribute="bottom" secondItem="ZXH-Op-025" secondAttribute="bottom" constant="6.5" id="RCN-Kq-8eQ"/>
-                                        <constraint firstItem="ZXH-Op-025" firstAttribute="top" secondItem="EFX-T9-2rq" secondAttribute="top" constant="7" id="VHP-aV-QmB"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="1Hl-m4-MWw" secondAttribute="bottom" constant="12" id="nrV-De-BnW"/>
-                                        <constraint firstItem="1Hl-m4-MWw" firstAttribute="top" secondItem="EFX-T9-2rq" secondAttribute="topMargin" constant="11" id="tvQ-7v-irP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="RTh-Bh-mph" secondAttribute="bottom" constant="12" id="4zP-QT-OL7"/>
+                                        <constraint firstItem="zxK-se-7Sf" firstAttribute="top" secondItem="M8T-7L-Gu6" secondAttribute="top" constant="7" id="Jmz-Ok-9lO"/>
+                                        <constraint firstItem="RTh-Bh-mph" firstAttribute="leading" secondItem="M8T-7L-Gu6" secondAttribute="leadingMargin" id="Otq-gv-0MP"/>
+                                        <constraint firstItem="RTh-Bh-mph" firstAttribute="top" secondItem="M8T-7L-Gu6" secondAttribute="topMargin" constant="11" id="P7p-rO-7Fr"/>
+                                        <constraint firstAttribute="trailing" secondItem="zxK-se-7Sf" secondAttribute="trailing" constant="16" id="bOV-1k-dF9"/>
+                                        <constraint firstAttribute="bottom" secondItem="zxK-se-7Sf" secondAttribute="bottom" constant="6.5" id="zlm-63-MvN"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="captionTextView" destination="1Hl-m4-MWw" id="W6M-h6-vXV"/>
-                                    <outlet property="parkImageView" destination="ZXH-Op-025" id="FPK-eT-Ga5"/>
-                                    <segue destination="j5O-Cu-VGF" kind="presentation" identifier="ZoomSegue" id="fCI-7l-OZM"/>
+                                    <outlet property="captionTextView" destination="RTh-Bh-mph" id="eGN-ag-ZRj"/>
+                                    <outlet property="parkImageView" destination="zxK-se-7Sf" id="fSS-e7-pLL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -164,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4U-UP-CRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="415" y="778"/>
+            <point key="canvasLocation" x="413.60000000000002" y="777.66116941529242"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="VBd-Sy-mjF">

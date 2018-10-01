@@ -21,6 +21,7 @@
 		229999372161625100DA70FA /* ParkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229999362161625100DA70FA /* ParkCollectionViewCell.swift */; };
 		229999392161655900DA70FA /* ParkCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229999382161655900DA70FA /* ParkCollectionReusableView.swift */; };
 		2299993B21616F0900DA70FA /* ParkZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299993A21616F0900DA70FA /* ParkZoomViewController.swift */; };
+		229999412161BBC500DA70FA /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229999402161BBC500DA70FA /* HeaderTableViewCell.swift */; };
 		22F2557A215F150F00F0150F /* ParkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F25579215F150F00F0150F /* ParkTableViewController.swift */; };
 		22F2557F215FEA8200F0150F /* StateParks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F2557E215FEA8200F0150F /* StateParks.plist */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		229999362161625100DA70FA /* ParkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkCollectionViewCell.swift; sourceTree = "<group>"; };
 		229999382161655900DA70FA /* ParkCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkCollectionReusableView.swift; sourceTree = "<group>"; };
 		2299993A21616F0900DA70FA /* ParkZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkZoomViewController.swift; sourceTree = "<group>"; };
+		229999402161BBC500DA70FA /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		22F25579215F150F00F0150F /* ParkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkTableViewController.swift; sourceTree = "<group>"; };
 		22F2557E215FEA8200F0150F /* StateParks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StateParks.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				227370AC215F124200134B8E /* ParkTable.storyboard */,
+				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
 				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
 			);
 			path = StoryBoards;
@@ -260,6 +263,7 @@
 				2299993B21616F0900DA70FA /* ParkZoomViewController.swift in Sources */,
 				22F2557A215F150F00F0150F /* ParkTableViewController.swift in Sources */,
 				2299993521614BDD00DA70FA /* ParkCollectionViewController.swift in Sources */,
+				229999412161BBC500DA70FA /* HeaderTableViewCell.swift in Sources */,
 				22999933215FFEAB00DA70FA /* ParkTableViewCell.swift in Sources */,
 				229999372161625100DA70FA /* ParkCollectionViewCell.swift in Sources */,
 				2266B13D2157FFF400E8FDB5 /* ParkModel.swift in Sources */,

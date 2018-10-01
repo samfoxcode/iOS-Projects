@@ -14,6 +14,15 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
     
     let parkModel = Model()
     
+    var collapse = false
+    var collapseSection = 0
+    
+    @IBAction func collapseSectionAction(_ sender: UIButton) {
+        collapse = collapse ? false : true
+        collapseSection = sender.tag
+        parkTableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,11 +42,20 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return parkModel.parkInfoLength(section)
+        if collapse && section == collapseSection{
+            return 0
+        }
+        else {
+            return parkModel.parkInfoLength(section)
+        }
     }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return parkModel.park(section)
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ParkHeaderCell") as! HeaderTableViewCell
+        cell.headerButton.setTitle(parkModel.park(section), for: .normal)
+        cell.headerButton.tag = section
+        return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
