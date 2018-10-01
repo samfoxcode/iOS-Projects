@@ -16,10 +16,14 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
     
     var collapse = false
     var collapseSection = 0
-    
+    var collapsedSections = [Int]()
     @IBAction func collapseSectionAction(_ sender: UIButton) {
-        collapse = collapse ? false : true
-        collapseSection = sender.tag
+        if collapsedSections.contains(sender.tag){
+            collapsedSections.remove(at: collapsedSections.firstIndex(of: sender.tag)!)
+        }
+        else {
+            collapsedSections.append(sender.tag)
+        }
         parkTableView.reloadData()
     }
     
@@ -42,7 +46,7 @@ class ParkTableViewController: UITableViewController, ZoomDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if collapse && section == collapseSection{
+        if collapsedSections.contains(section) {
             return 0
         }
         else {
