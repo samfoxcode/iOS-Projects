@@ -37,12 +37,10 @@ class ParkTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return parkModel.lengthOfParks()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if collapsedSections.contains(section) {
             return 0
         }
@@ -83,17 +81,5 @@ class ParkTableViewController: UITableViewController {
             scrollViewManager.scrollViewTransitionUpdate(size)
         }
     }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 }

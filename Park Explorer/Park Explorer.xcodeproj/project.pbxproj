@@ -81,6 +81,7 @@
 		2266B1102156BAE000E8FDB5 = {
 			isa = PBXGroup;
 			children = (
+				229999442163024B00DA70FA /* CustomViews */,
 				22F2557D215F25D900F0150F /* StoryBoards */,
 				22F2557C215F25CB00F0150F /* Model */,
 				22F2557B215F259B00F0150F /* ViewControllers */,
@@ -121,17 +122,24 @@
 			path = "Park ExplorerTests";
 			sourceTree = "<group>";
 		};
+		229999442163024B00DA70FA /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				22999932215FFEAB00DA70FA /* ParkTableViewCell.swift */,
+				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
+				229999382161655900DA70FA /* ParkCollectionReusableView.swift */,
+				229999362161625100DA70FA /* ParkCollectionViewCell.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 		22F2557B215F259B00F0150F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				2299994221626CC600DA70FA /* ScrollViewManager.swift */,
 				2299993421614BDD00DA70FA /* ParkCollectionViewController.swift */,
-				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
-				229999382161655900DA70FA /* ParkCollectionReusableView.swift */,
 				2266B11E2156BAE000E8FDB5 /* ViewController.swift */,
 				22F25579215F150F00F0150F /* ParkTableViewController.swift */,
-				229999362161625100DA70FA /* ParkCollectionViewCell.swift */,
-				22999932215FFEAB00DA70FA /* ParkTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
