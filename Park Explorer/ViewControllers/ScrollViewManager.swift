@@ -68,7 +68,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
             self.parkScrollViewGlobal!.contentSize = mainView.bounds.size
             imageView.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
             self.parkScrollViewGlobal!.frame = CGRect(origin: mainView.bounds.origin, size: mainView.frame.size)
-            //self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2, y: mainView.bounds.origin.y+mainView.frame.height)
+            self.parkScrollViewGlobal?.backgroundColor = UIColor.gray
         }, completion: {(finished) in
             self.imageViewDisappear = imageView
         })
