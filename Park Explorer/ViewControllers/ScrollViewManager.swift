@@ -71,7 +71,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         })
 
         imageViewDisappear = imageView
-        
         if let checkView = view as? UITableView {
             self.tableView = checkView
         }
@@ -127,7 +126,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
             
         }
         scrollView.subviews[0].center = centerForImage(scrollView)
-        print(scrollView.subviews[0].center)
     }
     
     func scrollViewTransitionUpdate(_ size : CGSize) {
