@@ -64,16 +64,12 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             let imageViewSize = CGSize(width: (self.parkImageGlobal?.size.width)!*imageScale, height: (self.parkImageGlobal?.size.height)!*imageScale)
             imageView.frame.size = imageViewSize
-            //print(mainView.bounds.width)
             self.parkScrollViewGlobal!.contentSize = mainView.bounds.size
             imageView.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
             self.parkScrollViewGlobal!.frame = CGRect(origin: mainView.bounds.origin, size: mainView.frame.size)
             self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
         })
 
-        
-        //print(imageView.center)
-        //print(self.parkScrollViewGlobal!.center)
         imageViewDisappear = imageView
         
         if let checkView = view as? UITableView {
@@ -146,8 +142,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         parkScrollViewGlobal!.frame.size = size
         parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
         self.parkScrollViewGlobal!.center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
-        //print(self.parkScrollViewGlobal!.center)
-        //print(parkScrollViewGlobal!.subviews[0].center)
     }
     
     
