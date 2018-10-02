@@ -84,11 +84,16 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     
     // Image centering from class.
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        var imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
+        var imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.contentSize.height/2.0)
         
         if scrollView.contentSize.width <= scrollView.frame.size.width {
             imageCenter.x = scrollView.frame.width/2.0
         }
+        
+        if scrollView.contentSize.height <= scrollView.frame.size.height {
+            imageCenter.y = scrollView.frame.height/2.0
+        }
+        
         
         return imageCenter
  
