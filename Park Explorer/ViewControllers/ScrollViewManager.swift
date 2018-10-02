@@ -24,7 +24,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     
     let kMaximumScale : CGFloat = 10.0
     let kMinimumScale : CGFloat = 1.0
-    let kZoomScale : CGFloat = 1.0
+    let kZoomScale : CGFloat = 1.001
     
     // Populate scrollview and initialize frame to be the imageView in the selected cell.
     func populateScrollView(_ indexPath : IndexPath, _ parkModel : Model, _ mainView : UIView, _ view : Any?, _ tableOrCollection : Any? ) {
@@ -45,7 +45,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         parkImageGlobal = UIImage(named: parkImageName)
         parkScrollViewGlobal = UIScrollView(frame: internalFrame)
         let imageView = UIImageView(image: parkImageGlobal)
-        imageViewDisappear = imageView
         imageView.frame.size = internalFrame.size
         let updateCenter = CGPoint(x: internalCenter.x*CGFloat(indexPath[1]+indexPath[0]), y: center.y*(CGFloat(indexPath[0])+1.0))
         imageView.center = updateCenter
@@ -61,16 +60,21 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         let imageWidthScale = mainView.frame.width/(self.parkImageGlobal?.size.width)!
         let imageHeightScale = mainView.frame.height/(self.parkImageGlobal?.size.height)!
         let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
-        
+        self.parkScrollViewGlobal!.zoomScale = kZoomScale
         UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             let imageViewSize = CGSize(width: (self.parkImageGlobal?.size.width)!*imageScale, height: (self.parkImageGlobal?.size.height)!*imageScale)
             imageView.frame.size = imageViewSize
+            //print(mainView.bounds.width)
             self.parkScrollViewGlobal!.contentSize = mainView.bounds.size
             imageView.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
             self.parkScrollViewGlobal!.frame = CGRect(origin: mainView.bounds.origin, size: mainView.frame.size)
+            self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
         })
+
         
-        self.parkScrollViewGlobal!.zoomScale = kZoomScale
+        //print(imageView.center)
+        //print(self.parkScrollViewGlobal!.center)
+        imageViewDisappear = imageView
         
         if let checkView = view as? UITableView {
             self.tableView = checkView
@@ -81,8 +85,22 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         
     }
     
+    // Image centering from class.
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
+        var imageCenter = CGPoint(x: scrollView.contentSize.width/2.0,
+                                  y: scrollView.contentSize.height/2.0)
+        
+        
+        let scrollViewSize = scrollView.bounds.size
+        let scrollViewCenter = scrollView.center
+        
+        if (scrollView.contentSize.width < scrollViewSize.width) {
+            imageCenter.x = scrollViewCenter.x;
+        }
+        
+        if (scrollView.contentSize.height < scrollViewSize.height) {
+            imageCenter.y = scrollViewCenter.y;
+        }
         return imageCenter
     }
     
@@ -94,8 +112,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        scrollView.subviews[0].center = centerForImage(scrollView)
-        
         if scrollView.zoomScale <= 1.0 && !scrollView.isDragging && !scrollView.isZooming {
             
             UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -114,6 +130,8 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
             })
             
         }
+        scrollView.subviews[0].center = centerForImage(scrollView)
+        print(scrollView.subviews[0].center)
     }
     
     func scrollViewTransitionUpdate(_ size : CGSize) {
@@ -121,12 +139,15 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         let imageHeightScale = size.height/(parkImageGlobal!.size.height)
         let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
         let imageViewSize = CGSize(width: (parkImageGlobal!.size.width)*imageScale, height: (parkImageGlobal!.size.height)*imageScale)
-        
-        parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
         parkScrollViewGlobal!.zoomScale = kZoomScale
+        parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+        imageViewDisappear = (parkScrollViewGlobal!.subviews[0] as! UIImageView)
         parkScrollViewGlobal!.contentSize = size
         parkScrollViewGlobal!.frame.size = size
         parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        self.parkScrollViewGlobal!.center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        //print(self.parkScrollViewGlobal!.center)
+        //print(parkScrollViewGlobal!.subviews[0].center)
     }
     
     
