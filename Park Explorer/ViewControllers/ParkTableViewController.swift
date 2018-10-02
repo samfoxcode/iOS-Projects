@@ -80,16 +80,7 @@ class ParkTableViewController: UITableViewController {
  
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if (scrollViewManager.parkImageGlobal != nil) {
-            let imageWidthScale = size.width/(scrollViewManager.parkImageGlobal!.size.width)
-            let imageHeightScale = size.height/(scrollViewManager.parkImageGlobal!.size.height)
-            let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
-            
-            let imageViewSize = CGSize(width: (scrollViewManager.parkImageGlobal!.size.width)*imageScale, height: (scrollViewManager.parkImageGlobal!.size.height)*imageScale)
-            scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
-            scrollViewManager.parkScrollViewGlobal!.zoomScale = 1.0
-            scrollViewManager.parkScrollViewGlobal!.contentSize = size
-            scrollViewManager.parkScrollViewGlobal!.frame.size = size
-            scrollViewManager.parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+            scrollViewManager.scrollViewTransitionUpdate(size)
         }
     }
 

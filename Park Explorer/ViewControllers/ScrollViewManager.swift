@@ -108,6 +108,18 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         }
     }
     
+    func scrollViewTransitionUpdate(_ size : CGSize) {
+        let imageWidthScale = size.width/(parkImageGlobal!.size.width)
+        let imageHeightScale = size.height/(parkImageGlobal!.size.height)
+        let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
+        
+        let imageViewSize = CGSize(width: (parkImageGlobal!.size.width)*imageScale, height: (parkImageGlobal!.size.height)*imageScale)
+        parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+        parkScrollViewGlobal!.zoomScale = 1.0
+        parkScrollViewGlobal!.contentSize = size
+        parkScrollViewGlobal!.frame.size = size
+        parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+    }
     
     
 }

@@ -81,7 +81,6 @@
 		2266B1102156BAE000E8FDB5 = {
 			isa = PBXGroup;
 			children = (
-				2299994221626CC600DA70FA /* ScrollViewManager.swift */,
 				22F2557D215F25D900F0150F /* StoryBoards */,
 				22F2557C215F25CB00F0150F /* Model */,
 				22F2557B215F259B00F0150F /* ViewControllers */,
@@ -125,6 +124,7 @@
 		22F2557B215F259B00F0150F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2299994221626CC600DA70FA /* ScrollViewManager.swift */,
 				2299993421614BDD00DA70FA /* ParkCollectionViewController.swift */,
 				229999402161BBC500DA70FA /* HeaderTableViewCell.swift */,
 				229999382161655900DA70FA /* ParkCollectionReusableView.swift */,
