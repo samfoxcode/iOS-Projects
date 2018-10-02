@@ -23,9 +23,11 @@ typealias ParksAndCaptions = [CaptionInfo]
 
 class Model {
     //let allParks : Parks
-    let allParksWithCapitons : ParksAndCaptions
+    fileprivate let allParksWithCapitons : ParksAndCaptions
     
-    init () {
+    static let sharedInstance = Model()
+    
+    fileprivate init () {
         let mainBundle = Bundle.main
         //let solutionURL = mainBundle.url(forResource: "Parks", withExtension: "plist")
         

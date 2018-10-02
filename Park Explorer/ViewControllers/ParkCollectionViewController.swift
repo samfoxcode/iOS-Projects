@@ -14,7 +14,7 @@ class ParkCollectionViewController: UICollectionViewController {
 
     @IBOutlet var parkCollectionView: UICollectionView!
     
-    let parkModel = Model()
+    let parkModel = Model.sharedInstance
     let scrollViewManager = ScrollViewManager()
     
     override func viewDidLoad() {

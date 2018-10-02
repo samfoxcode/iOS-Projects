@@ -67,10 +67,14 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
             self.parkScrollViewGlobal!.contentSize = mainView.bounds.size
             imageView.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
             self.parkScrollViewGlobal!.frame = CGRect(origin: mainView.bounds.origin, size: mainView.frame.size)
-            self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2.0, y: (mainView.bounds.height)/2.0)
+            //self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2, y: mainView.bounds.origin.y+mainView.frame.height)
+        }, completion: {(finished) in
+            print(self.parkScrollViewGlobal?.center)
+            print(imageView.center)
+            print(mainView.bounds)
+            self.imageViewDisappear = imageView
         })
-
-        imageViewDisappear = imageView
+        
         if let checkView = view as? UITableView {
             self.tableView = checkView
         }
@@ -83,7 +87,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     // Image centering from class.
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
         var imageCenter = CGPoint(x: scrollView.contentSize.width/2.0,
-                                  y: scrollView.contentSize.height/2.0)
+                                  y: scrollView.contentSize.height/2)
         
         
         let scrollViewSize = scrollView.bounds.size
@@ -96,7 +100,9 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         if (scrollView.contentSize.height < scrollViewSize.height) {
             imageCenter.y = scrollViewCenter.y;
         }
+        
         return imageCenter
+ 
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -139,7 +145,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         parkScrollViewGlobal!.contentSize = size
         parkScrollViewGlobal!.frame.size = size
         parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
-        self.parkScrollViewGlobal!.center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        //self.parkScrollViewGlobal!.center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
     }
     
     

@@ -12,7 +12,7 @@ class ParkTableViewController: UITableViewController {
 
     @IBOutlet var parkTableView: UITableView!
     
-    let parkModel = Model()
+    let parkModel = Model.sharedInstance
     let scrollViewManager = ScrollViewManager()
     var collapse = false
     var collapseSection = 0

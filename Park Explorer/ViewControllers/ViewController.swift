@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIScrollViewDelegate {
 
-    let parkModel = Model()
+    let parkModel = Model.sharedInstance
     let numberOfParks : Int
     let kFirstPictureOffset : CGFloat = 60.0
     let kParkTitleHeight : CGFloat = 20.0
