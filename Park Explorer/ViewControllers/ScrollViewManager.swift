@@ -69,9 +69,6 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
             self.parkScrollViewGlobal!.frame = CGRect(origin: mainView.bounds.origin, size: mainView.frame.size)
             //self.parkScrollViewGlobal!.center = CGPoint(x: mainView.bounds.width/2, y: mainView.bounds.origin.y+mainView.frame.height)
         }, completion: {(finished) in
-            print(self.parkScrollViewGlobal?.center)
-            print(imageView.center)
-            print(mainView.bounds)
             self.imageViewDisappear = imageView
         })
         
@@ -86,20 +83,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
     
     // Image centering from class.
     func centerForImage(_ scrollView : UIScrollView) -> CGPoint {
-        var imageCenter = CGPoint(x: scrollView.contentSize.width/2.0,
-                                  y: scrollView.contentSize.height/2)
-        
-        
-        let scrollViewSize = scrollView.bounds.size
-        let scrollViewCenter = scrollView.center
-        
-        if (scrollView.contentSize.width < scrollViewSize.width) {
-            imageCenter.x = scrollViewCenter.x;
-        }
-        
-        if (scrollView.contentSize.height < scrollViewSize.height) {
-            imageCenter.y = scrollViewCenter.y;
-        }
+        let imageCenter = CGPoint(x: scrollView.contentSize.width/2.0, y: scrollView.frame.size.height/2.0)
         
         return imageCenter
  
@@ -134,7 +118,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         scrollView.subviews[0].center = centerForImage(scrollView)
     }
     
-    func scrollViewTransitionUpdate(_ size : CGSize) {
+    func scrollViewTransitionUpdate(_ size : CGSize, _ mainView : UIView) {
         let imageWidthScale = size.width/(parkImageGlobal!.size.width)
         let imageHeightScale = size.height/(parkImageGlobal!.size.height)
         let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
@@ -144,8 +128,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         imageViewDisappear = (parkScrollViewGlobal!.subviews[0] as! UIImageView)
         parkScrollViewGlobal!.contentSize = size
         parkScrollViewGlobal!.frame.size = size
-        parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
-        //self.parkScrollViewGlobal!.center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
+        parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: parkScrollViewGlobal!.frame.size.height/2.0)
     }
     
     

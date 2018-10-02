@@ -64,7 +64,7 @@ class ParkCollectionViewController: UICollectionViewController {
             view.frame.size = size
         }
         if (scrollViewManager.parkImageGlobal != nil) {
-            scrollViewManager.scrollViewTransitionUpdate(size)
+            scrollViewManager.scrollViewTransitionUpdate(size, self.view)
         }
     }
 

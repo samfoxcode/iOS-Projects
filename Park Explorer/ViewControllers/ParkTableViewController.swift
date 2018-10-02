@@ -77,7 +77,7 @@ class ParkTableViewController: UITableViewController {
  
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if (scrollViewManager.parkImageGlobal != nil) {
-            scrollViewManager.scrollViewTransitionUpdate(size)
+            scrollViewManager.scrollViewTransitionUpdate(size, self.view)
         }
     }
 
