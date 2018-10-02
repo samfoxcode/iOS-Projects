@@ -13,6 +13,7 @@ private let reuseIdentifier = "Cell"
 class ParkCollectionViewController: UICollectionViewController {
 
     @IBOutlet var parkCollectionView: UICollectionView!
+    
     let parkModel = Model()
     let scrollViewManager = ScrollViewManager()
     
@@ -26,13 +27,11 @@ class ParkCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return parkModel.lengthOfParks()
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return parkModel.parkInfoLength(section)
     }
 

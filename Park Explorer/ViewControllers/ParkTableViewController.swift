@@ -70,7 +70,6 @@ class ParkTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         parkTableView.isScrollEnabled  = false
-        print(indexPath)
         scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkTableView, parkTableView.cellForRow(at: indexPath))
         parkTableView.deselectRow(at: indexPath, animated: false)
     }
