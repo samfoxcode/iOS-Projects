@@ -25,6 +25,7 @@ class ParkTableViewController: UITableViewController {
         else {
             collapsedSections.append(sender.tag)
         }
+        parkTableView.reloadSections(IndexSet(integersIn: 0..<parkModel.lengthOfParks()), with: UITableView.RowAnimation.automatic)
         parkTableView.reloadData()
     }
     
@@ -71,17 +72,21 @@ class ParkTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         parkTableView.isScrollEnabled  = false
-        scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkTableView)
+        print(indexPath)
+        scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkTableView, parkTableView.cellForRow(at: indexPath))
         parkTableView.deselectRow(at: indexPath, animated: false)
     }
     
  
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if (scrollViewManager.parkImageGlobal != nil) {
-            //let imageHeightScale = size.width/(image.size.width)
-            //let imageViewSize = CGSize(width: (image.size.width)*imageHeightScale, height: (image.size.height)*imageHeightScale)
-            //scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
-            //scrollViewManager.parkScrollViewGlobal!.zoomScale = imageHeightScale
+            let imageWidthScale = size.width/(scrollViewManager.parkImageGlobal!.size.width)
+            let imageHeightScale = size.height/(scrollViewManager.parkImageGlobal!.size.height)
+            let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
+            
+            let imageViewSize = CGSize(width: (scrollViewManager.parkImageGlobal!.size.width)*imageScale, height: (scrollViewManager.parkImageGlobal!.size.height)*imageScale)
+            scrollViewManager.parkScrollViewGlobal!.subviews[0].frame.size = imageViewSize
+            scrollViewManager.parkScrollViewGlobal!.zoomScale = 1.0
             scrollViewManager.parkScrollViewGlobal!.contentSize = size
             scrollViewManager.parkScrollViewGlobal!.frame.size = size
             scrollViewManager.parkScrollViewGlobal!.subviews[0].center = CGPoint(x: size.width/2.0, y: (size.height)/2.0)
