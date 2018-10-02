@@ -116,9 +116,11 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
                 
                 if let enableTableView = self.tableView {
                     enableTableView.isScrollEnabled = true
+                    enableTableView.allowsSelection = true
                 }
                 if let enableCollectView = self.collectionView {
                     enableCollectView.isScrollEnabled = true
+                    enableCollectView.allowsSelection = true
                 }
                 scrollView.removeFromSuperview()
                 
