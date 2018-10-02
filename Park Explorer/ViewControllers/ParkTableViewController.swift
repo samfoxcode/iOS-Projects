@@ -80,5 +80,9 @@ class ParkTableViewController: UITableViewController {
             scrollViewManager.scrollViewTransitionUpdate(size, self.view)
         }
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
 }

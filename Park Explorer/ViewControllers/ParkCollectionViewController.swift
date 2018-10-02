@@ -71,5 +71,9 @@ class ParkCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkCollectionView, parkCollectionView.cellForItem(at: indexPath))
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
 }

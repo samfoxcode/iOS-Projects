@@ -61,6 +61,7 @@ class ScrollViewManager: UIScrollView, UIScrollViewDelegate {
         let imageHeightScale = mainView.frame.height/(self.parkImageGlobal?.size.height)!
         let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
         self.parkScrollViewGlobal!.zoomScale = kZoomScale
+        
         UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             let imageViewSize = CGSize(width: (self.parkImageGlobal?.size.width)!*imageScale, height: (self.parkImageGlobal?.size.height)!*imageScale)
             imageView.frame.size = imageViewSize
