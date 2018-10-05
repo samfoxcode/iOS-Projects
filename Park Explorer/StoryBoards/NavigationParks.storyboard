@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hjz-q3-ZD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-487" y="69"/>
+            <point key="canvasLocation" x="463" y="184"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="W01-Rm-VRv">
@@ -51,6 +51,9 @@
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                             </variation>
+                                            <connections>
+                                                <action selector="collapseSectionAction:" destination="ZnV-MP-FKI" eventType="touchUpInside" id="D2p-eK-b6O"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.0" green="0.18207041090000001" blue="0.6082213407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
