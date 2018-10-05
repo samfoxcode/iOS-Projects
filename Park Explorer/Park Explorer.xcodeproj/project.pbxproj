@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22647F472167DA610029BBCA /* NavigationParks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22647F462167DA610029BBCA /* NavigationParks.storyboard */; };
 		2266B11D2156BAE000E8FDB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266B11C2156BAE000E8FDB5 /* AppDelegate.swift */; };
 		2266B11F2156BAE000E8FDB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2266B11E2156BAE000E8FDB5 /* ViewController.swift */; };
 		2266B1222156BAE000E8FDB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2266B1202156BAE000E8FDB5 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22647F462167DA610029BBCA /* NavigationParks.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationParks.storyboard; sourceTree = "<group>"; };
 		2266B1192156BAE000E8FDB5 /* Park Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Park Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2266B11C2156BAE000E8FDB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2266B11E2156BAE000E8FDB5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				227370AC215F124200134B8E /* ParkTable.storyboard */,
+				22647F462167DA610029BBCA /* NavigationParks.storyboard */,
 				2266B1202156BAE000E8FDB5 /* Main.storyboard */,
 			);
 			path = StoryBoards;
@@ -247,6 +250,7 @@
 				2266B1272156BAE200E8FDB5 /* LaunchScreen.storyboard in Resources */,
 				227370AD215F124200134B8E /* ParkTable.storyboard in Resources */,
 				22F2557F215FEA8200F0150F /* StateParks.plist in Resources */,
+				22647F472167DA610029BBCA /* NavigationParks.storyboard in Resources */,
 				2266B1242156BAE200E8FDB5 /* Assets.xcassets in Resources */,
 				2266B17D215809C600E8FDB5 /* Parks.plist in Resources */,
 				2266B1222156BAE000E8FDB5 /* Main.storyboard in Resources */,
