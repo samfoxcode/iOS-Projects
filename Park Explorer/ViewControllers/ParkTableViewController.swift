@@ -68,11 +68,14 @@ class ParkTableViewController: UITableViewController {
         
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        parkTableView.isScrollEnabled  = false
+        /*parkTableView.isScrollEnabled  = false
         parkTableView.allowsSelection = false
         scrollViewManager.populateScrollView(indexPath, parkModel, self.view, parkTableView, parkTableView.cellForRow(at: indexPath))
         parkTableView.deselectRow(at: indexPath, animated: false)
+        */
+        performSegue(withIdentifier: "ZoomSegue", sender: tableView)
     }
     
  
@@ -84,6 +87,27 @@ class ParkTableViewController: UITableViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("HIT segue")
+        switch segue.identifier {
+        case "ZoomSegue":
+            let navController = segue.destination as! UINavigationController
+            let parkImageController =  navController.topViewController! as! ParkImageViewController
+            
+            let indexPath = parkTableView.indexPathForSelectedRow!
+            let parkName = parkModel.park(indexPath.section)
+            let parkImageName = parkName+"0\(indexPath.row+1)"
+            let parkImage = UIImage(named: parkImageName)
+            let caption = parkModel.parkCaption(indexPath.section, indexPath.row, parkImageName)
+            
+            parkImageController.configure(parkImage!, caption, parkName)
+            parkTableView.deselectRow(at: indexPath, animated: true)
+            return
+        default:
+            assert(false, "Unhandled Segue")
+        }
     }
 
 }
