@@ -32,6 +32,7 @@ class ParkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         parkTableView.scrollsToTop = true
+        performSegue(withIdentifier: "ShowDemo", sender: self.view)
     }
 
     // MARK: - Table view data source
@@ -104,7 +105,11 @@ class ParkTableViewController: UITableViewController {
             
             parkImageController.configure(parkImage!, caption, parkName)
             parkTableView.deselectRow(at: indexPath, animated: true)
-            return
+        case "ShowDemo":
+            let demoController = segue.destination as! DemoViewController
+            //let demoController =  navController.topViewController! as! DemoViewController
+            print("called")
+            demoController.configure()
         default:
             assert(false, "Unhandled Segue")
         }

@@ -22,7 +22,7 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if parkImage == nil {
             return
         }

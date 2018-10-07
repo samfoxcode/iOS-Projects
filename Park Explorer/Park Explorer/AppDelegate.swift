@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Support for UISplitViewController
+        if let splitViewController = window!.rootViewController as? UISplitViewController {
+            let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+            navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            splitViewController.delegate = self
+        }
         
         return true
     }
@@ -42,5 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let topAsDetailController = secondaryAsNavController.topViewController as? ParkImageViewController else { return false }
+        if topAsDetailController.parkName == nil {
+            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+            print("HIT")
+            return true
+        }
+        return false
+    }
 }
 

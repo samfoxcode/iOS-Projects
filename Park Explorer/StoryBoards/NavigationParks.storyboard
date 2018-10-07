@@ -50,6 +50,38 @@
             </objects>
             <point key="canvasLocation" x="461.60000000000002" y="183.95802098950526"/>
         </scene>
+        <!--Demo View Controller-->
+        <scene sceneID="GFD-iM-9Ni">
+            <objects>
+                <viewController id="OIT-Vo-BjT" customClass="DemoViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QO0-SW-6V5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VB-T2-A9N">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="rRk-Uw-PqR" kind="embed" id="jsn-1n-PuN"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="jrd-A7-6WC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lgr-Tf-gYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="461.60000000000002" y="-1451.4242878560722"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="idi-Vp-oZS">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="rRk-Uw-PqR" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hfM-tb-SZV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="-1451"/>
+        </scene>
         <!--State Parks-->
         <scene sceneID="W01-Rm-VRv">
             <objects>
@@ -228,6 +260,7 @@
                     <navigationItem key="navigationItem" title="State Parks" id="2af-Gm-tzJ"/>
                     <connections>
                         <outlet property="parkTableView" destination="UyP-co-aCN" id="9tX-K2-Dzd"/>
+                        <segue destination="OIT-Vo-BjT" kind="presentation" identifier="ShowDemo" id="qJv-jQ-Xba"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSZ-Ga-LDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
