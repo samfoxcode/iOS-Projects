@@ -38,7 +38,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.35030764250000002" green="0.0038503710299999999" blue="0.020175002149999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="ZPh-wz-ZrV"/>
                     </view>
                     <navigationItem key="navigationItem" id="K9S-Ck-575"/>
@@ -50,25 +50,36 @@
             </objects>
             <point key="canvasLocation" x="461.60000000000002" y="183.95802098950526"/>
         </scene>
-        <!--Demo View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="GFD-iM-9Ni">
             <objects>
-                <viewController id="OIT-Vo-BjT" customClass="DemoViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootViewController" id="OIT-Vo-BjT" customClass="RootViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QO0-SW-6V5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9VB-T2-A9N">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dty-cu-mef">
+                                <rect key="frame" x="132" y="611" width="111" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Okay">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
-                                    <segue destination="rRk-Uw-PqR" kind="embed" id="jsn-1n-PuN"/>
+                                    <action selector="endDemo:" destination="OIT-Vo-BjT" eventType="touchUpInside" id="LVr-x5-0bI"/>
                                 </connections>
-                            </containerView>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="dty-cu-mef" firstAttribute="leading" secondItem="jrd-A7-6WC" secondAttribute="leading" constant="132" id="cAB-0A-lBW"/>
+                            <constraint firstItem="jrd-A7-6WC" firstAttribute="bottom" secondItem="dty-cu-mef" secondAttribute="bottom" constant="20" id="ksE-ZK-4Xv"/>
+                            <constraint firstItem="jrd-A7-6WC" firstAttribute="trailing" secondItem="dty-cu-mef" secondAttribute="trailing" constant="132" id="tIb-y5-OeM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jrd-A7-6WC"/>
                     </view>
+                    <connections>
+                        <outlet property="endDemoButton" destination="dty-cu-mef" id="XT3-Oz-qXf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgr-Tf-gYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -77,15 +88,44 @@
         <!--Page View Controller-->
         <scene sceneID="idi-Vp-oZS">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="rRk-Uw-PqR" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="rRk-Uw-PqR" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hfM-tb-SZV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1426" y="-1451"/>
+            <point key="canvasLocation" x="1226" y="-1451"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="37o-pv-oX6">
+            <objects>
+                <viewController storyboardIdentifier="ContentViewController" id="lQy-ap-cnR" customClass="ContentViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XGP-Sd-Mwy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5hx-I9-e7r">
+                                <rect key="frame" x="16" y="94" width="343" height="495"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="5DN-TB-U0g" firstAttribute="bottom" secondItem="5hx-I9-e7r" secondAttribute="bottom" constant="78" id="IDn-dB-Mo8"/>
+                            <constraint firstItem="5hx-I9-e7r" firstAttribute="top" secondItem="5DN-TB-U0g" secondAttribute="top" constant="74" id="Nby-8i-TpZ"/>
+                            <constraint firstItem="5DN-TB-U0g" firstAttribute="trailing" secondItem="5hx-I9-e7r" secondAttribute="trailing" constant="16" id="g7g-61-rVY"/>
+                            <constraint firstItem="5hx-I9-e7r" firstAttribute="leading" secondItem="5DN-TB-U0g" secondAttribute="leading" constant="16" id="xts-B4-e6T"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5DN-TB-U0g"/>
+                    </view>
+                    <connections>
+                        <outlet property="demoImageView" destination="5hx-I9-e7r" id="uft-O8-ZfK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="918-pP-e44" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1981.5999999999999" y="-1451.4242878560722"/>
         </scene>
         <!--State Parks-->
         <scene sceneID="W01-Rm-VRv">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="ZnV-MP-FKI" customClass="ParkTableViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableView" clearsSelectionOnViewWillAppear="NO" id="ZnV-MP-FKI" customClass="ParkTableViewController" customModule="Park_Explorer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="42" sectionFooterHeight="28" id="UyP-co-aCN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

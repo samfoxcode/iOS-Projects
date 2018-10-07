@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             splitViewController.delegate = self
         }
         
+        let proxy = UINavigationBar.appearance()
+        proxy.barTintColor = UIColor.blue
+        proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        
         return true
     }
 
@@ -53,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         guard let topAsDetailController = secondaryAsNavController.topViewController as? ParkImageViewController else { return false }
         if topAsDetailController.parkName == nil {
             // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-            print("HIT")
             return true
         }
         return false

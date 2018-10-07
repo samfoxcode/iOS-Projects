@@ -85,6 +85,9 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewTransitionUpdate(_ size : CGSize, _ mainView : UIView) {
+        if parkImage == nil {
+            return
+        }
         let imageWidthScale = size.width/(parkImage!.size.width)
         let imageHeightScale = size.height/(parkImage!.size.height)
         let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale

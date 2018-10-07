@@ -17,7 +17,7 @@ class ParkTableViewController: UITableViewController {
     var collapse = false
     var collapseSection = 0
     var collapsedSections = [Int]()
-    
+    var count = 0
     @IBAction func collapseSectionAction(_ sender: UIButton) {
         if collapsedSections.contains(sender.tag){
             collapsedSections.remove(at: collapsedSections.firstIndex(of: sender.tag)!)
@@ -32,9 +32,15 @@ class ParkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         parkTableView.scrollsToTop = true
-        performSegue(withIdentifier: "ShowDemo", sender: self.view)
+        
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        if count < 1 {
+        performSegue(withIdentifier: "ShowDemo", sender: self.view)
+        }
+        count = count + 1
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -91,7 +97,6 @@ class ParkTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("HIT segue")
         switch segue.identifier {
         case "ZoomSegue":
             let navController = segue.destination as! UINavigationController
@@ -106,10 +111,7 @@ class ParkTableViewController: UITableViewController {
             parkImageController.configure(parkImage!, caption, parkName)
             parkTableView.deselectRow(at: indexPath, animated: true)
         case "ShowDemo":
-            let demoController = segue.destination as! DemoViewController
-            //let demoController =  navController.topViewController! as! DemoViewController
-            print("called")
-            demoController.configure()
+            return
         default:
             assert(false, "Unhandled Segue")
         }
