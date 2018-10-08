@@ -10,8 +10,10 @@ import UIKit
 
 class ParkImageViewController: UIViewController, UIScrollViewDelegate {
 
-    @IBOutlet var parkScrollView: UIScrollView!
+    //@IBOutlet var parkScrollView: UIScrollView!
     
+    @IBOutlet var captionLabel: UILabel!
+    @IBOutlet var parkImageView: UIImageView!
     var parkImage : UIImage?
     var parkName : String?
     var caption : String?
@@ -23,10 +25,23 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if parkImage == nil {
             return
         }
         
+        self.title = parkName
+        captionLabel.text = caption
+        parkImageView.image = parkImage
+        
+        /*
+        let imageWidthScale = self.view.frame.width/(self.parkImage?.size.width)!
+        let imageHeightScale = self.view.frame.height/(self.parkImage?.size.height)!
+        let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
+        parkImageView.frame.size = CGSize(width: (self.parkImage?.size.width)!*imageScale, height: (self.parkImage?.size.height)!*imageScale)
+        parkImageView.center = CGPoint(x: self.view.bounds.width/2.0, y: (self.view.bounds.height)/2.0)
+ */
+        /*
         self.title = parkName
         print(self.view.frame)
         print(self.view.bounds)
@@ -48,6 +63,7 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
         //self.view.bringSubviewToFront(parkScrollView!)
         
         self.parkScrollView!.zoomScale = kZoomScale
+         */
     }
     
     func configure(_ image: UIImage, _ assignCaption : String, _ assignParkName : String) {
@@ -73,6 +89,7 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    /*
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView == parkScrollView && scrollView.subviews.count > 0 {
             return scrollView.subviews[0]
@@ -104,6 +121,7 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
         parkScrollView!.frame.size = size
         parkScrollView!.subviews[0].center = CGPoint(x: size.width/2.0, y: parkScrollView!.frame.size.height/2.0)
     }
+ */
     /*
     // MARK: - Navigation
 

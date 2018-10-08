@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         let proxy = UINavigationBar.appearance()
         proxy.barTintColor = UIColor.blue
+        proxy.tintColor = UIColor.white
+        proxy.backItem?.backBarButtonItem?.tintColor = UIColor.white
         proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         return true

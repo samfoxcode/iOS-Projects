@@ -118,6 +118,7 @@ class ParkTableViewController: UITableViewController {
             let caption = parkModel.parkCaption(indexPath.section, indexPath.row, parkImageName)
             
             parkImageController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            parkImageController.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             parkImageController.navigationItem.leftItemsSupplementBackButton = true
             
             
