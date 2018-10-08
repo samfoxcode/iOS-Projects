@@ -12,19 +12,34 @@ class ContentViewController: UIViewController {
     
     @IBOutlet var demoImageView: UIImageView!
     
-    
     var demoImage : UIImage?
     var pageIndex : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewFrameUpdate(self.view.frame.size, self.view)
         demoImageView.image = demoImage
-        
     }
     
     func configure(_ image : UIImage) {
         demoImage = image
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        viewFrameUpdate(size, self.view)
+    }
+    
+    func viewFrameUpdate(_ size : CGSize, _ mainView : UIView) {
+        if demoImageView.image == nil {
+            print("returned")
+            return
+        }
+        let imageWidthScale = size.width/(demoImage!.size.width)
+        let imageHeightScale = size.height/(demoImage!.size.height)
+        let imageScale = imageWidthScale < imageHeightScale ? imageWidthScale : imageHeightScale
+        let imageViewSize = CGSize(width: (demoImage!.size.width), height: (demoImage!.size.height)*imageScale)
+        demoImageView.frame.size = imageViewSize
     }
     
 }

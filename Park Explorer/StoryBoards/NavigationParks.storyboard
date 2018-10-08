@@ -41,7 +41,9 @@
                         <color key="backgroundColor" red="0.35030764250000002" green="0.0038503710299999999" blue="0.020175002149999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="ZPh-wz-ZrV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="K9S-Ck-575"/>
+                    <navigationItem key="navigationItem" id="K9S-Ck-575">
+                        <barButtonItem key="backBarButtonItem" title="State Parks" id="3bJ-Se-I37"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="parkScrollView" destination="TVL-Jt-DVI" id="OpD-CW-cUs"/>
                     </connections>
@@ -68,9 +70,15 @@
                                     <action selector="endDemo:" destination="OIT-Vo-BjT" eventType="touchUpInside" id="LVr-x5-0bI"/>
                                 </connections>
                             </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="5e1-tD-lH1">
+                                <rect key="frame" x="168" y="566" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="dty-cu-mef" firstAttribute="top" secondItem="5e1-tD-lH1" secondAttribute="bottom" constant="8" id="26K-jG-jC3"/>
+                            <constraint firstItem="jrd-A7-6WC" firstAttribute="trailing" secondItem="5e1-tD-lH1" secondAttribute="trailing" constant="168" id="WwL-hK-pQq"/>
+                            <constraint firstItem="5e1-tD-lH1" firstAttribute="leading" secondItem="jrd-A7-6WC" secondAttribute="leading" constant="168" id="aXg-Hn-u9r"/>
                             <constraint firstItem="dty-cu-mef" firstAttribute="leading" secondItem="jrd-A7-6WC" secondAttribute="leading" constant="132" id="cAB-0A-lBW"/>
                             <constraint firstItem="jrd-A7-6WC" firstAttribute="bottom" secondItem="dty-cu-mef" secondAttribute="bottom" constant="20" id="ksE-ZK-4Xv"/>
                             <constraint firstItem="jrd-A7-6WC" firstAttribute="trailing" secondItem="dty-cu-mef" secondAttribute="trailing" constant="132" id="tIb-y5-OeM"/>
@@ -79,6 +87,7 @@
                     </view>
                     <connections>
                         <outlet property="endDemoButton" destination="dty-cu-mef" id="XT3-Oz-qXf"/>
+                        <outlet property="pageControl" destination="5e1-tD-lH1" id="3lH-xo-tnr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgr-Tf-gYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -102,15 +111,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5hx-I9-e7r">
-                                <rect key="frame" x="16" y="94" width="343" height="495"/>
+                                <rect key="frame" x="16" y="50" width="343" height="557"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="VDt-u9-dLg"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="5DN-TB-U0g" firstAttribute="bottom" secondItem="5hx-I9-e7r" secondAttribute="bottom" constant="78" id="IDn-dB-Mo8"/>
-                            <constraint firstItem="5hx-I9-e7r" firstAttribute="top" secondItem="5DN-TB-U0g" secondAttribute="top" constant="74" id="Nby-8i-TpZ"/>
-                            <constraint firstItem="5DN-TB-U0g" firstAttribute="trailing" secondItem="5hx-I9-e7r" secondAttribute="trailing" constant="16" id="g7g-61-rVY"/>
-                            <constraint firstItem="5hx-I9-e7r" firstAttribute="leading" secondItem="5DN-TB-U0g" secondAttribute="leading" constant="16" id="xts-B4-e6T"/>
+                            <constraint firstItem="5DN-TB-U0g" firstAttribute="bottom" secondItem="5hx-I9-e7r" secondAttribute="bottom" constant="60" id="Nc1-CG-Qko"/>
+                            <constraint firstItem="5hx-I9-e7r" firstAttribute="centerX" secondItem="XGP-Sd-Mwy" secondAttribute="centerX" id="iNh-Lk-49Y"/>
+                            <constraint firstItem="5hx-I9-e7r" firstAttribute="top" secondItem="5DN-TB-U0g" secondAttribute="top" constant="30" id="xWB-nA-x1l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5DN-TB-U0g"/>
                     </view>
@@ -213,7 +224,7 @@
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
-                                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <mask key="constraints">
                                                     <exclude reference="3VJ-OB-kE2"/>
                                                     <exclude reference="mtl-0g-OeA"/>
@@ -237,6 +248,7 @@
                                         <constraint firstAttribute="trailing" secondItem="WWv-SF-jcj" secondAttribute="trailing" constant="16" id="QLR-i3-yon"/>
                                         <constraint firstAttribute="bottom" secondItem="WWv-SF-jcj" secondAttribute="bottom" constant="6.5" id="W5p-7F-seN"/>
                                         <constraint firstItem="5TT-Au-ewT" firstAttribute="leading" secondItem="r1o-2C-Ul7" secondAttribute="leadingMargin" id="Ytf-Tx-1ds"/>
+                                        <constraint firstItem="WWv-SF-jcj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5TT-Au-ewT" secondAttribute="trailing" constant="10" id="bRC-Hr-s24"/>
                                         <constraint firstItem="5TT-Au-ewT" firstAttribute="top" secondItem="r1o-2C-Ul7" secondAttribute="topMargin" constant="27" id="hKW-y8-hSA"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="5TT-Au-ewT" secondAttribute="bottom" constant="28" id="i7d-ii-6R0"/>
                                         <constraint firstItem="WWv-SF-jcj" firstAttribute="top" secondItem="r1o-2C-Ul7" secondAttribute="top" constant="7" id="iKM-LE-NAK"/>

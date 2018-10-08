@@ -17,6 +17,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     
     
     @IBOutlet var endDemoButton: UIButton!
+    @IBOutlet var pageControl: UIPageControl!
     
     @IBAction func endDemo(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -38,7 +39,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         self.view.addSubview(pageViewController!.view)
         
     }
-    
+
     //MARK: - UIPageViewController Data Source
     func contentController(at index:Int) -> ContentViewController {
         let content = self.storyboard?.instantiateViewController(withIdentifier: "ContentViewController") as! ContentViewController
@@ -46,6 +47,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         let image = UIImage(named: "Demo\(index+1)")
 
         content.pageIndex = index
+        
         content.configure(image!)
         self.view.bringSubviewToFront(endDemoButton)
         endDemoButton.isHidden = true
@@ -54,7 +56,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         }
         return content
     }
-    
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let contentViewController = viewController as! ContentViewController
