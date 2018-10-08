@@ -15,9 +15,9 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     var pageViewController : UIPageViewController?
     let parkModel = Model.sharedInstance
     
+    var currentPageIndex = 0
     
     @IBOutlet var endDemoButton: UIButton!
-    @IBOutlet var pageControl: UIPageControl!
     
     @IBAction func endDemo(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -49,12 +49,23 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         content.pageIndex = index
         
         content.configure(image!)
-        self.view.bringSubviewToFront(endDemoButton)
+        
+        /*self.view.bringSubviewToFront(endDemoButton)
         endDemoButton.isHidden = true
         if content.pageIndex == 2 {
             endDemoButton.isHidden = false
         }
+        */
         return content
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+        currentPageIndex = currentPageIndex + 1
+        print(currentPageIndex)
+        if currentPageIndex >= 2 {
+            self.view.bringSubviewToFront(endDemoButton)
+            endDemoButton.isHidden = false
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -69,12 +80,14 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        
         let contentViewController = viewController as! ContentViewController
         let index = contentViewController.pageIndex!
         
         guard index > 0 else {return nil}
         
         let newController =  contentController(at: index-1)
+ 
         return newController
     }
     

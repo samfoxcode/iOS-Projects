@@ -12,6 +12,8 @@ class ContentViewController: UIViewController {
     
     @IBOutlet var demoImageView: UIImageView!
     
+    @IBOutlet var pageControl: UIPageControl!
+    
     var demoImage : UIImage?
     var pageIndex : Int?
     
@@ -20,6 +22,7 @@ class ContentViewController: UIViewController {
         
         viewFrameUpdate(self.view.frame.size, self.view)
         demoImageView.image = demoImage
+        pageControl.currentPage = pageIndex!
     }
     
     func configure(_ image : UIImage) {
