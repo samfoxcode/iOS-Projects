@@ -18,6 +18,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     var currentPageIndex = 0
     
     @IBOutlet var endDemoButton: UIButton!
+    @IBOutlet var pageControl: UIPageControl!
     
     @IBAction func endDemo(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -37,6 +38,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         pageViewController?.didMove(toParent: self)
         
         self.view.addSubview(pageViewController!.view)
+        self.view.bringSubviewToFront(pageControl)
         
     }
 
@@ -62,6 +64,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
         currentPageIndex = currentPageIndex + 1
         print(currentPageIndex)
+        pageControl.currentPage = currentPageIndex
+        self.view.bringSubviewToFront(pageControl)
         if currentPageIndex >= 2 {
             self.view.bringSubviewToFront(endDemoButton)
             endDemoButton.isHidden = false

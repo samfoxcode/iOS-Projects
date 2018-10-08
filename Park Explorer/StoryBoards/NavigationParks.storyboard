@@ -60,8 +60,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="8Ei-WW-jQR">
+                                <rect key="frame" x="168" y="630" width="39" height="37"/>
+                            </pageControl>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dty-cu-mef">
-                                <rect key="frame" x="132" y="611" width="111" height="36"/>
+                                <rect key="frame" x="132" y="598" width="111" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Okay">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,14 +76,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="jrd-A7-6WC" firstAttribute="bottom" secondItem="dty-cu-mef" secondAttribute="bottom" constant="33" id="7dN-r7-PC1"/>
+                            <constraint firstItem="8Ei-WW-jQR" firstAttribute="leading" secondItem="jrd-A7-6WC" secondAttribute="leading" constant="168" id="J4k-fZ-u0r"/>
+                            <constraint firstItem="8Ei-WW-jQR" firstAttribute="bottom" secondItem="jrd-A7-6WC" secondAttribute="bottom" id="QgD-vE-NQL"/>
                             <constraint firstItem="dty-cu-mef" firstAttribute="leading" secondItem="jrd-A7-6WC" secondAttribute="leading" constant="132" id="cAB-0A-lBW"/>
-                            <constraint firstItem="jrd-A7-6WC" firstAttribute="bottom" secondItem="dty-cu-mef" secondAttribute="bottom" constant="20" id="ksE-ZK-4Xv"/>
+                            <constraint firstItem="jrd-A7-6WC" firstAttribute="trailing" secondItem="8Ei-WW-jQR" secondAttribute="trailing" constant="168" id="g9c-hi-aye"/>
                             <constraint firstItem="jrd-A7-6WC" firstAttribute="trailing" secondItem="dty-cu-mef" secondAttribute="trailing" constant="132" id="tIb-y5-OeM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jrd-A7-6WC"/>
                     </view>
                     <connections>
                         <outlet property="endDemoButton" destination="dty-cu-mef" id="XT3-Oz-qXf"/>
+                        <outlet property="pageControl" destination="8Ei-WW-jQR" id="7Xa-6r-yGi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgr-Tf-gYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -109,24 +116,17 @@
                                     <constraint firstAttribute="width" constant="343" id="VDt-u9-dLg"/>
                                 </constraints>
                             </imageView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="SIX-Kf-He3">
-                                <rect key="frame" x="168" y="630" width="39" height="37"/>
-                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.2790213366" green="0.41206798109999998" blue="0.47737208549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="SIX-Kf-He3" firstAttribute="leading" secondItem="5DN-TB-U0g" secondAttribute="leading" constant="168" id="8ae-Cz-3H6"/>
                             <constraint firstItem="5DN-TB-U0g" firstAttribute="bottom" secondItem="5hx-I9-e7r" secondAttribute="bottom" constant="60" id="Nc1-CG-Qko"/>
-                            <constraint firstItem="5DN-TB-U0g" firstAttribute="trailing" secondItem="SIX-Kf-He3" secondAttribute="trailing" constant="168" id="T22-ah-P47"/>
                             <constraint firstItem="5hx-I9-e7r" firstAttribute="centerX" secondItem="XGP-Sd-Mwy" secondAttribute="centerX" id="iNh-Lk-49Y"/>
-                            <constraint firstItem="SIX-Kf-He3" firstAttribute="bottom" secondItem="5DN-TB-U0g" secondAttribute="bottom" id="wK9-K1-vUy"/>
                             <constraint firstItem="5hx-I9-e7r" firstAttribute="top" secondItem="5DN-TB-U0g" secondAttribute="top" constant="30" id="xWB-nA-x1l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5DN-TB-U0g"/>
                     </view>
                     <connections>
                         <outlet property="demoImageView" destination="5hx-I9-e7r" id="uft-O8-ZfK"/>
-                        <outlet property="pageControl" destination="SIX-Kf-He3" id="ugD-dW-3G2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="918-pP-e44" userLabel="First Responder" sceneMemberID="firstResponder"/>

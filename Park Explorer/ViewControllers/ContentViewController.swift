@@ -22,7 +22,6 @@ class ContentViewController: UIViewController {
         
         viewFrameUpdate(self.view.frame.size, self.view)
         demoImageView.image = demoImage
-        pageControl.currentPage = pageIndex!
     }
     
     func configure(_ image : UIImage) {
