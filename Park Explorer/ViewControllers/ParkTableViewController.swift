@@ -18,6 +18,8 @@ class ParkTableViewController: UITableViewController {
     var collapseSection = 0
     var collapsedSections = [Int]()
     var count = 0
+    var detailViewController: ParkImageViewController? = nil
+    
     @IBAction func collapseSectionAction(_ sender: UIButton) {
         if collapsedSections.contains(sender.tag){
             collapsedSections.remove(at: collapsedSections.firstIndex(of: sender.tag)!)
@@ -33,9 +35,16 @@ class ParkTableViewController: UITableViewController {
         super.viewDidLoad()
         parkTableView.scrollsToTop = true
         
+        if let split = splitViewController {
+            split.presentsWithGesture = true
+            let controllers = split.viewControllers
+            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ParkImageViewController
+        }
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if count < 1 {
         performSegue(withIdentifier: "ShowDemo", sender: self.view)
         }
@@ -107,6 +116,10 @@ class ParkTableViewController: UITableViewController {
             let parkImageName = parkName+"0\(indexPath.row+1)"
             let parkImage = UIImage(named: parkImageName)
             let caption = parkModel.parkCaption(indexPath.section, indexPath.row, parkImageName)
+            
+            parkImageController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            parkImageController.navigationItem.leftItemsSupplementBackButton = true
+            
             
             parkImageController.configure(parkImage!, caption, parkName)
             parkTableView.deselectRow(at: indexPath, animated: true)

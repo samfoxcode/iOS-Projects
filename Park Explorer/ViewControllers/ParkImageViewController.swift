@@ -27,6 +27,10 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
+        self.title = parkName
+        print(self.view.frame)
+        print(self.view.bounds)
+        
         let imageView = UIImageView(image: parkImage)
         let imageWidthScale = self.view.frame.width/(self.parkImage?.size.width)!
         let imageHeightScale = self.view.frame.height/(self.parkImage?.size.height)!
@@ -41,7 +45,7 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
         parkScrollView!.delegate = self
         
         self.view.addSubview(self.parkScrollView!)
-        self.view.bringSubviewToFront(parkScrollView!)
+        //self.view.bringSubviewToFront(parkScrollView!)
         
         self.parkScrollView!.zoomScale = kZoomScale
     }
@@ -70,14 +74,16 @@ class ParkImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if scrollView.subviews.count > 0 {
+        if scrollView == parkScrollView && scrollView.subviews.count > 0 {
             return scrollView.subviews[0]
         }
         return nil
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        scrollView.subviews[0].center = centerForImage(scrollView)
+        if scrollView == parkScrollView {
+            scrollView.subviews[0].center = centerForImage(scrollView)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
