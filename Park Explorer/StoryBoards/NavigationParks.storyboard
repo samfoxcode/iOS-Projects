@@ -225,7 +225,7 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TT-Au-ewT">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TT-Au-ewT">
                                             <rect key="frame" x="16" y="22" width="152" height="44"/>
                                             <color key="backgroundColor" red="0.35030764250000002" green="0.0038503710299999999" blue="0.020175002149999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
