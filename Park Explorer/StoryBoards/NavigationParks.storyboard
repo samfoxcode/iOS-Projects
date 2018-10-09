@@ -111,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgr-Tf-gYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="461.60000000000002" y="-1451.4242878560722"/>
+            <point key="canvasLocation" x="1239" y="-1451"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="idi-Vp-oZS">
@@ -119,7 +119,7 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="rRk-Uw-PqR" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hfM-tb-SZV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="-1451"/>
+            <point key="canvasLocation" x="2025" y="-1451"/>
         </scene>
         <!--Content View Controller-->
         <scene sceneID="37o-pv-oX6">
@@ -129,7 +129,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5hx-I9-e7r">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5hx-I9-e7r">
                                 <rect key="frame" x="16" y="50" width="343" height="557"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="VDt-u9-dLg"/>
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="918-pP-e44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1981.5999999999999" y="-1451.4242878560722"/>
+            <point key="canvasLocation" x="2782" y="-1451"/>
         </scene>
         <!--State Parks-->
         <scene sceneID="W01-Rm-VRv">
