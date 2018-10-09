@@ -31,7 +31,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         let firstPage =  contentController(at: 0)
         pageViewController!.setViewControllers([firstPage], direction: .forward, animated: false, completion: nil)
         
-        // need these so that pageViewController delegate is told about orientation changes
         self.addChild(pageViewController!)
         pageViewController?.didMove(toParent: self)
         
