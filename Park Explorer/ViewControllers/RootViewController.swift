@@ -15,8 +15,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     var pageViewController : UIPageViewController?
     let parkModel = Model.sharedInstance
     
-    var currentPageIndex = 0
-    
     @IBOutlet var endDemoButton: UIButton!
     @IBOutlet var pageControl: UIPageControl!
     
@@ -52,23 +50,21 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, UIPage
         
         content.configure(image!)
         
-        /*self.view.bringSubviewToFront(endDemoButton)
-        endDemoButton.isHidden = true
-        if content.pageIndex == 2 {
-            endDemoButton.isHidden = false
-        }
-        */
         return content
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        currentPageIndex = currentPageIndex + 1
-        print(currentPageIndex)
-        pageControl.currentPage = currentPageIndex
+        
+        let pageEnded = pageViewController.viewControllers![0] as! ContentViewController
+        
+        pageControl.currentPage = pageEnded.pageIndex!
         self.view.bringSubviewToFront(pageControl)
-        if currentPageIndex >= 2 {
+        if pageEnded.pageIndex == 2 {
             self.view.bringSubviewToFront(endDemoButton)
             endDemoButton.isHidden = false
+        }
+        else {
+            endDemoButton.isHidden = true
         }
     }
     
