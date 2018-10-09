@@ -34,7 +34,6 @@ class ContentViewController: UIViewController {
     
     func viewFrameUpdate(_ size : CGSize, _ mainView : UIView) {
         if demoImageView.image == nil {
-            print("returned")
             return
         }
         let imageWidthScale = size.width/(demoImage!.size.width)
