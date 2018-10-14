@@ -114,10 +114,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             view.pinTintColor = MKPinAnnotationView.redPinColor()
             view.animatesDrop = true
             view.canShowCallout = true
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let button = UIButton(type: .detailDisclosure)
+            button.setTitle("X", for: .normal)
+            button.setImage(UIImage(named: "delete"), for: .normal)
+            view.rightCalloutAccessoryView = button
         }
         
         return view
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        mapView.removeAnnotation(view.annotation!)
     }
     
     func plot(building: String, changeRegion : Bool = true) {
@@ -133,15 +140,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let campusBuilding = CampusBuilding(title: title, coordinate: coordinate!, favorite: false)
         allAnnotations.append(campusBuilding)
         self.mapView.addAnnotation(campusBuilding)
-        /*
-         UIView.animate(withDuration: 2, delay: 1, options: UIView.AnimationOptions.curveEaseOut, animations: {
-         let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-         let region = MKCoordinateRegion(center: coordinate!, span: span)
-         self.mapView.setRegion(region, animated: true)
-         }, completion: {(finished) in
-         self.mapView.addAnnotation(campusBuilding)
-         })
-         */
     }
     
     func annotationView(forFavoriteBuilding favoriteBuilding:FavoriteBuilding) -> MKAnnotationView {
@@ -155,7 +153,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             view.pinTintColor = MKPinAnnotationView.greenPinColor()
             view.animatesDrop = true
             view.canShowCallout = true
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let button = UIButton(type: .detailDisclosure)
+            button.setTitle("X", for: .normal)
+            button.setImage(UIImage(named: "delete"), for: .normal)
+            view.rightCalloutAccessoryView = button
         }
         
         return view
