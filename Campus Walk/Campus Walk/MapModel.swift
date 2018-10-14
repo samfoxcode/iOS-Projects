@@ -99,7 +99,6 @@ class CampusModel {
     func buildingLocation(_ name : String) -> CLLocation? {
         for i in 0..<allBuildings.count {
             if allBuildings[i].name == name {
-                print("hit")
                 let latitude = allBuildings[i].latitude
                 let longitude = allBuildings[i].longitude
                 return CLLocation(latitude: latitude, longitude: longitude)

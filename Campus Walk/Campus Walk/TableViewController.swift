@@ -10,13 +10,19 @@ import UIKit
 
 protocol PlotBuildingDelegate {
     func plot(building:String, changeRegion:Bool)
+    func favoriteBuilding(name:String)
 }
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, FavoriteDelegate {
+    
+    func favoriteBuilding(name: String) {
+        delegate?.favoriteBuilding(name: name)
+    }
+    
 
     let mapModel = CampusModel.sharedInstance
     var delegate : PlotBuildingDelegate?
-    
+    var favorites = [String]()
     @IBOutlet var buildingTableView: UITableView!
     @IBAction func cancelSearch(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -33,6 +39,9 @@ class TableViewController: UITableViewController {
 
     }
 
+    func configure(_ namesOfFavorites : [String]){
+        self.favorites = namesOfFavorites
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,8 +57,18 @@ class TableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "building", for: indexPath)
-        cell.textLabel?.text = mapModel.buildingName(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "building", for: indexPath) as! BuildingTableViewCell
+        let buildingName = mapModel.buildingName(at: indexPath)
+        cell.textLabel?.text = buildingName
+        cell.favoriteButton.restorationIdentifier = buildingName
+        cell.delegate = self
+        if favorites.contains(buildingName) {
+            cell.favoriteButton.isSelected = true
+            print("TRUE")
+        }
+        else {
+            cell.favoriteButton.isSelected = false
+        }
 
         return cell
     }

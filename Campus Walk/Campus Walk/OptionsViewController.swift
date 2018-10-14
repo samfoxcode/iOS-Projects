@@ -12,6 +12,7 @@ protocol OptionsDelegate {
     func userLocation(_ toggle : Bool)
     func showAllBuildings(_ toggle : Bool)
     func mapType(_ type : Int)
+    func showFavorites(_ toggle : Bool)
 }
 
 class OptionsViewController: UIViewController {
@@ -19,10 +20,18 @@ class OptionsViewController: UIViewController {
     var delegate : OptionsDelegate?
     var allBuildings = false
     var userLocation = false
+    var favorites = false
+    var mapTypeIndex = 0
     @IBOutlet var locationSwitch: UISwitch!
+    @IBOutlet var showFavorites: UISwitch!
     @IBOutlet var allBuildingsSwitch: UISwitch!
     @IBOutlet var mapTypeControl: UISegmentedControl!
     
+    @IBAction func showFavorites(_ sender: Any) {
+        let toggle = showFavorites.isOn
+        dismiss(animated: true, completion: nil)
+        delegate?.showFavorites(toggle)
+    }
     @IBAction func enableLocation(_ sender: Any) {
         let toggle = locationSwitch.isOn
         dismiss(animated: true, completion: nil)
@@ -46,15 +55,18 @@ class OptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapTypeControl.isSelected = false
+        mapTypeControl.selectedSegmentIndex = mapTypeIndex
         locationSwitch.isOn = userLocation
         allBuildingsSwitch.isOn = allBuildings
+        showFavorites.isOn = favorites
         // Do any additional setup after loading the view.
     }
     
-    func configure(userLocation : Bool, allBuildings : Bool){
+    func configure(userLocation : Bool, allBuildings : Bool, mapType : Int, favorites : Bool){
         self.allBuildings = allBuildings
         self.userLocation = userLocation
+        self.mapTypeIndex = mapType
+        self.favorites = favorites
     }
 
     /*

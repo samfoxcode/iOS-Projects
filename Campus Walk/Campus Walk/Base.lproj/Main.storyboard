@@ -17,19 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-HE-oIf">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-HE-oIf">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pfn-HE-oIf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fLL-Ai-NfN"/>
+                            <constraint firstItem="pfn-HE-oIf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="hOo-Op-thV"/>
+                            <constraint firstItem="pfn-HE-oIf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sqL-VL-2eU"/>
+                            <constraint firstAttribute="bottom" secondItem="pfn-HE-oIf" secondAttribute="bottom" id="y6d-5b-Qmq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="Tzy-r5-B8P">
                             <connections>
                                 <segue destination="njE-0Q-YH1" kind="popoverPresentation" identifier="OptionsSegue" popoverAnchorBarButtonItem="Tzy-r5-B8P" id="Cg4-vq-1ap">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
@@ -95,27 +100,43 @@
                                     <action selector="changeMapType:" destination="x49-Up-agm" eventType="valueChanged" id="MJT-li-exe"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbs-ru-ms6">
+                                <rect key="frame" x="14" y="221" width="116" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Mb-oR-Nln">
+                                <rect key="frame" x="312" y="216" width="51" height="31"/>
+                                <connections>
+                                    <action selector="showFavorites:" destination="x49-Up-agm" eventType="valueChanged" id="nOs-Br-ebH"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rw9-aw-BBp" firstAttribute="top" secondItem="Z8s-pJ-lPF" secondAttribute="bottom" constant="68" id="If9-1w-nXC"/>
                             <constraint firstItem="m81-py-3Xs" firstAttribute="leading" secondItem="rVA-IG-AaC" secondAttribute="leading" constant="14" id="MMP-M6-Y7v"/>
                             <constraint firstItem="oGJ-i0-AbO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m81-py-3Xs" secondAttribute="trailing" constant="50" id="SsB-M6-kIs"/>
+                            <constraint firstItem="Nbs-ru-ms6" firstAttribute="leading" secondItem="rVA-IG-AaC" secondAttribute="leading" constant="14" id="V2y-mo-nBf"/>
                             <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="oGJ-i0-AbO" secondAttribute="trailing" constant="14" id="cz9-Vs-fSZ"/>
                             <constraint firstItem="RYZ-AA-Bgy" firstAttribute="leading" secondItem="rVA-IG-AaC" secondAttribute="leading" constant="14" id="hXD-N0-11P"/>
                             <constraint firstItem="m81-py-3Xs" firstAttribute="top" secondItem="rVA-IG-AaC" secondAttribute="top" constant="60" id="hdb-C4-IxH"/>
                             <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="Z8s-pJ-lPF" secondAttribute="trailing" constant="14" id="jOr-ix-GWj"/>
                             <constraint firstItem="RYZ-AA-Bgy" firstAttribute="top" secondItem="m81-py-3Xs" secondAttribute="bottom" constant="32" id="kjh-hZ-wmN"/>
                             <constraint firstItem="oGJ-i0-AbO" firstAttribute="centerY" secondItem="m81-py-3Xs" secondAttribute="centerY" id="nrI-xh-ixS"/>
+                            <constraint firstItem="Nbs-ru-ms6" firstAttribute="top" secondItem="RYZ-AA-Bgy" secondAttribute="bottom" constant="23" id="pFN-So-Uci"/>
                             <constraint firstItem="Z8s-pJ-lPF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RYZ-AA-Bgy" secondAttribute="trailing" constant="50" id="q79-CP-v0n"/>
+                            <constraint firstItem="2Mb-oR-Nln" firstAttribute="centerY" secondItem="Nbs-ru-ms6" secondAttribute="centerY" id="sDg-9C-QDe"/>
                             <constraint firstItem="Z8s-pJ-lPF" firstAttribute="centerY" secondItem="RYZ-AA-Bgy" secondAttribute="centerY" id="u3g-pT-sOg"/>
                             <constraint firstItem="rw9-aw-BBp" firstAttribute="leading" secondItem="rVA-IG-AaC" secondAttribute="leading" constant="14" id="uoy-Vl-AJH"/>
+                            <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="2Mb-oR-Nln" secondAttribute="trailing" constant="14" id="wfQ-AZ-ndS"/>
                             <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="rw9-aw-BBp" secondAttribute="trailing" constant="14" id="ymf-SX-3Cu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rVA-IG-AaC"/>
                     </view>
                     <navigationItem key="navigationItem" id="wCC-7U-gOa">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="SVn-ND-kbN">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="SVn-ND-kbN">
                             <connections>
                                 <action selector="cancelOptions:" destination="x49-Up-agm" id="ETx-2O-fUp"/>
                             </connections>
@@ -125,6 +146,7 @@
                         <outlet property="allBuildingsSwitch" destination="Z8s-pJ-lPF" id="Wx5-Zu-Dtd"/>
                         <outlet property="locationSwitch" destination="oGJ-i0-AbO" id="hBt-hj-VZL"/>
                         <outlet property="mapTypeControl" destination="rw9-aw-BBp" id="NzX-VV-KLh"/>
+                        <outlet property="showFavorites" destination="2Mb-oR-Nln" id="gyA-kv-6X8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ela-aQ-R1z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,13 +162,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="building" id="fU1-A4-gc4">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="building" rowHeight="73" id="fU1-A4-gc4" customClass="BuildingTableViewCell" customModule="Campus_Walk" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="73"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fU1-A4-gc4" id="eTt-bz-jBn">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fU1-A4-gc4" id="eTt-bz-jBn">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AJ-tE-mp5">
+                                            <rect key="frame" x="337" y="11" width="22" height="51"/>
+                                            <connections>
+                                                <action selector="favoriteBuilding:" destination="fU1-A4-gc4" eventType="touchUpInside" id="HZp-9D-540"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3AJ-tE-mp5" firstAttribute="trailing" secondItem="eTt-bz-jBn" secondAttribute="trailingMargin" id="09V-v9-mpf"/>
+                                        <constraint firstItem="3AJ-tE-mp5" firstAttribute="bottom" secondItem="eTt-bz-jBn" secondAttribute="bottomMargin" id="Ip7-zy-knE"/>
+                                        <constraint firstItem="3AJ-tE-mp5" firstAttribute="top" secondItem="eTt-bz-jBn" secondAttribute="topMargin" id="uJX-ts-Xal"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favoriteButton" destination="3AJ-tE-mp5" id="MTf-Vm-MPT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -156,7 +194,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Ske-vb-lwO">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="wP7-fy-4NB">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="wP7-fy-4NB">
                             <connections>
                                 <action selector="cancelSearch:" destination="wnm-sa-k6E" id="ZkI-ZP-GRY"/>
                             </connections>
