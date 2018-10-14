@@ -20,9 +20,18 @@ struct Building : Codable {
 
 typealias Buildings = [Building]
 
+extension String {
+    func firstLetter() -> String? {
+        let substring =  self[self.startIndex...self.startIndex]
+        return String(substring)
+    }
+}
+    
 class CampusModel {
     
     fileprivate let allBuildings : Buildings
+    fileprivate let buildingByInitial: [String:[Building]]
+    fileprivate let buildingKeys : [String]
     
     static let sharedInstance = CampusModel()
     
@@ -37,11 +46,45 @@ class CampusModel {
             let data = try Data(contentsOf: solutionURL!)
             let decoder = PropertyListDecoder()
             allBuildings = try decoder.decode(Buildings.self, from: data)
+            
+            // create dictionary mapping first letter to states
+            var  _buildingsByInitial = [String:[Building]]()
+            for building in allBuildings {
+                let letter = building.name.firstLetter()!
+                if  _buildingsByInitial[letter]?.append(building) == nil {
+                    _buildingsByInitial[letter] = [building]
+                }
+            }
+            buildingByInitial = _buildingsByInitial
+            buildingKeys = buildingByInitial.keys.sorted()
+            
         } catch {
             print(error)
             allBuildings = []
+            buildingByInitial = [:]
+            buildingKeys = []
         }
         
+    }
+    
+    var numberOfKeys : Int {return buildingKeys.count}
+    var buildingIndexTitles : [String] {return buildingKeys}
+    
+    func buildingIndexTitle(_ index:Int) -> String {
+        return buildingKeys[index]
+    }
+    
+    func numberOfBuildingsForKey(_ index:Int) -> Int {
+        let key = buildingKeys[index]
+        let buildings = buildingByInitial[key]!
+        return buildings.count
+    }
+    
+    func buildingName(at indexPath:IndexPath) -> String {
+        let key = buildingKeys[indexPath.section]
+        let buildings = buildingByInitial[key]!
+        let building = buildings[indexPath.row]
+        return building.name
     }
     
     func numberOfBuildings() -> Int {

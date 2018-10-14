@@ -19,7 +19,7 @@ class CampusBuilding : NSObject, MKAnnotation {
     }
 }
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PlotBuildingDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PlotBuildingDelegate, OptionsDelegate {
 
     @IBOutlet var mapView: MKMapView!
     
@@ -27,6 +27,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let locationManager = CLLocationManager()
     let kSpanLatitudeDelta = 0.027
     let kSpanLongitudeDelta = 0.027
+    
+    let kSpanLatitudeDeltaZoom = 0.002
+    let kSpanLongitudeDeltaZoom = 0.002
+    
+    var allAnnotations = [MKAnnotation]()
+    var allBuildings = false
+    var userLocation = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,19 +62,59 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return view
     }
     
-    func plot(building: String) {
+    func plot(building: String, changeRegion : Bool = true) {
         let coordinate = mapModel.buildingLocation(building)?.coordinate
         let title = building
-        let campusBuilding = CampusBuilding(title: title, coordinate: coordinate!)
         
-        UIView.animate(withDuration: 1, delay: 0.1, options: UIView.AnimationOptions.curveEaseOut, animations: {
-        let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-        let region = MKCoordinateRegion(center: coordinate!, span: span)
+        let span = MKCoordinateSpan(latitudeDelta: kSpanLatitudeDeltaZoom, longitudeDelta: kSpanLongitudeDeltaZoom)
+        
+        if changeRegion {
+            let region = MKCoordinateRegion(center: coordinate!, span: span)
             self.mapView.setRegion(region, animated: true)
+        }
+        let campusBuilding = CampusBuilding(title: title, coordinate: coordinate!)
+        allAnnotations.append(campusBuilding)
         self.mapView.addAnnotation(campusBuilding)
+        /*
+        UIView.animate(withDuration: 2, delay: 1, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+            let region = MKCoordinateRegion(center: coordinate!, span: span)
+            self.mapView.setRegion(region, animated: true)
+        }, completion: {(finished) in
+            self.mapView.addAnnotation(campusBuilding)
         })
+        */
     }
 
+    
+    func userLocation(_ toggle : Bool){
+        userLocation = toggle
+    }
+    func showAllBuildings(_ toggle : Bool){
+        allBuildings = toggle
+        if toggle == true {
+            for i in 0..<mapModel.numberOfBuildings(){
+                plot(building: mapModel.nameOfBuilding(i), changeRegion: false)
+            }
+        }
+        else {
+            mapView.removeAnnotations(allAnnotations)
+        }
+    }
+    func mapType(_ type : Int){
+        switch type{
+        case 0:
+            mapView.mapType = .standard
+        case 1:
+            mapView.mapType = .satellite
+        case 2:
+            mapView.mapType = .hybrid
+        default:
+            return
+        }
+    }
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -75,7 +122,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let navController = segue.destination as! UINavigationController
             let buildingListViewController = navController.topViewController as! TableViewController
             buildingListViewController.delegate = self
-            
+        case "OptionsSegue":
+            let navController = segue.destination as! UINavigationController
+            let optionsController = navController.topViewController as! OptionsViewController
+            optionsController.delegate = self
+            optionsController.configure(userLocation: userLocation, allBuildings: allBuildings)
         default:
             assert(false, "Unhandled Segue")
         }
