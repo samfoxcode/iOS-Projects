@@ -59,6 +59,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
         
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.startUpdatingHeading()
     }
@@ -92,6 +93,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        switch annotation {
+        case is CampusBuilding:
+            return annotationView(forCampusBuilding: annotation as! CampusBuilding)
+        case is FavoriteBuilding:
+            return annotationView(forFavoriteBuilding: annotation as! FavoriteBuilding)
+        default:
+            return nil
+        }
+    }
+    
     func annotationView(forCampusBuilding campusBuilding:CampusBuilding) -> MKAnnotationView {
         let identifier = "BuildingPin"
         var view: MKPinAnnotationView
@@ -99,12 +111,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             view = dequeuedView
         } else {
             view = MKPinAnnotationView(annotation: campusBuilding, reuseIdentifier: identifier)
-            if campusBuilding.favorite == true {
-                view.pinTintColor = MKPinAnnotationView.greenPinColor()
-            }
-            else {
-                view.pinTintColor = MKPinAnnotationView.redPinColor()
-            }
+            view.pinTintColor = MKPinAnnotationView.redPinColor()
             view.animatesDrop = true
             view.canShowCallout = true
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -137,11 +144,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
          */
     }
     
+    func annotationView(forFavoriteBuilding favoriteBuilding:FavoriteBuilding) -> MKAnnotationView {
+        print("HIT")
+        let identifier = "BuildingFavoritePin"
+        var view: MKPinAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+            view = dequeuedView
+        } else {
+            view = MKPinAnnotationView(annotation: favoriteBuilding, reuseIdentifier: identifier)
+            view.pinTintColor = MKPinAnnotationView.greenPinColor()
+            view.animatesDrop = true
+            view.canShowCallout = true
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        
+        return view
+    }
+    
     func plotFavorite(building: String) {
         let coordinate = mapModel.buildingLocation(building)?.coordinate
         let title = building
         
-        let campusBuilding = CampusBuilding(title: title, coordinate: coordinate!, favorite: true)
+        let campusBuilding = FavoriteBuilding(title: title, coordinate: coordinate!, favorite: true)
         allFavorites.append(campusBuilding)
         self.mapView.addAnnotation(campusBuilding)
     }
@@ -215,7 +239,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let coordinate = mapModel.buildingLocation(name)?.coordinate
         let title = name
         namesOfFavorites.append(name)
-        let favoriteBuilding = CampusBuilding(title: title, coordinate: coordinate!, favorite : true)
+        let favoriteBuilding = FavoriteBuilding(title: title, coordinate: coordinate!, favorite : true)
         allFavorites.append(favoriteBuilding)
     }
     
