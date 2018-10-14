@@ -25,11 +25,63 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Sk7-7N-HFD"/>
+                    <navigationItem key="navigationItem" id="Sk7-7N-HFD">
+                        <barButtonItem key="rightBarButtonItem" title="Buildings" id="Nqr-Cz-PAH">
+                            <connections>
+                                <segue destination="MFI-XA-3MH" kind="popoverPresentation" identifier="BuildingList" popoverAnchorBarButtonItem="Nqr-Cz-PAH" id="sbz-73-Y9s">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="pfn-HE-oIf" id="eYP-bF-eKY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1071.2" y="133.5832083958021"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Ssi-iG-4dA">
+            <objects>
+                <tableViewController id="wnm-sa-k6E" customClass="TableViewController" customModule="Campus_Walk" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jqf-g7-Hbe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="building" id="fU1-A4-gc4">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fU1-A4-gc4" id="eTt-bz-jBn">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wnm-sa-k6E" id="8LM-Pj-roG"/>
+                            <outlet property="delegate" destination="wnm-sa-k6E" id="ysm-aV-cEV"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Ske-vb-lwO">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="wP7-fy-4NB">
+                            <connections>
+                                <action selector="cancelSearch:" destination="wnm-sa-k6E" id="ZkI-ZP-GRY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="buildingTableView" destination="Jqf-g7-Hbe" id="CMh-rV-fix"/>
+                        <outlet property="tableView" destination="Jqf-g7-Hbe" id="yDz-ii-AI8"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="828-aU-sAN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2858.4000000000001" y="-414.24287856071965"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jUP-uJ-yU0">
@@ -48,6 +100,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mg0-z7-dp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uN9-Kx-dCt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MFI-XA-3MH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YBU-wd-lgV">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wnm-sa-k6E" kind="relationship" relationship="rootViewController" id="4Co-S6-0Bg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fx5-xM-Ihj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1919.2" y="-414.24287856071965"/>
         </scene>
     </scenes>
 </document>
