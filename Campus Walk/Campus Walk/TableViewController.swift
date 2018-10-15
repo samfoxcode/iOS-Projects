@@ -18,7 +18,6 @@ class TableViewController: UITableViewController, FavoriteDelegate {
     func favoriteBuilding(name: String) {
         delegate?.favoriteBuilding(name: name)
     }
-    
 
     let mapModel = CampusModel.sharedInstance
     var delegate : PlotBuildingDelegate?
@@ -45,16 +44,12 @@ class TableViewController: UITableViewController, FavoriteDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return mapModel.numberOfKeys
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
         return mapModel.numberOfBuildingsForKey(section)
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "building", for: indexPath) as! BuildingTableViewCell
@@ -82,9 +77,11 @@ class TableViewController: UITableViewController, FavoriteDelegate {
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return mapModel.buildingIndexTitles
     }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return mapModel.buildingIndexTitles[section]
     }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

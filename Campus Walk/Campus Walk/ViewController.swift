@@ -41,9 +41,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let userMapLocation = MKUserLocation()
     let kSpanLatitudeDelta = 0.027
     let kSpanLongitudeDelta = 0.027
-    
     let kSpanLatitudeDeltaZoom = 0.002
     let kSpanLongitudeDeltaZoom = 0.002
+    let kInitialLatitude = 40.8012
+    let kInitialLongitude = -77.859909
     
     var allAnnotations = [MKAnnotation]()
     var allFavorites = [MKAnnotation]()
@@ -53,10 +54,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var favorites = false
     var namesOfFavorites = [String]()
     var allAnnotationsNames = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let coordinate  = CLLocationCoordinate2D(latitude: 40.8012, longitude: -77.859909)
+        let coordinate  = CLLocationCoordinate2D(latitude: kInitialLatitude, longitude: kInitialLongitude)
         let span = MKCoordinateSpan(latitudeDelta: kSpanLatitudeDelta, longitudeDelta: kSpanLongitudeDelta)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
@@ -78,7 +80,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 locationManager.requestWhenInUseAuthorization()
             default:
                 break
-                
             }
         }
     }
@@ -103,7 +104,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapView.userTrackingMode = .followWithHeading
         }
     }
-    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         switch annotation {
@@ -198,7 +198,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.mapView.addAnnotation(campusBuilding)
     }
 
-    
     func userLocation(_ toggle : Bool){
         userLocation = toggle
         if CLLocationManager.locationServicesEnabled() && toggle {
@@ -219,6 +218,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapView.showsUserLocation = false
         }
     }
+    
     func showAllBuildings(_ toggle : Bool){
         allBuildings = toggle
         if toggle == true {
@@ -230,6 +230,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapView.removeAnnotations(allAnnotations)
         }
     }
+    
     func mapType(_ type : Int){
         mapTypeIndex = type
         switch type{
@@ -243,6 +244,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return
         }
     }
+    
     func showFavorites(_ toggle: Bool) {
         favorites = toggle
         if toggle == true {

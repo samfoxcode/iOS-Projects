@@ -22,6 +22,7 @@ class OptionsViewController: UIViewController {
     var userLocation = false
     var favorites = false
     var mapTypeIndex = 0
+    
     @IBOutlet var locationSwitch: UISwitch!
     @IBOutlet var showFavorites: UISwitch!
     @IBOutlet var allBuildingsSwitch: UISwitch!
@@ -59,7 +60,6 @@ class OptionsViewController: UIViewController {
         locationSwitch.isOn = userLocation
         allBuildingsSwitch.isOn = allBuildings
         showFavorites.isOn = favorites
-        // Do any additional setup after loading the view.
     }
     
     func configure(userLocation : Bool, allBuildings : Bool, mapType : Int, favorites : Bool){

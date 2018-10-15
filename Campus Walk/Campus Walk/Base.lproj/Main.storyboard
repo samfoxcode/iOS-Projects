@@ -123,6 +123,7 @@
                             <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="oGJ-i0-AbO" secondAttribute="trailing" constant="14" id="cz9-Vs-fSZ"/>
                             <constraint firstItem="RYZ-AA-Bgy" firstAttribute="leading" secondItem="rVA-IG-AaC" secondAttribute="leading" constant="14" id="hXD-N0-11P"/>
                             <constraint firstItem="m81-py-3Xs" firstAttribute="top" secondItem="rVA-IG-AaC" secondAttribute="top" constant="60" id="hdb-C4-IxH"/>
+                            <constraint firstItem="2Mb-oR-Nln" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nbs-ru-ms6" secondAttribute="trailing" constant="50" id="iCw-xo-cqC"/>
                             <constraint firstItem="rVA-IG-AaC" firstAttribute="trailing" secondItem="Z8s-pJ-lPF" secondAttribute="trailing" constant="14" id="jOr-ix-GWj"/>
                             <constraint firstItem="RYZ-AA-Bgy" firstAttribute="top" secondItem="m81-py-3Xs" secondAttribute="bottom" constant="32" id="kjh-hZ-wmN"/>
                             <constraint firstItem="oGJ-i0-AbO" firstAttribute="centerY" secondItem="m81-py-3Xs" secondAttribute="centerY" id="nrI-xh-ixS"/>
