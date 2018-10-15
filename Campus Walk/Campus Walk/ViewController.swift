@@ -37,6 +37,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     let mapModel = CampusModel.sharedInstance
     let locationManager = CLLocationManager()
+    let userMapLocation = MKUserLocation()
     let kSpanLatitudeDelta = 0.027
     let kSpanLongitudeDelta = 0.027
     
@@ -50,7 +51,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var mapTypeIndex = 0
     var favorites = false
     var namesOfFavorites = [String]()
-    
+    var allAnnotationsNames = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +63,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.startUpdatingHeading()
+        mapView.userTrackingMode = .followWithHeading
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,12 +88,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             userLocation = false
         case .authorizedAlways, .authorizedWhenInUse:
             mapView.showsUserLocation = true
+            mapView.userTrackingMode = .followWithHeading
             userLocation = true
         default:
             break
             
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if userLocation {
+            mapView.userTrackingMode = .followWithHeading
+        }
+    }
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         switch annotation {
@@ -124,10 +134,25 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        let name = view.annotation?.title
+        if namesOfFavorites.contains(name!!){
+            let index = namesOfFavorites.firstIndex(of: name!!)
+            namesOfFavorites.remove(at: index!)
+            allFavorites.remove(at: index!)
+        }
+        if allAnnotationsNames.contains(name!!) {
+            let index = allAnnotationsNames.firstIndex(of: name!!)
+            allAnnotationsNames.remove(at: index!)
+            allAnnotations.remove(at: index!)
+        }
         mapView.removeAnnotation(view.annotation!)
     }
     
     func plot(building: String, changeRegion : Bool = true) {
+        if allAnnotationsNames.contains(building) {
+            return
+        }
         let coordinate = mapModel.buildingLocation(building)?.coordinate
         let title = building
         
@@ -139,11 +164,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         let campusBuilding = CampusBuilding(title: title, coordinate: coordinate!, favorite: false)
         allAnnotations.append(campusBuilding)
+        allAnnotationsNames.append(building)
         self.mapView.addAnnotation(campusBuilding)
     }
     
     func annotationView(forFavoriteBuilding favoriteBuilding:FavoriteBuilding) -> MKAnnotationView {
-        print("HIT")
         let identifier = "BuildingFavoritePin"
         var view: MKPinAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {

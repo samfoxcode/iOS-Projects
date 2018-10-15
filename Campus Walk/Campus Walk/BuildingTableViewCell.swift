@@ -19,7 +19,6 @@ class BuildingTableViewCell: UITableViewCell {
     
     @IBAction func favoriteBuilding(_ sender: Any) {
         favoriteButton.isSelected  = favoriteButton.isSelected ? false : true
-        print(favoriteButton.restorationIdentifier)
         delegate?.favoriteBuilding(name: favoriteButton.restorationIdentifier!)
     }
     
