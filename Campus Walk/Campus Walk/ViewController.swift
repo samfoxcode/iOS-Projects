@@ -34,6 +34,7 @@ class FavoriteBuilding : NSObject, MKAnnotation {
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PlotBuildingDelegate, OptionsDelegate {
 
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var navBar: UINavigationItem!
     
     let mapModel = CampusModel.sharedInstance
     let locationManager = CLLocationManager()
@@ -62,8 +63,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         mapView.delegate = self
         locationManager.delegate = self
-        locationManager.startUpdatingHeading()
-        mapView.userTrackingMode = .followWithHeading
+        
+        let trackButton = MKUserTrackingBarButtonItem(mapView: self.mapView)
+        navBar.leftBarButtonItem = trackButton
     }
     
     override func viewDidAppear(_ animated: Bool) {

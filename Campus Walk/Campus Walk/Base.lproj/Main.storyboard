@@ -51,6 +51,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="pfn-HE-oIf" id="eYP-bF-eKY"/>
+                        <outlet property="navBar" destination="Sk7-7N-HFD" id="jUA-ow-0Nj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
