@@ -35,6 +35,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var navBar: UINavigationItem!
+    @IBOutlet var directionsButton: UIBarButtonItem!
     
     let mapModel = CampusModel.sharedInstance
     let locationManager = CLLocationManager()
@@ -45,7 +46,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let kSpanLongitudeDeltaZoom = 0.002
     let kInitialLatitude = 40.8012
     let kInitialLongitude = -77.859909
-    
+    var directionsAlert = UIAlertController()
     var allAnnotations = [MKAnnotation]()
     var allFavorites = [MKAnnotation]()
     var allBuildings = false
@@ -54,6 +55,133 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var favorites = false
     var namesOfFavorites = [String]()
     var allAnnotationsNames = [String]()
+    var fromLocation = String()
+    var toLocation = String()
+    var currentPaths = [MKOverlay]()
+    
+    func directionsToLocation(){
+        guard toLocation.count > 0 && fromLocation.count > 0 else { return }
+        
+        mapView.removeOverlays(currentPaths)
+        mapView.removeAnnotations(allAnnotations)
+        let routeRequest = MKDirections.Request()
+        
+        if fromLocation == "Current Location"{
+            routeRequest.source = MKMapItem.forCurrentLocation()
+        }
+        else {
+            let location = mapModel.buildingLocation(fromLocation)
+            var mapItem : MKMapItem {
+                let placeMark = MKPlacemark(coordinate: (location?.coordinate)!)
+                let item = MKMapItem(placemark: placeMark)
+                return item
+            }
+            routeRequest.source = mapItem
+            plot(building: fromLocation)
+        }
+        
+        if toLocation == "Current Location"{
+            routeRequest.source = MKMapItem.forCurrentLocation()
+        }
+        else {
+            let location = mapModel.buildingLocation(toLocation)
+            var mapItem : MKMapItem {
+                let placeMark = MKPlacemark(coordinate: (location?.coordinate)!)
+                let item = MKMapItem(placemark: placeMark)
+                return item
+            }
+            routeRequest.destination = mapItem
+            plot(building: toLocation)
+        }
+        routeRequest.transportType = .walking
+        routeRequest.requestsAlternateRoutes = false
+        
+        let directions = MKDirections(request: routeRequest)
+        directions.calculate { (response, error) in
+            guard error == nil else {print(error?.localizedDescription as Any); return}
+            
+            let route = response?.routes.first!
+            self.mapView.addOverlay((route?.polyline)!)
+            self.currentPaths.append((route?.polyline)!)
+            
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        switch overlay {
+        case is MKPolyline:
+            let line = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+            line.strokeColor = UIColor.blue
+            line.lineWidth = 4.0
+            return line
+        default:
+            assert(false, "UNHANDLED OVERLAY")
+        }
+    }
+    
+    @IBAction func removePaths(_ sender: Any) {
+        mapView.removeOverlays(currentPaths)
+        mapView.removeAnnotations(allAnnotations)
+    }
+    
+    @IBAction func directionsAction(_ sender: Any) {
+        let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+        alertView.popoverPresentationController?.barButtonItem = directionsButton
+        let actionFromDirection = UIAlertAction(title: "From", style: .default) { (action) in
+            let newAlertView = UIAlertController(title: "Use Current Location", message: nil, preferredStyle: .actionSheet)
+            let yes = UIAlertAction(title: "Yes", style: .default) {(action) in
+                self.fromLocation = "Current Location"
+                let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+                self.alertConfigure(self.fromLocation, self.toLocation, alertView)
+                alertView.popoverPresentationController?.barButtonItem = self.directionsButton
+                self.present(alertView, animated: true, completion: nil)
+            }
+            newAlertView.addAction(yes)
+            let no = UIAlertAction(title: "No, a Building", style: .default) {(action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "FROM")
+            }
+            newAlertView.addAction(no)
+            
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            newAlertView.addAction(actionCancel)
+            
+            self.present(newAlertView, animated: true, completion: nil)
+        }
+        alertView.addAction(actionFromDirection)
+        
+        let actionToDirection = UIAlertAction(title: "To", style: .default) { (action) in
+            let newAlertView = UIAlertController(title: "Use Current Location", message: nil, preferredStyle: .actionSheet)
+            let yes = UIAlertAction(title: "Yes", style: .default) {(action) in
+                self.toLocation = "Current Location"
+                let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+                self.alertConfigure(self.fromLocation, self.toLocation, alertView)
+                alertView.popoverPresentationController?.barButtonItem = self.directionsButton
+                self.present(alertView, animated: true, completion: nil)
+            }
+            newAlertView.addAction(yes)
+            let no = UIAlertAction(title: "No, a Building", style: .default) {(action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "TO")
+            }
+            newAlertView.addAction(no)
+            
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            newAlertView.addAction(actionCancel)
+            
+            self.present(newAlertView, animated: true, completion: nil)
+        }
+        alertView.addAction(actionToDirection)
+        
+        let actionGoDirection = UIAlertAction(title: "Go", style: .default) {(action) in
+            self.directionsToLocation()
+        }
+        alertView.addAction(actionGoDirection)
+        
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertView.addAction(actionCancel)
+        directionsAlert = alertView
+        self.present(alertView, animated: true, completion: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,6 +401,55 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         allFavorites.append(favoriteBuilding)
     }
     
+    func alertConfigure(_ from : String, _ to : String, _ alertView : UIAlertController) {
+        if from.count>1 {
+            let fromLocationAction = UIAlertAction(title: "From \(from)", style: .default) { (action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "FROM")
+            }
+            alertView.addAction(fromLocationAction)
+        }
+        else {
+            let fromLocationAction = UIAlertAction(title: "From", style: .default) { (action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "FROM")
+            }
+            alertView.addAction(fromLocationAction)
+        }
+        if to.count>1 {
+            let toLocationAction = UIAlertAction(title: "To \(to)", style: .default) { (action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "TO")
+            }
+            alertView.addAction(toLocationAction)
+        }
+        else {
+            let toLocationAction = UIAlertAction(title: "To", style: .default) { (action) in
+                self.performSegue(withIdentifier: "BuildingList", sender: "TO")
+            }
+            alertView.addAction(toLocationAction)
+        }
+        let go = UIAlertAction(title: "Go", style: .default) {(action) in
+            self.directionsToLocation()
+        }
+        alertView.addAction(go)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertView.addAction(cancelAction)
+    }
+    
+    func directionsFrom(name: String) {
+        fromLocation = name
+        let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+        alertConfigure(fromLocation, toLocation, alertView)
+        alertView.popoverPresentationController?.barButtonItem = directionsButton
+        self.present(alertView, animated: true, completion: nil)
+        return
+    }
+    func directionsTo(name: String) {
+        toLocation = name
+        let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+        alertConfigure(fromLocation, toLocation, alertView)
+        alertView.popoverPresentationController?.barButtonItem = directionsButton
+        self.present(alertView, animated: true, completion: nil)
+        return
+    }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -281,7 +458,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let navController = segue.destination as! UINavigationController
             let buildingListViewController = navController.topViewController as! TableViewController
             buildingListViewController.delegate = self
-            buildingListViewController.configure(namesOfFavorites)
+            buildingListViewController.configure(namesOfFavorites, sender)
         case "OptionsSegue":
             let navController = segue.destination as! UINavigationController
             let optionsController = navController.topViewController as! OptionsViewController

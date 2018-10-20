@@ -11,6 +11,8 @@ import UIKit
 protocol PlotBuildingDelegate {
     func plot(building:String, changeRegion:Bool)
     func favoriteBuilding(name:String)
+    func directionsFrom(name:String)
+    func directionsTo(name:String)
 }
 
 class TableViewController: UITableViewController, FavoriteDelegate {
@@ -18,10 +20,18 @@ class TableViewController: UITableViewController, FavoriteDelegate {
     func favoriteBuilding(name: String) {
         delegate?.favoriteBuilding(name: name)
     }
-
+    func directionsFrom(name: String) {
+        delegate?.directionsFrom(name: name)
+    }
+    func directionsTo(name: String) {
+        delegate?.directionsTo(name: name)
+    }
+    
     let mapModel = CampusModel.sharedInstance
     var delegate : PlotBuildingDelegate?
     var favorites = [String]()
+    var directionsRequest = false
+    var direction = ""
     @IBOutlet var buildingTableView: UITableView!
     @IBAction func cancelSearch(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -35,11 +45,18 @@ class TableViewController: UITableViewController, FavoriteDelegate {
         
         buildingTableView.delegate = self
         self.clearsSelectionOnViewWillAppear = true
+    
 
     }
 
-    func configure(_ namesOfFavorites : [String]){
+    func configure(_ namesOfFavorites : [String], _ sender: Any?){
         self.favorites = namesOfFavorites
+        if sender is String {
+            directionsRequest = true
+            direction = sender as! String
+            print(true)
+            print(direction)
+        }
     }
     // MARK: - Table view data source
 
@@ -71,6 +88,14 @@ class TableViewController: UITableViewController, FavoriteDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let building = mapModel.buildingName(at: indexPath)
         dismiss(animated: true, completion: nil)
+        if direction == "FROM" {
+            delegate?.directionsFrom(name: building)
+            return
+        }
+        if direction == "TO" {
+            delegate?.directionsTo(name: building)
+            return
+        }
         delegate?.plot(building: building, changeRegion: true)
     }
     

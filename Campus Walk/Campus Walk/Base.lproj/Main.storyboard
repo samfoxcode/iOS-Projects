@@ -38,6 +38,16 @@
                                 </segue>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Directions" id="NKw-8H-u3n">
+                            <connections>
+                                <action selector="directionsAction:" destination="BYZ-38-t0r" id="eKU-kH-ew1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Remove Paths" id="n3L-bU-eN8">
+                            <connections>
+                                <action selector="removePaths:" destination="BYZ-38-t0r" id="81b-f9-Djk"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Sk7-7N-HFD">
                         <barButtonItem key="rightBarButtonItem" title="Buildings" id="Nqr-Cz-PAH">
@@ -50,6 +60,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="directionsButton" destination="NKw-8H-u3n" id="eTK-y0-1Nf"/>
                         <outlet property="mapView" destination="pfn-HE-oIf" id="eYP-bF-eKY"/>
                         <outlet property="navBar" destination="Sk7-7N-HFD" id="jUA-ow-0Nj"/>
                     </connections>
