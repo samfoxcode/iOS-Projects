@@ -20,10 +20,18 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-HE-oIf">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="101-0G-obt">
+                                <rect key="frame" x="187.5" y="607" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="101-0G-obt" secondAttribute="bottom" constant="16" id="8aU-Z3-yS9"/>
                             <constraint firstItem="pfn-HE-oIf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="DoI-Pz-h5Z"/>
+                            <constraint firstItem="101-0G-obt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c1O-Vi-f38"/>
                             <constraint firstItem="pfn-HE-oIf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fLL-Ai-NfN"/>
                             <constraint firstItem="pfn-HE-oIf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sqL-VL-2eU"/>
                             <constraint firstAttribute="bottom" secondItem="pfn-HE-oIf" secondAttribute="bottom" id="y6d-5b-Qmq"/>
@@ -61,6 +69,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="directionsButton" destination="NKw-8H-u3n" id="eTK-y0-1Nf"/>
+                        <outlet property="etaLabel" destination="101-0G-obt" id="MD0-Jk-JGi"/>
                         <outlet property="mapView" destination="pfn-HE-oIf" id="eYP-bF-eKY"/>
                         <outlet property="navBar" destination="Sk7-7N-HFD" id="jUA-ow-0Nj"/>
                     </connections>

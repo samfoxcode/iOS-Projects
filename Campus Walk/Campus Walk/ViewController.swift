@@ -59,9 +59,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var toLocation = String()
     var currentPaths = [MKOverlay]()
     
+    @IBOutlet var etaLabel: UILabel!
+    
     func directionsToLocation(){
         guard toLocation.count > 0 && fromLocation.count > 0 else { return }
-        
+        etaLabel.removeFromSuperview()
         mapView.removeOverlays(currentPaths)
         mapView.removeAnnotations(allAnnotations)
         let routeRequest = MKDirections.Request()
@@ -103,6 +105,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let route = response?.routes.first!
             self.mapView.addOverlay((route?.polyline)!)
             self.currentPaths.append((route?.polyline)!)
+            self.etaLabel.text = "ETA: " +
+            DateFormatter.localizedString(from: Date(timeIntervalSinceNow: (response?.routes.first!.expectedTravelTime)!), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.short)
+            self.etaLabel.textColor = self.view.tintColor
+            self.navBar.titleView = self.etaLabel
             
         }
     }
@@ -122,6 +128,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func removePaths(_ sender: Any) {
         mapView.removeOverlays(currentPaths)
         mapView.removeAnnotations(allAnnotations)
+        etaLabel.removeFromSuperview()
     }
     
     @IBAction func directionsAction(_ sender: Any) {
@@ -196,6 +203,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         let trackButton = MKUserTrackingBarButtonItem(mapView: self.mapView)
         navBar.leftBarButtonItem = trackButton
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
