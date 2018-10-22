@@ -106,5 +106,14 @@ class CampusModel {
         }
         return nil
     }
+    
+    func buildingPhotoName(_ name : String) -> String? {
+        for i in 0..<allBuildings.count {
+            if allBuildings[i].name == name {
+                return allBuildings[i].photo
+            }
+        }
+        return nil
+    }
 }
 

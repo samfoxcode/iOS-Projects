@@ -11,6 +11,8 @@
 		224DE7C92173B3FA001D956E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224DE7C82173B3FA001D956E /* TableViewController.swift */; };
 		224DE7CB2173DA04001D956E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224DE7CA2173DA04001D956E /* OptionsViewController.swift */; };
 		224DE7CD2173ECDD001D956E /* BuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224DE7CC2173ECDD001D956E /* BuildingTableViewCell.swift */; };
+		22815CD1217D5953002FC274 /* StepsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22815CD0217D5953002FC274 /* StepsTableViewController.swift */; };
+		22815CD3217D63B3002FC274 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22815CD2217D63B3002FC274 /* DetailViewController.swift */; };
 		22997AF72172C69900FB8031 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22997AF62172C69900FB8031 /* AppDelegate.swift */; };
 		22997AF92172C69900FB8031 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22997AF82172C69900FB8031 /* ViewController.swift */; };
 		22997AFC2172C69900FB8031 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22997AFA2172C69900FB8031 /* Main.storyboard */; };
@@ -35,6 +37,8 @@
 		224DE7C82173B3FA001D956E /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		224DE7CA2173DA04001D956E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		224DE7CC2173ECDD001D956E /* BuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTableViewCell.swift; sourceTree = "<group>"; };
+		22815CD0217D5953002FC274 /* StepsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsTableViewController.swift; sourceTree = "<group>"; };
+		22815CD2217D63B3002FC274 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		22997AF32172C69900FB8031 /* Campus Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Campus Walk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22997AF62172C69900FB8031 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22997AF82172C69900FB8031 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,7 +95,9 @@
 				224DE7C82173B3FA001D956E /* TableViewController.swift */,
 				22997B162172D46200FB8031 /* MapModel.swift */,
 				22997AF82172C69900FB8031 /* ViewController.swift */,
+				22815CD0217D5953002FC274 /* StepsTableViewController.swift */,
 				22997AFA2172C69900FB8031 /* Main.storyboard */,
+				22815CD2217D63B3002FC274 /* DetailViewController.swift */,
 				224DE7CC2173ECDD001D956E /* BuildingTableViewCell.swift */,
 				224DE7CA2173DA04001D956E /* OptionsViewController.swift */,
 				22997AFD2172C69A00FB8031 /* Assets.xcassets */,
@@ -216,9 +222,11 @@
 				22997AF92172C69900FB8031 /* ViewController.swift in Sources */,
 				224DE7CD2173ECDD001D956E /* BuildingTableViewCell.swift in Sources */,
 				22997B172172D46200FB8031 /* MapModel.swift in Sources */,
+				22815CD1217D5953002FC274 /* StepsTableViewController.swift in Sources */,
 				22997AF72172C69900FB8031 /* AppDelegate.swift in Sources */,
 				224DE7C92173B3FA001D956E /* TableViewController.swift in Sources */,
 				224DE7CB2173DA04001D956E /* OptionsViewController.swift in Sources */,
+				22815CD3217D63B3002FC274 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

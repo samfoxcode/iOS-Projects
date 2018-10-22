@@ -36,6 +36,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var navBar: UINavigationItem!
     @IBOutlet var directionsButton: UIBarButtonItem!
+    @IBOutlet var showStepsButton: UIBarButtonItem!
     
     let mapModel = CampusModel.sharedInstance
     let locationManager = CLLocationManager()
@@ -58,8 +59,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var fromLocation = String()
     var toLocation = String()
     var currentPaths = [MKOverlay]()
+    var steps = [MKRoute.Step]()
     
     @IBOutlet var etaLabel: UILabel!
+    
+    @IBAction func showSteps(_ sender: Any) {
+        
+        let stepsTableView = self.storyboard?.instantiateViewController(withIdentifier: "StepsTableView") as! StepsTableViewController
+        stepsTableView.configure(steps)
+        let nav = UINavigationController(rootViewController: stepsTableView)
+        self.present(nav, animated: true, completion: nil)
+        
+    }
     
     func directionsToLocation(){
         guard toLocation.count > 0 && fromLocation.count > 0 else { return }
@@ -109,7 +120,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             DateFormatter.localizedString(from: Date(timeIntervalSinceNow: (response?.routes.first!.expectedTravelTime)!), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.short)
             self.etaLabel.textColor = self.view.tintColor
             self.navBar.titleView = self.etaLabel
-            
+            self.steps = (route?.steps)!
         }
     }
     
@@ -134,6 +145,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func directionsAction(_ sender: Any) {
         let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
         alertView.popoverPresentationController?.barButtonItem = directionsButton
+        
         let actionFromDirection = UIAlertAction(title: "From", style: .default) { (action) in
             let newAlertView = UIAlertController(title: "Use Current Location", message: nil, preferredStyle: .actionSheet)
             let yes = UIAlertAction(title: "Yes", style: .default) {(action) in
@@ -266,6 +278,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             button.setTitle("X", for: .normal)
             button.setImage(UIImage(named: "delete"), for: .normal)
             view.rightCalloutAccessoryView = button
+            view.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         
         return view
@@ -273,18 +286,35 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        let name = view.annotation?.title
-        if namesOfFavorites.contains(name!!){
-            let index = namesOfFavorites.firstIndex(of: name!!)
-            namesOfFavorites.remove(at: index!)
-            allFavorites.remove(at: index!)
+        if control == view.rightCalloutAccessoryView {
+            let name = view.annotation?.title
+            if namesOfFavorites.contains(name!!){
+                let index = namesOfFavorites.firstIndex(of: name!!)
+                namesOfFavorites.remove(at: index!)
+                allFavorites.remove(at: index!)
+            }
+            if allAnnotationsNames.contains(name!!) {
+                let index = allAnnotationsNames.firstIndex(of: name!!)
+                allAnnotationsNames.remove(at: index!)
+                allAnnotations.remove(at: index!)
+            }
+            mapView.removeAnnotation(view.annotation!)
         }
-        if allAnnotationsNames.contains(name!!) {
-            let index = allAnnotationsNames.firstIndex(of: name!!)
-            allAnnotationsNames.remove(at: index!)
-            allAnnotations.remove(at: index!)
+        if control == view.leftCalloutAccessoryView {
+            let detailView = self.storyboard?.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+            let buildingName = view.annotation?.title
+            let imageName = mapModel.buildingPhotoName(buildingName!!)
+            var image = UIImage()
+            if imageName!.count > 0 {
+                image = UIImage(named: imageName!)!
+            }
+            else {
+                image = UIImage(named: "addPhoto")!
+            }
+            detailView.configure(image, buildingName!!)
+            let nav = UINavigationController(rootViewController: detailView)
+            self.present(nav, animated: true, completion: nil)
         }
-        mapView.removeAnnotation(view.annotation!)
     }
     
     func plot(building: String, changeRegion : Bool = true) {
