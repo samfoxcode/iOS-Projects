@@ -19,20 +19,38 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     var imagePicker = UIImagePickerController()
     
     @IBAction func changeImageAction(_ sender: Any) {
+        let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
+        alertView.popoverPresentationController?.barButtonItem = changeImageNAvButton
+        let actionLibraryPhoto = UIAlertAction(title: "Library Photo", style: .default) { (action) in
+            self.imagePicker.delegate = self
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        alertView.addAction(actionLibraryPhoto)
         
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
+        let actionTakePhoto = UIAlertAction(title: "Take Photo", style: .default) { (action) in
+            if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+                self.imagePicker.delegate = self
+                self.imagePicker.allowsEditing = true
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alertWarning = UIAlertController(title:"Warning", message: "Camera Not Available", preferredStyle: .alert)
+                alertWarning.popoverPresentationController?.barButtonItem = self.changeImageNAvButton
+                let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertWarning.addAction(actionCancel)
+                self.present(alertWarning, animated: true, completion: nil)
+                
+            }
+        }
+        alertView.addAction(actionTakePhoto)
         
-        /*
-         The sourceType property wants a value of the enum named        UIImagePickerControllerSourceType, which gives 3 options:
-         
-         UIImagePickerControllerSourceType.PhotoLibrary
-         UIImagePickerControllerSourceType.Camera
-         UIImagePickerControllerSourceType.SavedPhotosAlbum
-         
-         */
-        present(imagePicker, animated: true, completion: nil)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertView.addAction(actionCancel)
+        self.present(alertView, animated: true, completion: nil)
+        
     }
     
     @IBAction func doneAction(_ sender: Any) {
