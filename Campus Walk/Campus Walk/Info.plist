@@ -4,6 +4,14 @@
 <dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>To allow you to change the building photo</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>To allow you to add media</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To allow you to add a saved photo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To allow you to save a new photo</string>
 	<key>NSLocationUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>

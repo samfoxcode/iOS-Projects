@@ -8,13 +8,32 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet var buildingImageView: UIImageView!
     @IBOutlet var buildingLabel: UILabel!
+    @IBOutlet var changeImageNAvButton: UIBarButtonItem!
     
     var image : UIImage?
     var buildingText = String()
+    var imagePicker = UIImagePickerController()
+    
+    @IBAction func changeImageAction(_ sender: Any) {
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        
+        /*
+         The sourceType property wants a value of the enum named        UIImagePickerControllerSourceType, which gives 3 options:
+         
+         UIImagePickerControllerSourceType.PhotoLibrary
+         UIImagePickerControllerSourceType.Camera
+         UIImagePickerControllerSourceType.SavedPhotosAlbum
+         
+         */
+        present(imagePicker, animated: true, completion: nil)
+    }
     
     @IBAction func doneAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -23,7 +42,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if image != nil {
             buildingImageView.image = image
         }
@@ -35,6 +54,15 @@ class DetailViewController: UIViewController {
         self.buildingText = text
     }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage]
+        buildingImageView.image = image as? UIImage
+        dismiss(animated: true, completion:nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion:nil)
+    }
+    
     /*
     // MARK: - Navigation
 

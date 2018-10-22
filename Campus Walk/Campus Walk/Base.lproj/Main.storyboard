@@ -334,7 +334,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xB7-K5-AHF">
             <objects>
-                <navigationController storyboardIdentifier="StepsNavController" automaticallyAdjustsScrollViewInsets="NO" id="hHG-tn-re6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StepsNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hHG-tn-re6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Os2-Ep-sdQ">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -357,8 +357,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fe9-v7-s8d">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fe9-v7-s8d">
                                 <rect key="frame" x="16" y="180" width="343" height="197"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO3-We-u9n">
                                 <rect key="frame" x="166.5" y="534" width="42" height="21"/>
@@ -370,8 +373,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" constant="116" id="2YY-n7-eTd"/>
-                            <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="290" id="CPi-dQ-srL"/>
                             <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="fe9-v7-s8d" secondAttribute="trailing" constant="16" id="Wrv-wI-jTl"/>
+                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="157" id="ZNq-MI-IRb"/>
                             <constraint firstItem="gO3-We-u9n" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="d8j-US-2bt"/>
                             <constraint firstItem="fe9-v7-s8d" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="16" id="tJJ-wu-eE6"/>
                             <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="112" id="vNq-pD-KKy"/>
@@ -384,20 +387,26 @@
                                 <action selector="doneAction:" destination="1rE-Nt-pQz" id="TIU-Fj-MN8"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Change Image" id="mqv-gv-8Hf">
+                            <connections>
+                                <action selector="changeImageAction:" destination="1rE-Nt-pQz" id="W99-fZ-UVm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="buildingImageView" destination="fe9-v7-s8d" id="MnY-SR-YpN"/>
                         <outlet property="buildingLabel" destination="gO3-We-u9n" id="oxL-LT-ys0"/>
+                        <outlet property="changeImageNAvButton" destination="mqv-gv-8Hf" id="6eu-xF-MXJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fX-S2-cVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5340" y="12.143928035982009"/>
+            <point key="canvasLocation" x="5022" y="315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Mm-Q7-Knb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3XT-6v-MCs" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DetailNavView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3XT-6v-MCs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tjz-2p-3hh">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -410,7 +419,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p4i-i7-6AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4400.8000000000002" y="12.143928035982009"/>
+            <point key="canvasLocation" x="3806" y="316"/>
         </scene>
     </scenes>
 </document>
