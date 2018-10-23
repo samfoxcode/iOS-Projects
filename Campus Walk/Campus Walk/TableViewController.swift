@@ -54,8 +54,6 @@ class TableViewController: UITableViewController, FavoriteDelegate {
         if sender is String {
             directionsRequest = true
             direction = sender as! String
-            print(true)
-            print(direction)
         }
     }
     // MARK: - Table view data source
