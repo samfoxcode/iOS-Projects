@@ -91,7 +91,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 return item
             }
             routeRequest.source = mapItem
-            plot(building: fromLocation)
+            plot(building: fromLocation, changeRegion: true)
         }
         
         if toLocation == "Current Location"{
@@ -105,7 +105,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 return item
             }
             routeRequest.destination = mapItem
-            plot(building: toLocation)
+            plot(building: toLocation, changeRegion: false)
         }
         routeRequest.transportType = .walking
         routeRequest.requestsAlternateRoutes = false
