@@ -358,7 +358,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fe9-v7-s8d">
-                                <rect key="frame" x="16" y="180" width="343" height="197"/>
+                                <rect key="frame" x="16" y="114" width="343" height="197"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -368,7 +368,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO3-We-u9n">
-                                <rect key="frame" x="166.5" y="534" width="42" height="21"/>
+                                <rect key="frame" x="166.5" y="636" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -376,12 +376,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" constant="116" id="2YY-n7-eTd"/>
+                            <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" constant="50" id="03P-K5-frM"/>
+                            <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="10" id="L4t-fE-JPE"/>
                             <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="fe9-v7-s8d" secondAttribute="trailing" constant="16" id="Wrv-wI-jTl"/>
-                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="157" id="ZNq-MI-IRb"/>
+                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="10" id="ZNq-MI-IRb"/>
                             <constraint firstItem="gO3-We-u9n" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="d8j-US-2bt"/>
                             <constraint firstItem="fe9-v7-s8d" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="16" id="tJJ-wu-eE6"/>
-                            <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="112" id="vNq-pD-KKy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PG8-FA-scv"/>
                     </view>
