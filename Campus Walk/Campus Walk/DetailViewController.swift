@@ -8,15 +8,25 @@
 
 import UIKit
 
+protocol SaveImageDelegate {
+    func save(_ building : String, _ image:UIImage)
+}
+
 class DetailViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet var buildingImageView: UIImageView!
     @IBOutlet var buildingLabel: UILabel!
     @IBOutlet var changeImageNAvButton: UIBarButtonItem!
     
+    var delegate : SaveImageDelegate?
     var image : UIImage?
     var buildingText = String()
     var imagePicker = UIImagePickerController()
+    var savedBuildingImages = [String:UIImage]()
+    
+    func save(_ building : String, _ image : UIImage) {
+        delegate?.save(building, image)
+    }
     
     @IBAction func changeImageAction(_ sender: Any) {
         let alertView = UIAlertController(title: "Directions", message: nil, preferredStyle: .actionSheet)
@@ -64,17 +74,22 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
         if image != nil {
             buildingImageView.image = image
         }
+        if let savedImage = savedBuildingImages[buildingText]{
+            buildingImageView.image = savedImage
+        }
         buildingLabel.text = buildingText
     }
     
-    func configure(_ image : UIImage, _ text : String) {
+    func configure(_ image : UIImage, _ text : String, _ savedImages : [String:UIImage]) {
         self.image = image
         self.buildingText = text
+        self.savedBuildingImages = savedImages
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage]
         buildingImageView.image = image as? UIImage
+        save(buildingText, (image as? UIImage)!)
         dismiss(animated: true, completion:nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

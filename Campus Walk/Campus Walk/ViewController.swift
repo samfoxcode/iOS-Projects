@@ -31,7 +31,7 @@ class FavoriteBuilding : NSObject, MKAnnotation {
     }
 }
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PlotBuildingDelegate, OptionsDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PlotBuildingDelegate, OptionsDelegate, SaveImageDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var navBar: UINavigationItem!
@@ -60,6 +60,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var toLocation = String()
     var currentPaths = [MKOverlay]()
     var steps = [MKRoute.Step]()
+    var savedImages = [String:UIImage]()
     
     @IBOutlet var etaLabel: UILabel!
     
@@ -302,6 +303,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         if control == view.leftCalloutAccessoryView {
             let detailView = self.storyboard?.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+            detailView.delegate = self
             let buildingName = view.annotation?.title
             let imageName = mapModel.buildingPhotoName(buildingName!!)
             var image = UIImage()
@@ -311,7 +313,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             else {
                 image = UIImage(named: "addPhoto")!
             }
-            detailView.configure(image, buildingName!!)
+            detailView.configure(image, buildingName!!, savedImages)
             let nav = UINavigationController(rootViewController: detailView)
             self.present(nav, animated: true, completion: nil)
         }
@@ -487,6 +489,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         alertView.popoverPresentationController?.barButtonItem = directionsButton
         self.present(alertView, animated: true, completion: nil)
         return
+    }
+    func save(_ building: String, _ image: UIImage) {
+        savedImages[building] = image
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
