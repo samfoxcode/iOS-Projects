@@ -29,9 +29,10 @@ extension String {
     
 class CampusModel {
     
-    fileprivate let allBuildings : Buildings
-    fileprivate let buildingByInitial: [String:[Building]]
-    fileprivate let buildingKeys : [String]
+    fileprivate var allBuildings : Buildings
+    fileprivate var buildings : Buildings
+    fileprivate var buildingByInitial: [String:[Building]]
+    fileprivate var buildingKeys : [String]
     
     static let sharedInstance = CampusModel()
     
@@ -45,11 +46,11 @@ class CampusModel {
         do {
             let data = try Data(contentsOf: solutionURL!)
             let decoder = PropertyListDecoder()
-            allBuildings = try decoder.decode(Buildings.self, from: data)
+            buildings = try decoder.decode(Buildings.self, from: data)
             
-            // create dictionary mapping first letter to states
+            // create dictionary mapping first letter to buildings
             var  _buildingsByInitial = [String:[Building]]()
-            for building in allBuildings {
+            for building in buildings {
                 let letter = building.name.firstLetter()!
                 if  _buildingsByInitial[letter]?.append(building) == nil {
                     _buildingsByInitial[letter] = [building]
@@ -60,47 +61,66 @@ class CampusModel {
             
         } catch {
             print(error)
-            allBuildings = []
+            buildings = []
             buildingByInitial = [:]
             buildingKeys = []
         }
+        allBuildings = buildings
         
     }
     
     var numberOfKeys : Int {return buildingKeys.count}
     var buildingIndexTitles : [String] {return buildingKeys}
     
+    func updateKeys(){
+        var  _buildingsByInitial = [String:[Building]]()
+        for building in buildings {
+            let letter = building.name.firstLetter()!
+            if  _buildingsByInitial[letter]?.append(building) == nil {
+                _buildingsByInitial[letter] = [building]
+            }
+        }
+        buildingByInitial = _buildingsByInitial
+        buildingKeys = buildingByInitial.keys.sorted()
+    }
+    
     func buildingIndexTitle(_ index:Int) -> String {
+        // create dictionary mapping first letter to buildings
+        updateKeys()
         return buildingKeys[index]
     }
     
     func numberOfBuildingsForKey(_ index:Int) -> Int {
+        // create dictionary mapping first letter to buildings
+        updateKeys()
         let key = buildingKeys[index]
-        let buildings = buildingByInitial[key]!
-        return buildings.count
+        let _buildings = buildingByInitial[key]!
+        return _buildings.count
     }
     
     func buildingName(at indexPath:IndexPath) -> String {
+        // create dictionary mapping first letter to buildings
+        updateKeys()
         let key = buildingKeys[indexPath.section]
-        let buildings = buildingByInitial[key]!
-        let building = buildings[indexPath.row]
+        let _buildings = buildingByInitial[key]!
+        let building = _buildings[indexPath.row]
         return building.name
     }
     
     func numberOfBuildings() -> Int {
-        return allBuildings.count
+        return buildings.count
     }
     func nameOfBuilding(_ index : Int) -> String {
-        return allBuildings[index].name
+        return buildings[index].name
     }
     func photoNameBuilding(_ index : Int) -> String {
-        return allBuildings[index].photo
+        return buildings[index].photo
     }
     func buildingLocation(_ name : String) -> CLLocation? {
-        for i in 0..<allBuildings.count {
-            if allBuildings[i].name == name {
-                let latitude = allBuildings[i].latitude
-                let longitude = allBuildings[i].longitude
+        for i in 0..<buildings.count {
+            if buildings[i].name == name {
+                let latitude = buildings[i].latitude
+                let longitude = buildings[i].longitude
                 return CLLocation(latitude: latitude, longitude: longitude)
             }
         }
@@ -108,12 +128,17 @@ class CampusModel {
     }
     
     func buildingPhotoName(_ name : String) -> String? {
-        for i in 0..<allBuildings.count {
-            if allBuildings[i].name == name {
-                return allBuildings[i].photo
+        for i in 0..<buildings.count {
+            if buildings[i].name == name {
+                return buildings[i].photo
             }
         }
         return nil
+    }
+    
+    func updateFilter(filter: (Building) -> Bool) {
+        buildings = allBuildings.filter(filter)
+        updateKeys()
     }
 }
 

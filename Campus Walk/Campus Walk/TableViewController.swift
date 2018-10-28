@@ -15,7 +15,7 @@ protocol PlotBuildingDelegate {
     func directionsTo(name:String)
 }
 
-class TableViewController: UITableViewController, FavoriteDelegate {
+class TableViewController: UITableViewController, FavoriteDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     func favoriteBuilding(name: String) {
         delegate?.favoriteBuilding(name: name)
@@ -37,6 +37,8 @@ class TableViewController: UITableViewController, FavoriteDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +48,14 @@ class TableViewController: UITableViewController, FavoriteDelegate {
         buildingTableView.delegate = self
         self.clearsSelectionOnViewWillAppear = true
     
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        tableView.tableHeaderView = searchController.searchBar
+        
+        searchController.dimsBackgroundDuringPresentation = true
+        searchController.hidesNavigationBarDuringPresentation = false
+        self.definesPresentationContext = true
+        searchController.searchBar.scopeButtonTitles = ["Name", "Year"]
 
     }
 
@@ -56,6 +66,42 @@ class TableViewController: UITableViewController, FavoriteDelegate {
             direction = sender as! String
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        let filter = {(building:Building) in true}
+        mapModel.updateFilter(filter: filter)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if selectedScope == 0 {
+            searchBar.resignFirstResponder()
+            searchBar.keyboardType = .default
+            searchBar.becomeFirstResponder()
+        }
+        if selectedScope == 1 {
+            searchBar.resignFirstResponder()
+            searchBar.keyboardType = .numberPad
+            searchBar.becomeFirstResponder()
+        }
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let text = searchController.searchBar.text!
+        
+        if !text.isEmpty {
+            if searchController.searchBar.selectedScopeButtonIndex == 0 {
+                let filter = {(building:Building) in building.name.contains(text)}
+                mapModel.updateFilter(filter: filter)
+                buildingTableView.reloadData()
+            }
+            if searchController.searchBar.selectedScopeButtonIndex == 1 {
+                let filter = {(building:Building) in building.year_constructed.description.contains(text)}
+                mapModel.updateFilter(filter: filter)
+                buildingTableView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
