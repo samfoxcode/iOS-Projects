@@ -70,6 +70,7 @@ class TableViewController: UITableViewController, FavoriteDelegate, UISearchCont
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         let filter = {(building:Building) in true}
         mapModel.updateFilter(filter: filter)
+        buildingTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
