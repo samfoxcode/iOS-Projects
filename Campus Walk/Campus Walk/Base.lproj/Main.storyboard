@@ -373,15 +373,34 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter text here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Q2n-mL-tkU">
+                                <rect key="frame" x="50" y="362" width="275" height="202"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWX-54-Tpx">
+                                <rect key="frame" x="138.5" y="581" width="98" height="30"/>
+                                <state key="normal" title="Save Changes"/>
+                                <connections>
+                                    <action selector="saveDetailChanges:" destination="1rE-Nt-pQz" eventType="touchUpInside" id="bPk-wQ-3UY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" constant="50" id="03P-K5-frM"/>
+                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" secondItem="LWX-54-Tpx" secondAttribute="bottom" constant="25" id="AxW-Ba-pRv"/>
+                            <constraint firstItem="LWX-54-Tpx" firstAttribute="top" secondItem="Q2n-mL-tkU" secondAttribute="bottom" constant="17" id="Ba2-sP-zZF"/>
+                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="top" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="51" id="FNg-s3-RvN"/>
                             <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="10" id="L4t-fE-JPE"/>
                             <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="fe9-v7-s8d" secondAttribute="trailing" constant="16" id="Wrv-wI-jTl"/>
-                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="10" id="ZNq-MI-IRb"/>
                             <constraint firstItem="gO3-We-u9n" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="d8j-US-2bt"/>
+                            <constraint firstItem="LWX-54-Tpx" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="hB7-sJ-K9H"/>
+                            <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="Q2n-mL-tkU" secondAttribute="trailing" constant="50" id="kYq-va-2lk"/>
+                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="50" id="riQ-bu-b9K"/>
                             <constraint firstItem="fe9-v7-s8d" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="16" id="tJJ-wu-eE6"/>
+                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="vwH-iM-0nV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PG8-FA-scv"/>
                     </view>
@@ -401,11 +420,12 @@
                         <outlet property="buildingImageView" destination="fe9-v7-s8d" id="MnY-SR-YpN"/>
                         <outlet property="buildingLabel" destination="gO3-We-u9n" id="oxL-LT-ys0"/>
                         <outlet property="changeImageNAvButton" destination="mqv-gv-8Hf" id="6eu-xF-MXJ"/>
+                        <outlet property="detailTextView" destination="Q2n-mL-tkU" id="gCD-eY-w9P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fX-S2-cVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5022" y="315"/>
+            <point key="canvasLocation" x="5021.6000000000004" y="314.39280359820094"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Mm-Q7-Knb">

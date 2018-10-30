@@ -10,10 +10,12 @@ import UIKit
 
 protocol SaveImageDelegate {
     func save(_ building : String, _ image:UIImage)
+    func saveDetails(_ building : String, _ details:String)
 }
 
-class DetailViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class DetailViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
 
+    @IBOutlet var detailTextView: UITextView!
     @IBOutlet var buildingImageView: UIImageView!
     @IBOutlet var buildingLabel: UILabel!
     @IBOutlet var changeImageNAvButton: UIBarButtonItem!
@@ -22,10 +24,15 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     var image : UIImage?
     var buildingText = String()
     var imagePicker = UIImagePickerController()
+
     var savedBuildingImages = [String:UIImage]()
+    var savedBuildingDetails = [String:String]()
     
     func save(_ building : String, _ image : UIImage) {
         delegate?.save(building, image)
+    }
+    func saveDetails(_ building : String, _ details : String) {
+        delegate?.saveDetails(building, details)
     }
     
     @IBAction func changeImageAction(_ sender: Any) {
@@ -67,23 +74,46 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func saveDetailChanges(_ sender: Any) {
+        detailTextView.resignFirstResponder()
+        if !detailTextView.text!.isEmpty {
+            saveDetails(buildingText, detailTextView.text!)
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.resignFirstResponder()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        detailTextView.delegate = self
+        detailTextView.returnKeyType = .done
         if image != nil {
             buildingImageView.image = image
         }
         if let savedImage = savedBuildingImages[buildingText]{
             buildingImageView.image = savedImage
         }
+        if let savedDetails = savedBuildingDetails[buildingText]{
+            detailTextView.text = savedDetails
+        }
         buildingLabel.text = buildingText
     }
     
-    func configure(_ image : UIImage, _ text : String, _ savedImages : [String:UIImage]) {
+    func configure(_ image : UIImage, _ text : String, _ savedImages : [String:UIImage], _ savedDetails : [String:String]) {
         self.image = image
         self.buildingText = text
         self.savedBuildingImages = savedImages
+        self.savedBuildingDetails = savedDetails
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

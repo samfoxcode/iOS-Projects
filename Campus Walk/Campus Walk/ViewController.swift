@@ -61,7 +61,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var currentPaths = [MKOverlay]()
     var steps = [MKRoute.Step]()
     var savedImages = [String:UIImage]()
-    
+    var savedDetails = [String:String]()
     @IBOutlet var etaLabel: UILabel!
     
     @IBAction func showSteps(_ sender: Any) {
@@ -313,7 +313,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             else {
                 image = UIImage(named: "addPhoto")!
             }
-            detailView.configure(image, buildingName!!, savedImages)
+            detailView.configure(image, buildingName!!, savedImages, savedDetails)
             let nav = UINavigationController(rootViewController: detailView)
             self.present(nav, animated: true, completion: nil)
         }
@@ -492,6 +492,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     func save(_ building: String, _ image: UIImage) {
         savedImages[building] = image
+    }
+    func saveDetails(_ building: String, _ details: String) {
+        savedDetails[building] = details
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
