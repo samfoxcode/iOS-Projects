@@ -130,7 +130,7 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     @objc func keyboardWillShow(notification:Notification) {
-        if !keyboardVisible {
+        if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
             if self.view.frame.origin.y == 0{
@@ -143,7 +143,7 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     
     @objc
     func keyboardWillHide(notification:Notification) {
-        if keyboardVisible {
+        if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
             if self.view.frame.origin.y != 0{
