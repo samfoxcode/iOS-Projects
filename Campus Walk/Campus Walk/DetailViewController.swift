@@ -29,7 +29,7 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     var savedBuildingImages = [String:UIImage]()
     var savedBuildingDetails = [String:String]()
     var previousHeight : CGFloat = 25.0
-    
+    var kKeyboardSize : CGFloat = 0.0
     func save(_ building : String, _ image : UIImage) {
         delegate?.save(building, image)
     }
@@ -134,6 +134,7 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
             if self.view.frame.origin.y == 0{
+                kKeyboardSize = keyboardSize!.height
                 self.view.frame.origin.y -= keyboardSize!.height
             }
         }
@@ -154,7 +155,7 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        detailTextView.resignFirstResponder()
+        //detailTextView.resignFirstResponder()
     }
     
     func configure(_ image : UIImage, _ text : String, _ savedImages : [String:UIImage], _ savedDetails : [String:String]) {
