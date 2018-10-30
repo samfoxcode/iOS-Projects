@@ -15,6 +15,7 @@ protocol SaveImageDelegate {
 
 class DetailViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
 
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var detailTextView: UITextView!
     @IBOutlet var buildingImageView: UIImageView!
     @IBOutlet var buildingLabel: UILabel!
@@ -24,9 +25,10 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
     var image : UIImage?
     var buildingText = String()
     var imagePicker = UIImagePickerController()
-
+    var keyboardVisible = false
     var savedBuildingImages = [String:UIImage]()
     var savedBuildingDetails = [String:String]()
+    var previousHeight : CGFloat = 25.0
     
     func save(_ building : String, _ image : UIImage) {
         delegate?.save(building, image)
@@ -93,6 +95,11 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
         textView.resignFirstResponder()
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        scrollView.contentSize.height = scrollView.contentSize.height + (textView.contentSize.height - previousHeight)
+        previousHeight = textView.contentSize.height
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         detailTextView.delegate = self
@@ -107,6 +114,47 @@ class DetailViewController: UIViewController, UINavigationControllerDelegate, UI
             detailTextView.text = savedDetails
         }
         buildingLabel.text = buildingText
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        if !keyboardVisible {
+            let userInfo = notification.userInfo!
+            let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize!.height
+            }
+        }
+        
+        keyboardVisible = true
+    }
+    
+    @objc
+    func keyboardWillHide(notification:Notification) {
+        if keyboardVisible {
+            let userInfo = notification.userInfo!
+            let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize!.height
+            }
+        }
+        keyboardVisible = false
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        detailTextView.resignFirstResponder()
     }
     
     func configure(_ image : UIImage, _ text : String, _ savedImages : [String:UIImage], _ savedDetails : [String:String]) {

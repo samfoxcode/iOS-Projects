@@ -357,50 +357,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fe9-v7-s8d">
-                                <rect key="frame" x="16" y="114" width="343" height="197"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
-                                </accessibility>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjK-6Z-Pnf">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Enter text here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Q2n-mL-tkU">
+                                        <rect key="frame" x="50" y="260" width="275" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWX-54-Tpx">
+                                        <rect key="frame" x="138.5" y="351" width="98" height="30"/>
+                                        <state key="normal" title="Save Changes"/>
+                                        <connections>
+                                            <action selector="saveDetailChanges:" destination="1rE-Nt-pQz" eventType="touchUpInside" id="bPk-wQ-3UY"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO3-We-u9n">
+                                        <rect key="frame" x="166.5" y="389" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fe9-v7-s8d">
+                                        <rect key="frame" x="16" y="34" width="343" height="197"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="343" id="Bze-c3-NH8"/>
+                                            <constraint firstAttribute="height" constant="197" id="Mrc-8P-cPo"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="343" id="Bze-c3-NH8"/>
-                                    <constraint firstAttribute="height" constant="197" id="Mrc-8P-cPo"/>
+                                    <constraint firstItem="gO3-We-u9n" firstAttribute="centerX" secondItem="PjK-6Z-Pnf" secondAttribute="centerX" id="IIe-jh-9nf"/>
+                                    <constraint firstItem="gO3-We-u9n" firstAttribute="top" secondItem="LWX-54-Tpx" secondAttribute="bottom" constant="8" id="M8T-aG-hDg"/>
+                                    <constraint firstItem="LWX-54-Tpx" firstAttribute="top" secondItem="Q2n-mL-tkU" secondAttribute="bottom" constant="58" id="MI0-oI-C5K"/>
+                                    <constraint firstItem="Q2n-mL-tkU" firstAttribute="top" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="29" id="Qgc-Wq-Q71"/>
+                                    <constraint firstItem="fe9-v7-s8d" firstAttribute="centerX" secondItem="PjK-6Z-Pnf" secondAttribute="centerX" id="Ux0-bc-Sq4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q2n-mL-tkU" secondAttribute="trailing" constant="50" id="b8o-px-dCv"/>
+                                    <constraint firstItem="Q2n-mL-tkU" firstAttribute="centerX" secondItem="PjK-6Z-Pnf" secondAttribute="centerX" id="cn8-93-7GF"/>
+                                    <constraint firstItem="LWX-54-Tpx" firstAttribute="centerX" secondItem="PjK-6Z-Pnf" secondAttribute="centerX" id="kfD-Wm-yfv"/>
+                                    <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PjK-6Z-Pnf" secondAttribute="top" constant="34" id="lbA-go-PrE"/>
+                                    <constraint firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="24" id="m5I-GU-5PF"/>
+                                    <constraint firstItem="Q2n-mL-tkU" firstAttribute="leading" secondItem="PjK-6Z-Pnf" secondAttribute="leading" constant="50" id="yQU-Co-0Sp"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO3-We-u9n">
-                                <rect key="frame" x="166.5" y="636" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter text here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Q2n-mL-tkU">
-                                <rect key="frame" x="50" y="362" width="275" height="202"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWX-54-Tpx">
-                                <rect key="frame" x="138.5" y="581" width="98" height="30"/>
-                                <state key="normal" title="Save Changes"/>
-                                <connections>
-                                    <action selector="saveDetailChanges:" destination="1rE-Nt-pQz" eventType="touchUpInside" id="bPk-wQ-3UY"/>
-                                </connections>
-                            </button>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fe9-v7-s8d" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" constant="50" id="03P-K5-frM"/>
-                            <constraint firstItem="gO3-We-u9n" firstAttribute="top" secondItem="LWX-54-Tpx" secondAttribute="bottom" constant="25" id="AxW-Ba-pRv"/>
-                            <constraint firstItem="LWX-54-Tpx" firstAttribute="top" secondItem="Q2n-mL-tkU" secondAttribute="bottom" constant="17" id="Ba2-sP-zZF"/>
-                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="top" secondItem="fe9-v7-s8d" secondAttribute="bottom" constant="51" id="FNg-s3-RvN"/>
-                            <constraint firstItem="PG8-FA-scv" firstAttribute="bottom" secondItem="gO3-We-u9n" secondAttribute="bottom" constant="10" id="L4t-fE-JPE"/>
-                            <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="fe9-v7-s8d" secondAttribute="trailing" constant="16" id="Wrv-wI-jTl"/>
-                            <constraint firstItem="gO3-We-u9n" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="d8j-US-2bt"/>
-                            <constraint firstItem="LWX-54-Tpx" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="hB7-sJ-K9H"/>
-                            <constraint firstItem="PG8-FA-scv" firstAttribute="trailing" secondItem="Q2n-mL-tkU" secondAttribute="trailing" constant="50" id="kYq-va-2lk"/>
-                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="50" id="riQ-bu-b9K"/>
-                            <constraint firstItem="fe9-v7-s8d" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" constant="16" id="tJJ-wu-eE6"/>
-                            <constraint firstItem="Q2n-mL-tkU" firstAttribute="centerX" secondItem="Sfn-3G-RLH" secondAttribute="centerX" id="vwH-iM-0nV"/>
+                            <constraint firstItem="PjK-6Z-Pnf" firstAttribute="leading" secondItem="PG8-FA-scv" secondAttribute="leading" id="JnT-Vw-57Y"/>
+                            <constraint firstItem="PjK-6Z-Pnf" firstAttribute="bottom" secondItem="PG8-FA-scv" secondAttribute="bottom" id="Nd5-Sq-Noc"/>
+                            <constraint firstItem="PjK-6Z-Pnf" firstAttribute="trailing" secondItem="PG8-FA-scv" secondAttribute="trailing" id="mU4-YH-H9H"/>
+                            <constraint firstItem="PjK-6Z-Pnf" firstAttribute="top" secondItem="PG8-FA-scv" secondAttribute="top" id="pw1-jd-zLW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PG8-FA-scv"/>
                     </view>
@@ -421,6 +431,7 @@
                         <outlet property="buildingLabel" destination="gO3-We-u9n" id="oxL-LT-ys0"/>
                         <outlet property="changeImageNAvButton" destination="mqv-gv-8Hf" id="6eu-xF-MXJ"/>
                         <outlet property="detailTextView" destination="Q2n-mL-tkU" id="gCD-eY-w9P"/>
+                        <outlet property="scrollView" destination="PjK-6Z-Pnf" id="7MZ-G1-wgj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fX-S2-cVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
