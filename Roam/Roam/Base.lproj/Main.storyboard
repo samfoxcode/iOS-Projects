@@ -13,13 +13,13 @@
         <!--Global-->
         <scene sceneID="bIu-uc-Pbb">
             <objects>
-                <tableViewController id="Qel-0y-96F" sceneMemberID="viewController">
+                <tableViewController id="Qel-0y-96F" customClass="GlobalUsersTableViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qBF-H0-HFI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Kn6-mi-8zk">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post" id="Kn6-mi-8zk">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kn6-mi-8zk" id="ShZ-hO-mDc">
@@ -35,19 +35,35 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Global" id="brq-f6-jPT"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="globalTableView" destination="qBF-H0-HFI" id="gMf-KA-aim"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azn-gv-rEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1329" y="-824"/>
+            <point key="canvasLocation" x="929" y="-994"/>
         </scene>
         <!--Upload-->
         <scene sceneID="Ijd-ev-NCg">
             <objects>
-                <viewController id="U6f-mX-jWo" sceneMemberID="viewController">
+                <viewController id="U6f-mX-jWo" customClass="UploadPostViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1rI-Rv-tLD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pe6-ri-QnA">
+                                <rect key="frame" x="163" y="485" width="49" height="30"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitPost:" destination="U6f-mX-jWo" eventType="touchUpInside" id="uLM-gA-aDB"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pe6-ri-QnA" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="62C-jW-gcn"/>
+                            <constraint firstItem="OtU-zn-zaO" firstAttribute="bottom" secondItem="Pe6-ri-QnA" secondAttribute="bottom" constant="103" id="n18-Yw-pZP"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="OtU-zn-zaO"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Upload" id="qPD-mk-SsP"/>
@@ -55,7 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wwh-fx-pN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-354" y="-225"/>
+            <point key="canvasLocation" x="-414" y="-247"/>
         </scene>
         <!--Profile-->
         <scene sceneID="bXf-Bi-D8t">

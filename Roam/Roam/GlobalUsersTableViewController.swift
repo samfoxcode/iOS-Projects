@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import Firebase
 
 class GlobalUsersTableViewController: UITableViewController {
 
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
+
+    @IBOutlet var globalTableView: UITableView!
+    
+    var posts = [Post]()  {
+        didSet {
+            globalTableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,27 +35,38 @@ class GlobalUsersTableViewController: UITableViewController {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
+            var posts = [Post]()
+            for postSnapshot in snapshot.children {
+                let post = Post(snapshot: postSnapshot as! DataSnapshot)
+                posts.append(post)
+            }
+            self.posts = posts
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.posts.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = posts[indexPath.row].username
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

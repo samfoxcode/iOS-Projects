@@ -19,6 +19,8 @@
 		226DB032218E461400261560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 226DB030218E461400261560 /* GoogleService-Info.plist */; };
 		226DB034218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
 		226DB035218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
+		226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */; };
+		226DB039218E983200261560 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB038218E983200261560 /* UploadPostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		225A9478218E43D900C14B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226DB030218E461400261560 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		226DB033218E4CAF00261560 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUsersTableViewController.swift; sourceTree = "<group>"; };
+		226DB038218E983200261560 /* UploadPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
 		3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.release.xcconfig"; sourceTree = "<group>"; };
 		85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.debug.xcconfig"; sourceTree = "<group>"; };
 		A532F474A5D30A82FB8056C8 /* Pods-RoamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoamTests/Pods-RoamTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
 				225A946D218E43D900C14B6B /* Info.plist */,
 				226DB030218E461400261560 /* GoogleService-Info.plist */,
+				226DB038218E983200261560 /* UploadPostViewController.swift */,
+				226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */,
 				226DB033218E4CAF00261560 /* Model.swift */,
 			);
 			path = Roam;
@@ -305,7 +311,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				226DB039218E983200261560 /* UploadPostViewController.swift in Sources */,
 				225A9464218E43D800C14B6B /* ViewController.swift in Sources */,
+				226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
 			);
