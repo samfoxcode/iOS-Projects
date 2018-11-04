@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
-
+    
+    fileprivate var ref : DatabaseReference!
+    fileprivate var storageRef : StorageReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        ref = Database.database().reference()
+        
+        //ref.child("Users").child("UniqueId").setValue(["addedBy":"ME", "imagePath":"TestPath"])
+        
+        storageRef = Storage.storage().reference()
     }
 
 

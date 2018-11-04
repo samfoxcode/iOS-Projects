@@ -17,6 +17,8 @@
 		225A9477218E43D900C14B6B /* RoamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225A9476218E43D900C14B6B /* RoamTests.swift */; };
 		226DB031218E461400261560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 226DB030218E461400261560 /* GoogleService-Info.plist */; };
 		226DB032218E461400261560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 226DB030218E461400261560 /* GoogleService-Info.plist */; };
+		226DB034218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
+		226DB035218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,7 @@
 		225A9476218E43D900C14B6B /* RoamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoamTests.swift; sourceTree = "<group>"; };
 		225A9478218E43D900C14B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		226DB030218E461400261560 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		226DB033218E4CAF00261560 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.release.xcconfig"; sourceTree = "<group>"; };
 		85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.debug.xcconfig"; sourceTree = "<group>"; };
 		A532F474A5D30A82FB8056C8 /* Pods-RoamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoamTests/Pods-RoamTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
 				225A946D218E43D900C14B6B /* Info.plist */,
 				226DB030218E461400261560 /* GoogleService-Info.plist */,
+				226DB033218E4CAF00261560 /* Model.swift */,
 			);
 			path = Roam;
 			sourceTree = "<group>";
@@ -279,12 +283,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Roam/Pods-Roam-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				225A9464218E43D800C14B6B /* ViewController.swift in Sources */,
+				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				225A9477218E43D900C14B6B /* RoamTests.swift in Sources */,
+				226DB035218E4CAF00261560 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
