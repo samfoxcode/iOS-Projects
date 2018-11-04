@@ -21,6 +21,7 @@
 		226DB035218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
 		226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */; };
 		226DB039218E983200261560 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB038218E983200261560 /* UploadPostViewController.swift */; };
+		228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		226DB033218E4CAF00261560 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUsersTableViewController.swift; sourceTree = "<group>"; };
 		226DB038218E983200261560 /* UploadPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
+		228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.release.xcconfig"; sourceTree = "<group>"; };
 		85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.debug.xcconfig"; sourceTree = "<group>"; };
 		A532F474A5D30A82FB8056C8 /* Pods-RoamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoamTests/Pods-RoamTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		225A9460218E43D800C14B6B /* Roam */ = {
 			isa = PBXGroup;
 			children = (
+				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9463218E43D800C14B6B /* ViewController.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
@@ -316,6 +319,7 @@
 				226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
+				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U3Y4H3FKHQ;
 				INFOPLIST_FILE = Roam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -498,6 +503,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U3Y4H3FKHQ;
 				INFOPLIST_FILE = Roam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

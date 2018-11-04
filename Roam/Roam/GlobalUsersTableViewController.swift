@@ -60,10 +60,10 @@ class GlobalUsersTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
-        cell.textLabel?.text = posts[indexPath.row].username
-
+        cell.post = posts[indexPath.row]
+        
         return cell
     }
  
