@@ -23,7 +23,7 @@ class GlobalUsersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -75,7 +75,8 @@ class GlobalUsersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
-        cell.post = posts[indexPath.row]
+        print(posts[indexPath.section].imagePath)
+        cell.post = posts[indexPath.section]
         
         return cell
     }

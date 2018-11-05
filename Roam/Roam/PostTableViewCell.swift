@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Firebase
 
 class PostTableViewCell: UITableViewCell {
 
+    fileprivate var storageRef : StorageReference!
+    fileprivate var downloadImageTask : StorageDownloadTask!
+    
     @IBOutlet weak var globalPostersName: UILabel!
     @IBOutlet weak var globalPosterUsername: UILabel!
     @IBOutlet weak var globalPostImageView: UIImageView!
@@ -20,6 +24,7 @@ class PostTableViewCell: UITableViewCell {
     var post: Post? {
         didSet {
             if let post = post {
+                downloadImage(from: post.imagePath)
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username
                 globalPostDescriptionTextView.text = "Testing TextView Text"
@@ -27,9 +32,42 @@ class PostTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    
+    func downloadImage(from imagePath: String) {
+        let storage = storageRef.storage.reference(forURL: imagePath)
+        storage.getData(maxSize: 1*1024*1024) { (data, error) in
+            if error == nil {
+                self.globalPostImageView.image = UIImage(data: data!)
+            }
+            else {
+                print("Error:\(error ?? "" as! Error)")
+            }
+        }
+        
+        
+        /*
+        
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let filePath = "file:\(documentsDirectory)/myimage.jpg"
+        guard let fileURL = URL(string: filePath) else { return }
+        
+        downloadImageTask = storageRef.child(imagePath).write(toFile: fileURL, completion: { (url, error) in
+            if let error = error {
+                print("Error downloading:\(error)")
+                return
+            } else if let imagePath = url?.path {
+                self.globalPostImageView.image = UIImage(contentsOfFile: imagePath)
+            }
+        })
+         */
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        storageRef = Storage.storage().reference()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,4 +76,10 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        globalPostImageView.image = nil
+        globalPostersName.text = ""
+        globalPosterUsername.text = ""
+    }
 }
