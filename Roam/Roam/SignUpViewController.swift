@@ -16,6 +16,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var confirmNewUserPassword: UITextField!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newUserEmail.delegate = self
