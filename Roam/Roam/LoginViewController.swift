@@ -47,11 +47,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func processErrors(_ textField: UITextField) {
-        
+        // Make sure input is correct
     }
     
     func processSuccess(_ textField: UITextField) {
-        
+        // Move firstResponder to next field or close if both are filled in
     }
 
     /*

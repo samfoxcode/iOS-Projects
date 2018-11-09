@@ -225,10 +225,10 @@
             </objects>
             <point key="canvasLocation" x="-1962.4000000000001" y="-341.37931034482762"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Experiences Table View Controller-->
         <scene sceneID="ciO-lp-ugh">
             <objects>
-                <tableViewController id="roa-F4-9j5" sceneMemberID="viewController">
+                <tableViewController id="roa-F4-9j5" customClass="ExperiencesTableViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uaX-Ay-q7V">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,10 +253,10 @@
             </objects>
             <point key="canvasLocation" x="-758" y="-661"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Flights Stays Table View Controller-->
         <scene sceneID="ybe-rV-9QR">
             <objects>
-                <tableViewController id="Byb-Xf-ItE" sceneMemberID="viewController">
+                <tableViewController id="Byb-Xf-ItE" customClass="FlightsStaysTableViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MKI-fe-XSc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
