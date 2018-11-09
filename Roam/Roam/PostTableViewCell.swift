@@ -44,25 +44,7 @@ class PostTableViewCell: UITableViewCell {
                 print("Error:\(error ?? "" as! Error)")
             }
         }
-        
-        
-        /*
-        
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        let filePath = "file:\(documentsDirectory)/myimage.jpg"
-        guard let fileURL = URL(string: filePath) else { return }
-        
-        downloadImageTask = storageRef.child(imagePath).write(toFile: fileURL, completion: { (url, error) in
-            if let error = error {
-                print("Error downloading:\(error)")
-                return
-            } else if let imagePath = url?.path {
-                self.globalPostImageView.image = UIImage(contentsOfFile: imagePath)
-            }
-        })
-         */
+
     }
     
     override func awakeFromNib() {
