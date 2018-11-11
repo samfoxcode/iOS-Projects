@@ -8,8 +8,16 @@
 
 import UIKit
 
-class ExperiencesTableViewController: UITableViewController {
+class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate {
 
+    var isAdding = false
+    let model = Experiences.sharedExperiencesInstance
+    
+    struct TaskSection {
+        static let tasks = 0
+        static let add = 1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,30 +25,58 @@ class ExperiencesTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        isAdding = false
+        
+        guard let text = textField.text else {return true}
+        
+        if text.isEmpty {
+            tableView.reloadData()
+        } else {
+            model.addExperience(text)
+            textField.text = ""
+            tableView.reloadData()
+        }
+        return true
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return isAdding ? 2 : 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch section {
+        case TaskSection.tasks:
+            return model.experiencesCount
+        case TaskSection.add:
+            return 1
+        default:
+            assert(false, "Unhandled Section Number")
+        }
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    switch indexPath.section {
+        case TaskSection.tasks:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Experience", for: indexPath)
+            cell.textLabel?.text = model.experienceAtIndex(indexPath.row)
+            return cell
+        case TaskSection.add:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddExperience", for: indexPath) as! ExperienceTableViewCell
+            return cell
+        default:
+            assert(false, "Unhandled Section Number")
+        }
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

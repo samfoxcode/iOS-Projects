@@ -71,3 +71,28 @@ struct Post {
         ]
     }
 }
+
+class Experiences {
+    static let sharedExperiencesInstance = Experiences()
+    
+    var experiences = [String]()
+    
+    func addExperience(_ experience: String) {
+        experiences.append(experience)
+    }
+    
+    func removeExperience(_ experience: String) {
+        let index = experiences.firstIndex(of: experience)
+        
+        if let indexOfExperience = index {
+            experiences.remove(at: indexOfExperience)
+        }
+    }
+    
+    func experienceAtIndex(_ index: Int) -> String{
+        return experiences[index]
+    }
+    
+    var experiencesCount: Int {return experiences.count}
+    
+}

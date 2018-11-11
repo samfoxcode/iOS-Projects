@@ -18,6 +18,7 @@
 		2264B69321912FA500A402A1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264B69221912FA500A402A1 /* ProfileViewController.swift */; };
 		2264B69521952E4500A402A1 /* ExperiencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264B69421952E4500A402A1 /* ExperiencesTableViewController.swift */; };
 		2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264B69821952EB900A402A1 /* FlightsStaysTableViewController.swift */; };
+		2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264B69B2197C2CE00A402A1 /* ExperienceTableViewCell.swift */; };
 		226DB031218E461400261560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 226DB030218E461400261560 /* GoogleService-Info.plist */; };
 		226DB032218E461400261560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 226DB030218E461400261560 /* GoogleService-Info.plist */; };
 		226DB034218E4CAF00261560 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB033218E4CAF00261560 /* Model.swift */; };
@@ -56,6 +57,7 @@
 		2264B69221912FA500A402A1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		2264B69421952E4500A402A1 /* ExperiencesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperiencesTableViewController.swift; sourceTree = "<group>"; };
 		2264B69821952EB900A402A1 /* FlightsStaysTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightsStaysTableViewController.swift; sourceTree = "<group>"; };
+		2264B69B2197C2CE00A402A1 /* ExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		226DB030218E461400261560 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		226DB033218E4CAF00261560 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUsersTableViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				226DB038218E983200261560 /* UploadPostViewController.swift */,
 				2264B69421952E4500A402A1 /* ExperiencesTableViewController.swift */,
 				2264B69821952EB900A402A1 /* FlightsStaysTableViewController.swift */,
+				2264B69B2197C2CE00A402A1 /* ExperienceTableViewCell.swift */,
 			);
 			path = "Create Post";
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				2264B69321912FA500A402A1 /* ProfileViewController.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
+				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
 				22A182FE218FE4AA00DE3AC4 /* HomeViewController.swift in Sources */,
 				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
 			);

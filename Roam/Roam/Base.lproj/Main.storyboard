@@ -234,13 +234,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Experience" id="LZT-iS-lCA">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Experience" rowHeight="54" id="LZT-iS-lCA">
+                                <rect key="frame" x="0.0" y="28" width="375" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LZT-iS-lCA" id="oYN-se-Ipe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="53.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddExperience" rowHeight="88" id="xNB-JG-dCm" customClass="ExperienceTableViewCell" customModule="Roam" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="82" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xNB-JG-dCm" id="fX2-cR-5J4" customClass="ExperienceTableViewCell" customModule="Roam" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r6L-08-vdV">
+                                            <rect key="frame" x="16" y="28" width="343" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="r6L-08-vdV" firstAttribute="leading" secondItem="fX2-cR-5J4" secondAttribute="leadingMargin" id="NNi-7o-9uc"/>
+                                        <constraint firstItem="r6L-08-vdV" firstAttribute="trailing" secondItem="fX2-cR-5J4" secondAttribute="trailingMargin" id="Rse-e0-DOJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="r6L-08-vdV" secondAttribute="bottom" constant="19" id="iGd-9b-jeg"/>
+                                        <constraint firstItem="r6L-08-vdV" firstAttribute="top" secondItem="fX2-cR-5J4" secondAttribute="topMargin" constant="17" id="tjO-2D-HIe"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="experienceTextField" destination="r6L-08-vdV" id="s5A-HM-2jV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -251,7 +276,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9L-DG-FSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-758" y="-661"/>
+            <point key="canvasLocation" x="-759.20000000000005" y="-661.61919040479768"/>
         </scene>
         <!--Flights Stays Table View Controller-->
         <scene sceneID="ybe-rV-9QR">
