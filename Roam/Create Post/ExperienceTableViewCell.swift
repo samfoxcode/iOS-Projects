@@ -8,14 +8,13 @@
 
 import UIKit
 
-class ExperienceTableViewCell: UITableViewCell {
+class ExperienceTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var experienceTextField: UITextField!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,5 +22,5 @@ class ExperienceTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }

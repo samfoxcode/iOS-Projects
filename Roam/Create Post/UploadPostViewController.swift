@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import Photos
 
-class UploadPostViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class UploadPostViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate {
 
     fileprivate var databaseRef : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -18,6 +18,8 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
     
     var imagePicker = UIImagePickerController()
     var imageToUpload = UIImage(named: "addPhoto")
+    var travels = [String]()
+    var experiences = [String]()
     
     fileprivate var showNetworkActivityIndicator = false {
         didSet {
@@ -111,13 +113,10 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
         }
         
         storage.putData(image!).observe(.success) { (snapshot) in
-            print("In putData")
             // When the image has successfully uploaded, we get it's download URL
             storage.downloadURL(completion: { (url, error) in
                 if (error == nil) {
-                    print("Error is nil")
                     if let downloadUrl = url {
-                        print("Now here")
                         // Make you download string
                         let downloadURL = downloadUrl.absoluteString
                         self.uploadSuccess(downloadURL)
@@ -126,7 +125,6 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
                         self.uploadImageView.alpha = 0.5
                     }
                 } else {
-                    print("HERE in error")
                     print("Error:\(String(describing: error?.localizedDescription))")
                 }
             })
@@ -137,18 +135,36 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
     
     func uploadSuccess(_ imagePath : String) {
         // TODO: Create post with correct details from flights/experiences
-        let post = Post(addedByUser: "Sam", username: "Samf1596", description: "DescriptionTest", imagePath: imagePath, flights: "FlightTest", itinerary: "ItineraryTest", stays: "StaysTest", isPublic: true)
+        let post = Post(addedByUser: "Sam", username: "Samf1596", description: "DescriptionTest", imagePath: imagePath, experiences: experiences, travels: travels, isPublic: true)
         
         databaseRef.child(FirebaseFields.Posts.rawValue).child(post.username + "\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
     }
-    /*
+    
+    func saveTravels(_ travels: [String]) {
+        print(travels)
+        self.travels = travels
+    }
+    
+    func saveExperiences(_ experiences: [String]) {
+        print(experiences)
+        self.experiences = experiences
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         switch segue.identifier {
+         case "AddExperiences":
+             let navController = segue.destination as! UINavigationController
+             let experiencesController = navController.topViewController as! ExperiencesTableViewController
+             experiencesController.delegate = self
+         case "AddTravel":
+             let navController = segue.destination as! UINavigationController
+             let travelController = navController.topViewController as! FlightsStaysTableViewController
+             travelController.delegate = self
+         default:
+            assert(false, "Unhandled Segue")
+         }
+     }
 
 }

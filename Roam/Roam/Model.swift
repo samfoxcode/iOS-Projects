@@ -19,9 +19,8 @@ enum PostAttributes: String {
     case username
     case description
     case imagePath
-    case flights
-    case itinerary
-    case stays
+    case experiences
+    case travels
     case isPublic
 }
 
@@ -30,19 +29,17 @@ struct Post {
     let username: String
     let description: String
     let imagePath: String
-    let flights: String
-    let itinerary: String
-    let stays: String
+    let experiences: [String]
+    let travels: [String]
     let isPublic: Bool
 
-    init(addedByUser: String, username: String, description: String, imagePath: String, flights: String, itinerary: String, stays: String, isPublic: Bool){
+    init(addedByUser: String, username: String, description: String, imagePath: String, experiences: [String], travels: [String], isPublic: Bool){
         self.addedByUser = addedByUser
         self.username = username
         self.description = description
         self.imagePath = imagePath
-        self.flights = flights
-        self.itinerary = itinerary
-        self.stays = stays
+        self.experiences = experiences
+        self.travels = travels
         self.isPublic = isPublic
     }
     
@@ -52,9 +49,8 @@ struct Post {
         self.username = snapshotValue[PostAttributes.username.rawValue] as! String
         self.description = snapshotValue[PostAttributes.description.rawValue] as! String
         self.imagePath = snapshotValue[PostAttributes.imagePath.rawValue] as! String
-        self.flights = snapshotValue[PostAttributes.flights.rawValue] as! String
-        self.itinerary = snapshotValue[PostAttributes.itinerary.rawValue] as! String
-        self.stays = snapshotValue[PostAttributes.stays.rawValue] as! String
+        self.experiences = snapshotValue[PostAttributes.experiences.rawValue] as! [String]
+        self.travels = snapshotValue[PostAttributes.travels.rawValue] as! [String]
         self.isPublic = snapshotValue[PostAttributes.isPublic.rawValue] as! Bool
     }
     
@@ -64,9 +60,8 @@ struct Post {
             PostAttributes.username.rawValue: self.username,
             PostAttributes.description.rawValue: self.description,
             PostAttributes.imagePath.rawValue: self.imagePath,
-            PostAttributes.flights.rawValue: self.flights,
-            PostAttributes.itinerary.rawValue: self.itinerary,
-            PostAttributes.stays.rawValue: self.stays,
+            PostAttributes.experiences.rawValue: self.experiences,
+            PostAttributes.travels.rawValue: self.travels,
             PostAttributes.isPublic.rawValue: self.isPublic,
         ]
     }
@@ -89,10 +84,43 @@ class Experiences {
         }
     }
     
+    func deleteExperienceAtIndex(_ index: Int) {
+        experiences.remove(at: index)
+    }
+    
     func experienceAtIndex(_ index: Int) -> String{
         return experiences[index]
     }
     
     var experiencesCount: Int {return experiences.count}
+    
+}
+
+class TravelInfo {
+    static let sharedTravelsInstance = TravelInfo()
+    
+    var travels = [String]()
+    
+    func addTravel(_ travel: String) {
+        travels.append(travel)
+    }
+    
+    func removeTravel(_ travel: String) {
+        let index = travels.firstIndex(of: travel)
+        
+        if let indexOfTravel = index {
+            travels.remove(at: indexOfTravel)
+        }
+    }
+    
+    func deleteTravelAtIndex(_ index: Int) {
+        travels.remove(at: index)
+    }
+    
+    func travelAtIndex(_ index: Int) -> String{
+        return travels[index]
+    }
+    
+    var travelsCount: Int {return travels.count}
     
 }
