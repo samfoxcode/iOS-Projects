@@ -77,7 +77,7 @@ class GlobalUsersTableViewController: UITableViewController {
 
         print(posts[indexPath.section].imagePath)
         cell.post = posts[indexPath.section]
-        
+        cell.globalPostExperienceDetails.tag = indexPath.section
         return cell
     }
  
@@ -117,14 +117,21 @@ class GlobalUsersTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "ShowExperienceDetails":
+                let button = sender as? UIButton
+                let navController = segue.destination as! UINavigationController
+                let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
+                print(button!.tag)
+                let postIndex = button!.tag
+                let post = posts[postIndex]
+                experienceDetailController.configure(post.travels, post.experiences)
+            default:
+                assert(false, "Unhandled Segue")
+             }
+     }
 
 }

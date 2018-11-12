@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import Photos
 
-class UploadPostViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate {
+class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate {
 
     fileprivate var databaseRef : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -18,8 +18,8 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
     
     var imagePicker = UIImagePickerController()
     var imageToUpload = UIImage(named: "addPhoto")
-    var travels = [String]()
-    var experiences = [String]()
+    var travels = [""]
+    var experiences = [""]
     
     fileprivate var showNetworkActivityIndicator = false {
         didSet {
@@ -143,11 +143,17 @@ class UploadPostViewController: UIViewController,UINavigationControllerDelegate,
     func saveTravels(_ travels: [String]) {
         print(travels)
         self.travels = travels
+        if self.travels.count < 1 {
+            self.travels = [""]
+        }
     }
     
     func saveExperiences(_ experiences: [String]) {
         print(experiences)
         self.experiences = experiences
+        if self.experiences.count < 1 {
+            self.experiences = [""]
+        }
     }
     // MARK: - Navigation
 

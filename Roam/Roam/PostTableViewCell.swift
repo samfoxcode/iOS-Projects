@@ -64,4 +64,5 @@ class PostTableViewCell: UITableViewCell {
         globalPostersName.text = ""
         globalPosterUsername.text = ""
     }
+
 }
