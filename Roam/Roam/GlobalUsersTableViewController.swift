@@ -13,13 +13,12 @@ class GlobalUsersTableViewController: UITableViewController {
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
 
+    let cachedImage = CachedImages()
+    
     @IBOutlet var globalTableView: UITableView!
     
-    var posts = [Post]()  {
-        didSet {
-            globalTableView.reloadData()
-        }
-    }
+    var posts = [Post]()
+    var cachedPosts = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,8 @@ class GlobalUsersTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
         
         ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
             var posts = [Post]()
@@ -45,13 +45,43 @@ class GlobalUsersTableViewController: UITableViewController {
                 posts.append(post)
             }
             self.posts = posts
+            let block = {
+                self.cachedPosts = self.posts
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+            DispatchQueue.main.async(execute: block)
+        }
+        super.viewWillAppear(animated)
+    }
+    
+    @IBAction func refreshContent(_ sender: UIRefreshControl) {
+        let block = {
+            self.cachedPosts = self.posts
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
+        DispatchQueue.main.async(execute: block)
+    }
+    
+    func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
+        let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
+        storage.getData(maxSize: 1*1024*1024) { (data, error) in
+            if error == nil {
+                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                let image = UIImage(data: data!)
+                self.cachedImage.cacheImage(imageURL, image!)
+            }
+            else {
+                print("Error:\(error ?? "" as! Error)")
+            }
         }
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.posts.count
+        return self.cachedPosts.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,16 +101,16 @@ class GlobalUsersTableViewController: UITableViewController {
         let view = UIView(frame: CGRect.zero)
         return view
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
-        print(posts[indexPath.section].imagePath)
-        cell.post = posts[indexPath.section]
+        downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
+        cell.globalPostImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.section].imagePath)
+        cell.post = self.cachedPosts[indexPath.section]
         cell.globalPostExperienceDetails.tag = indexPath.section
         return cell
     }
- 
 
     /*
     // Override to support conditional editing of the table view.

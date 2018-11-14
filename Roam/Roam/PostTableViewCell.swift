@@ -24,7 +24,9 @@ class PostTableViewCell: UITableViewCell {
     var post: Post? {
         didSet {
             if let post = post {
-                downloadImage(from: post.imagePath)
+                if globalPostImageView.image == nil {
+                    downloadImage(from: post.imagePath)
+                }
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username
                 globalPostDescriptionTextView.text = "Testing TextView Text"
@@ -44,7 +46,6 @@ class PostTableViewCell: UITableViewCell {
                 print("Error:\(error ?? "" as! Error)")
             }
         }
-
     }
     
     override func awakeFromNib() {

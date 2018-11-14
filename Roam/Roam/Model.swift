@@ -32,7 +32,8 @@ struct Post {
     let experiences: [String]
     let travels: [String]
     let isPublic: Bool
-
+    var cachedImage: UIImage? = nil
+    
     init(addedByUser: String, username: String, description: String, imagePath: String, experiences: [String], travels: [String], isPublic: Bool){
         self.addedByUser = addedByUser
         self.username = username
@@ -123,4 +124,17 @@ class TravelInfo {
     
     var travelsCount: Int {return travels.count}
     
+}
+
+class CachedImages {
+    let imageCache = NSCache<AnyObject, AnyObject>()
+    
+    func cacheImage(_ imageURL: String, _ image: UIImage) {
+        let imageToCache = image
+        imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
+    }
+    
+    func getCachedImage(_ imageURL: String) -> UIImage? {
+        return imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+    }
 }

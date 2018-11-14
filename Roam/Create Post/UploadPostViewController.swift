@@ -134,7 +134,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func uploadSuccess(_ imagePath : String) {
-        // TODO: Create post with correct details from flights/experiences
+        // TODO: Create post with correct experience description.
         let post = Post(addedByUser: "Sam", username: "Samf1596", description: "DescriptionTest", imagePath: imagePath, experiences: experiences, travels: travels, isPublic: true)
         
         databaseRef.child(FirebaseFields.Posts.rawValue).child(post.username + "\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
