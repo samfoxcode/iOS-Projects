@@ -12,6 +12,7 @@ class PostTableViewCell: UITableViewCell {
 
     fileprivate var storageRef : StorageReference!
     fileprivate var downloadImageTask : StorageDownloadTask!
+    fileprivate var databaseRef : DatabaseReference!
     
     @IBOutlet weak var globalPostersName: UILabel!
     @IBOutlet weak var globalPosterUsername: UILabel!
@@ -51,6 +52,7 @@ class PostTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         storageRef = Storage.storage().reference()
+        databaseRef = Database.database().reference()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -59,6 +61,13 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func followUser(_ sender: Any) {
+        let username = "USERNAME"
+        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(username)
+        currentUser.child("following").child(globalPosterUsername!.text!).setValue(true)
+        //child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))")
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         globalPostImageView.image = nil
