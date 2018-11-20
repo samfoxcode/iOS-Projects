@@ -12,6 +12,7 @@ import Firebase
 enum FirebaseFields: String {
     case Posts
     case Users
+    case Accounts
 }
 
 enum PostAttributes: String {
@@ -22,6 +23,49 @@ enum PostAttributes: String {
     case experiences
     case travels
     case isPublic
+}
+
+enum UserAttributes: String {
+    case firstname
+    case lastname
+    case username
+    case uid
+    case email
+}
+
+struct NewUser {
+    let firstname: String
+    let lastname: String
+    let username: String
+    let uid: String
+    let email: String
+    
+    init(firstname: String, lastname: String, username: String, uid: String, email: String){
+        self.firstname = firstname
+        self.lastname = lastname
+        self.username = username
+        self.uid = uid
+        self.email = email
+    }
+    
+    init(snapshot: DataSnapshot) {
+        let snapshotValue = snapshot.value as! [String: AnyObject]
+        self.firstname = snapshotValue[UserAttributes.firstname.rawValue] as! String
+        self.lastname = snapshotValue[UserAttributes.lastname.rawValue] as! String
+        self.username = snapshotValue[UserAttributes.username.rawValue] as! String
+        self.uid = snapshotValue[UserAttributes.uid.rawValue] as! String
+        self.email = snapshotValue[UserAttributes.email.rawValue] as! String
+    }
+    
+    func toObject() -> Any {
+        return [
+            UserAttributes.firstname.rawValue: self.firstname,
+            UserAttributes.lastname.rawValue: self.lastname,
+            UserAttributes.username.rawValue: self.username,
+            UserAttributes.uid.rawValue: self.uid,
+            UserAttributes.email.rawValue: self.email
+        ]
+    }
 }
 
 struct Post {

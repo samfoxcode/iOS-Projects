@@ -26,6 +26,7 @@ class HomeTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
     }
@@ -33,30 +34,32 @@ class HomeTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
         var following = [String]()
-    ref.child(FirebaseFields.Users.rawValue).child("USERNAME").child("following").observe(.value) { (snapshot) in
-            for user in snapshot.children {
-                let temp = user as! DataSnapshot
-                print(temp.key)
-                print(temp.value!)
-                following.append(temp.key)
-            }
-        }
+        //var account : NewUser?
         
-        ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
-            var posts = [Post]()
-            for postSnapshot in snapshot.children {
-                let post = Post(snapshot: postSnapshot as! DataSnapshot)
-                if following.contains(post.username) {
-                    posts.append(post)
+        if Auth.auth().currentUser != nil {
+            ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
+                for user in snapshot.children {
+                    let temp = user as! DataSnapshot
+                    following.append(temp.key)
                 }
             }
-            self.posts = posts
-            let block = {
-                self.cachedPosts = self.posts
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
+            
+            ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
+                var posts = [Post]()
+                for postSnapshot in snapshot.children {
+                    let post = Post(snapshot: postSnapshot as! DataSnapshot)
+                    if following.contains(post.username) {
+                        posts.append(post)
+                    }
+                }
+                self.posts = posts
+                let block = {
+                    self.cachedPosts = self.posts
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                }
+                DispatchQueue.main.async(execute: block)
             }
-            DispatchQueue.main.async(execute: block)
         }
         super.viewWillAppear(animated)
     }

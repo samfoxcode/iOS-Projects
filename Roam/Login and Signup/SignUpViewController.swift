@@ -8,25 +8,43 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var newUserEmail: UITextField!
     @IBOutlet weak var newUserPassword: UITextField!
     @IBOutlet weak var confirmNewUserPassword: UITextField!
+    @IBOutlet weak var newUserUsername: UITextField!
+    @IBOutlet weak var newUserFirstName: UITextField!
+    @IBOutlet weak var newUserLastName: UITextField!
     
-    
+    fileprivate var ref : DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newUserFirstName.delegate = self
+        newUserLastName.delegate = self
+        newUserUsername.delegate = self
         newUserEmail.delegate = self
         newUserPassword.delegate = self
         confirmNewUserPassword.delegate = self
+        ref = Database.database().reference()
     }
     
     @IBAction func registerUser(_ sender: Any) {
         Auth.auth().createUser(withEmail: newUserEmail.text!, password: newUserPassword.text!) { (user, error) in
             if error == nil {
+                
+                let firstname = self.newUserFirstName.text!
+                let lastname = self.newUserLastName.text!
+                let username = self.newUserUsername.text!
+                let email = user?.email
+                let userId = user?.uid
+                let newUser = NewUser(firstname: firstname, lastname: lastname, username: username, uid: userId!, email: email!)
+                
+                self.ref.child("Accounts").child(userId!).setValue(newUser.toObject());
+                
                 self.performSegue(withIdentifier: "SignupToHomeSegue", sender: self)
             }
             else{
@@ -36,6 +54,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 self.present(alertController, animated: true)
             }
         }
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

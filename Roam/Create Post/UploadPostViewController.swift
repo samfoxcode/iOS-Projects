@@ -82,8 +82,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     @IBAction func submitPost(_ sender: Any) {
         
-        print("In submit Post")
-        
         let image = imageToUpload!.jpegData(compressionQuality: 0.25)
         let imagePath = "Samf1596"+"/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
         
@@ -135,13 +133,17 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     func uploadSuccess(_ imagePath : String) {
         // TODO: Create post with correct experience description.
-        let post = Post(addedByUser: "Sam", username: "Samf1596", description: "DescriptionTest", imagePath: imagePath, experiences: experiences, travels: travels, isPublic: true)
+        var account : NewUser?
+        databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
+        account = NewUser(snapshot: snapshot)
         
-        databaseRef.child(FirebaseFields.Posts.rawValue).child(post.username + "\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
+        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: "DescriptionTest", imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true)
+        
+        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(post.username + "\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
+        }
     }
     
     func saveTravels(_ travels: [String]) {
-        print(travels)
         self.travels = travels
         if self.travels.count < 1 {
             self.travels = [""]
@@ -149,7 +151,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func saveExperiences(_ experiences: [String]) {
-        print(experiences)
         self.experiences = experiences
         if self.experiences.count < 1 {
             self.experiences = [""]

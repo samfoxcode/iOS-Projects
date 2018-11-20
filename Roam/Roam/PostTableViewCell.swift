@@ -62,8 +62,7 @@ class PostTableViewCell: UITableViewCell {
     }
 
     @IBAction func followUser(_ sender: Any) {
-        let username = "USERNAME"
-        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(username)
+        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
         currentUser.child("following").child(globalPosterUsername!.text!).setValue(true)
         //child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))")
     }
