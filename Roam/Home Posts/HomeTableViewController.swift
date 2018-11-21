@@ -48,7 +48,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
 
     @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
-        print("here")
         switch sender.direction {
         case UISwipeGestureRecognizer.Direction.down:
             hideStatusBar = false
@@ -57,7 +56,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         default:
             break
         }
-        print(hideStatusBar)
         setNeedsStatusBarAppearanceUpdate()
         
     }
@@ -98,7 +96,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
                 }
                 self.posts = posts
                 let block = {
-                    self.cachedPosts = self.posts
+                    self.cachedPosts = self.posts.reversed()
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
@@ -106,6 +104,15 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             }
         }
         super.viewWillAppear(animated)
+    }
+    
+    @IBAction func refreshContent(_ sender: UIRefreshControl) {
+        let block = {
+            self.cachedPosts = self.posts.reversed()
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
+        DispatchQueue.main.async(execute: block)
     }
     
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
@@ -136,15 +143,16 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
-            return 20.0
+            return 5.0
         }
         else {
-            return 10.0
+            return 0.0
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect.zero)
+        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 5.0))
+        view.backgroundColor = UIColor.blue
         return view
     }
     

@@ -49,7 +49,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
-        print("here")
         switch sender.direction {
             case UISwipeGestureRecognizer.Direction.down:
                 hideStatusBar = false
@@ -58,7 +57,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             default:
                 break
         }
-        print(hideStatusBar)
         setNeedsStatusBarAppearanceUpdate()
 
     }
@@ -88,7 +86,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             }
             self.posts = posts
             let block = {
-                self.cachedPosts = self.posts
+                self.cachedPosts = self.posts.reversed()
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
@@ -99,7 +97,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         let block = {
-            self.cachedPosts = self.posts
+            self.cachedPosts = self.posts.reversed()
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }

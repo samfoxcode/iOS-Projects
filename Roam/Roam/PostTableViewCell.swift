@@ -30,7 +30,7 @@ class PostTableViewCell: UITableViewCell {
                 }
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username
-                globalPostDescriptionTextView.text = "Testing TextView Text"
+                globalPostDescriptionTextView.text = post.description
                 globalCommentTextView.text = "Leave a comment"
             }
         }

@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import Photos
 
-class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate {
+class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate {
 
     fileprivate var databaseRef : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -20,6 +20,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     var imageToUpload = UIImage(named: "addPhoto")
     var travels = [""]
     var experiences = [""]
+    var previousHeight : CGFloat = 25.0
+    var kKeyboardSize : CGFloat = 0.0
+    var keyboardVisible = false
     
     fileprivate var showNetworkActivityIndicator = false {
         didSet {
@@ -28,9 +31,14 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @IBOutlet var uploadImageView: UIImageView!
-            
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        descriptionTextView.delegate = self
+        descriptionTextView.returnKeyType = .done
+        
         self.imagePicker.delegate = self
         databaseRef = Database.database().reference()
         storageRef = Storage.storage().reference()
@@ -59,6 +67,51 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 
         case .denied:
             print("User has denied the permission.") }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            let userInfo = notification.userInfo!
+            let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+            if self.view.frame.origin.y == 0{
+                kKeyboardSize = keyboardSize!.height
+                self.view.frame.origin.y -= keyboardSize!.height
+            }
+        }
+        
+        keyboardVisible = true
+    }
+    
+    @objc
+    func keyboardWillHide(notification:Notification) {
+        if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y = 0
+            }
+        }
+        keyboardVisible = false
     }
     
     @objc func selectImage(_ sender: UITapGestureRecognizer) {
@@ -137,7 +190,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)
         
-        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: "DescriptionTest", imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true)
+            let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.descriptionTextView.text, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true)
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(post.username + "\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
         }
