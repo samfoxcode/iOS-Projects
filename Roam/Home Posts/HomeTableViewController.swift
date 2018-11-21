@@ -24,6 +24,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
         swipeUp.direction = UISwipeGestureRecognizer.Direction.up

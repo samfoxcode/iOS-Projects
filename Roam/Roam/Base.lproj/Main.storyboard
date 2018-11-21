@@ -14,13 +14,13 @@
         <scene sceneID="bIu-uc-Pbb">
             <objects>
                 <tableViewController id="Qel-0y-96F" customClass="GlobalUsersTableViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qBF-H0-HFI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="qBF-H0-HFI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="564" id="Kn6-mi-8zk" customClass="PostTableViewCell" customModule="Roam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="564"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="564"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kn6-mi-8zk" id="ShZ-hO-mDc">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="563.5"/>
@@ -765,6 +765,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WZ2-wc-60R">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bzJ-ME-ryX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QDa-ap-CgV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VWd-8f-cen">
@@ -776,13 +777,13 @@
                         <segue destination="roa-F4-9j5" kind="relationship" relationship="rootViewController" id="G5d-Rb-rBt"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bzJ-ME-ryX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-759.20000000000005" y="-661.61919040479768"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ld7-e3-wv0">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fac-Kz-u6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pkU-FR-u5E" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eSh-Ph-TbR">
@@ -794,7 +795,6 @@
                         <segue destination="Byb-Xf-ItE" kind="relationship" relationship="rootViewController" id="AWf-mK-3JM"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fac-Kz-u6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-759.20000000000005" y="26.53673163418291"/>
         </scene>
@@ -802,13 +802,13 @@
         <scene sceneID="1aE-BL-qB6">
             <objects>
                 <tableViewController id="C0X-8K-aFe" customClass="HomeTableViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jHK-4w-JoH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="jHK-4w-JoH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="564" id="ca0-II-p9p" customClass="PostTableViewCell" customModule="Roam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="564"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="564"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ca0-II-p9p" id="OHX-vk-pvi">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="563.5"/>
