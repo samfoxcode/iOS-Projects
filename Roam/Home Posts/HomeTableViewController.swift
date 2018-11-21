@@ -143,7 +143,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
-            return 5.0
+            return 2.5
         }
         else {
             return 0.0
@@ -151,8 +151,8 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 5.0))
-        view.backgroundColor = UIColor.blue
+        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 2.5))
+        view.backgroundColor = self.view.tintColor
         return view
     }
     

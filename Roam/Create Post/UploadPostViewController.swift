@@ -97,7 +97,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
             if self.view.frame.origin.y == 0{
                 kKeyboardSize = keyboardSize!.height
-                self.view.frame.origin.y -= keyboardSize!.height
+                self.view.frame.origin.y -= keyboardSize!.height/2.0
             }
         }
         
