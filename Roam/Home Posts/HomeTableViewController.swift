@@ -8,19 +8,35 @@
 import UIKit
 import Firebase
 
-class HomeTableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
-    let cachedImage = CachedImages()
+    @IBOutlet var homeTableView: UITableView!
     
+    let cachedImage = CachedImages()
+    var tableViewSwipeUpGesture = UISwipeGestureRecognizer()
+    var tableViewSwipeDownGesture = UISwipeGestureRecognizer()
     var posts = [Post]()
     var cachedPosts = [Post]()
+    var hideStatusBar = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
+        swipeUp.direction = UISwipeGestureRecognizer.Direction.up
+        swipeUp.delegate = self
+        self.homeTableView.addGestureRecognizer(swipeUp)
+        self.tableViewSwipeUpGesture = swipeUp
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
+        swipeDown.direction = UISwipeGestureRecognizer.Direction.down
+        swipeDown.delegate = self
+        self.homeTableView.addGestureRecognizer(swipeDown)
+        self.tableViewSwipeDownGesture = swipeDown
+        
+        navigationController?.hidesBarsOnSwipe = true
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -31,6 +47,34 @@ class HomeTableViewController: UITableViewController {
         storageRef = Storage.storage().reference()
     }
 
+    @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
+        print("here")
+        switch sender.direction {
+        case UISwipeGestureRecognizer.Direction.down:
+            hideStatusBar = false
+        case UISwipeGestureRecognizer.Direction.up:
+            hideStatusBar = true
+        default:
+            break
+        }
+        print(hideStatusBar)
+        setNeedsStatusBarAppearanceUpdate()
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //Identify gesture recognizer and return true else false.
+        return gestureRecognizer.isEqual(self.tableViewSwipeUpGesture) || gestureRecognizer.isEqual(self.tableViewSwipeDownGesture) ? true : false
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return hideStatusBar
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
         var following = [String]()

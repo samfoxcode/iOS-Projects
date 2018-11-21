@@ -30,7 +30,9 @@
 		22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */; };
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
 		22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */; };
-		22B7516921A4BC01004B5FEC /* RoamModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516721A4BC01004B5FEC /* RoamModel.xcdatamodeld */; };
+		22B7516E21A4CE01004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
+		22B7517321A4D978004B5FEC /* Roam.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */; };
+		22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +70,9 @@
 		22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
-		22B7516821A4BC01004B5FEC /* RoamModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoamModel.xcdatamodel; sourceTree = "<group>"; };
+		22B7516D21A4CE01004B5FEC /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		22B7517221A4D978004B5FEC /* Roam.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Roam.xcdatamodel; sourceTree = "<group>"; };
+		22B7517421A4E52D004B5FEC /* PostModelCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModelCD.swift; sourceTree = "<group>"; };
 		3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.release.xcconfig"; sourceTree = "<group>"; };
 		85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.debug.xcconfig"; sourceTree = "<group>"; };
 		A532F474A5D30A82FB8056C8 /* Pods-RoamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoamTests/Pods-RoamTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 		225A9460218E43D800C14B6B /* Roam */ = {
 			isa = PBXGroup;
 			children = (
+				22B7517421A4E52D004B5FEC /* PostModelCD.swift */,
+				22B7516D21A4CE01004B5FEC /* DataManager.swift */,
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
@@ -178,8 +184,8 @@
 		22B7516A21A4C39D004B5FEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				22B7516721A4BC01004B5FEC /* RoamModel.xcdatamodeld */,
 				226DB033218E4CAF00261560 /* Model.swift */,
+				22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -390,19 +396,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */,
+				22B7516E21A4CE01004B5FEC /* DataManager.swift in Sources */,
 				226DB039218E983200261560 /* UploadPostViewController.swift in Sources */,
 				226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */,
 				22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */,
 				2264B69521952E4500A402A1 /* ExperiencesTableViewController.swift in Sources */,
 				22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */,
 				22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */,
+				22B7517321A4D978004B5FEC /* Roam.xcdatamodeld in Sources */,
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
 				2264B69321912FA500A402A1 /* ProfileViewController.swift in Sources */,
+				22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
 				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
-				22B7516921A4BC01004B5FEC /* RoamModel.xcdatamodeld in Sources */,
 				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,13 +683,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		22B7516721A4BC01004B5FEC /* RoamModel.xcdatamodeld */ = {
+		22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				22B7516821A4BC01004B5FEC /* RoamModel.xcdatamodel */,
+				22B7517221A4D978004B5FEC /* Roam.xcdatamodel */,
 			);
-			currentVersion = 22B7516821A4BC01004B5FEC /* RoamModel.xcdatamodel */;
-			path = RoamModel.xcdatamodeld;
+			currentVersion = 22B7517221A4D978004B5FEC /* Roam.xcdatamodel */;
+			path = Roam.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

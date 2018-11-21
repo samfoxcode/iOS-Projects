@@ -926,6 +926,9 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Home" id="pKK-Zj-m9I"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="homeTableView" destination="jHK-4w-JoH" id="naV-Cg-jSX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B1X-hx-akM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import CoreData
 
 enum FirebaseFields: String {
     case Posts
@@ -68,7 +69,7 @@ struct NewUser {
     }
 }
 
-struct Post {
+struct Post : PostIsh, Codable  {
     let addedByUser: String
     let username: String
     let description: String
@@ -77,6 +78,19 @@ struct Post {
     let travels: [String]
     let isPublic: Bool
     var cachedImage: UIImage? = nil
+    
+    var firstname : String {return addedByUser}
+    var fullname : String {return addedByUser}
+    
+    enum CodingKeys : String, CodingKey {
+        case addedByUser
+        case username
+        case description
+        case imagePath
+        case experiences
+        case travels
+        case isPublic
+    }
     
     init(addedByUser: String, username: String, description: String, imagePath: String, experiences: [String], travels: [String], isPublic: Bool){
         self.addedByUser = addedByUser

@@ -7,22 +7,36 @@
 
 import UIKit
 import Firebase
+import CoreData
 
-class GlobalUsersTableViewController: UITableViewController {
+class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
 
     let cachedImage = CachedImages()
-    
+    var tableViewSwipeUpGesture = UISwipeGestureRecognizer()
+    var tableViewSwipeDownGesture = UISwipeGestureRecognizer()
     @IBOutlet var globalTableView: UITableView!
     
     var posts = [Post]()
     var cachedPosts = [Post]()
-    
+    var hideStatusBar = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
+        swipeUp.direction = UISwipeGestureRecognizer.Direction.up
+        swipeUp.delegate = self
+        self.globalTableView.addGestureRecognizer(swipeUp)
+        self.tableViewSwipeUpGesture = swipeUp
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
+        swipeDown.direction = UISwipeGestureRecognizer.Direction.down
+        swipeDown.delegate = self
+        self.globalTableView.addGestureRecognizer(swipeDown)
+        self.tableViewSwipeDownGesture = swipeDown
+        
+        navigationController?.hidesBarsOnSwipe = true
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,7 +47,35 @@ class GlobalUsersTableViewController: UITableViewController {
         storageRef = Storage.storage().reference()
         
     }
+    
+    @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
+        print("here")
+        switch sender.direction {
+            case UISwipeGestureRecognizer.Direction.down:
+                hideStatusBar = false
+            case UISwipeGestureRecognizer.Direction.up:
+                hideStatusBar = true
+            default:
+                break
+        }
+        print(hideStatusBar)
+        setNeedsStatusBarAppearanceUpdate()
 
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //Identify gesture recognizer and return true else false.
+        return gestureRecognizer.isEqual(self.tableViewSwipeUpGesture) || gestureRecognizer.isEqual(self.tableViewSwipeDownGesture) ? true : false
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return hideStatusBar
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
@@ -90,15 +132,16 @@ class GlobalUsersTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 {
-            return 20.0
+            return 5.0
         }
         else {
-            return 10.0
+            return 0.0
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect.zero)
+        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 5.0))
+        view.backgroundColor = UIColor.blue
         return view
     }
 
