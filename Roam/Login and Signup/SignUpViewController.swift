@@ -20,6 +20,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newUserLastName: UITextField!
     
     fileprivate var ref : DatabaseReference!
+    var keyboardVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUserPassword.delegate = self
         confirmNewUserPassword.delegate = self
         ref = Database.database().reference()
+        self.title = "Signup for Roam!"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @IBAction func registerUser(_ sender: Any) {
@@ -55,6 +65,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+    }
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            let userInfo = notification.userInfo!
+            let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize!.height/2.0
+            }
+        }
+        
+        keyboardVisible = true
+    }
+    
+    @objc
+    func keyboardWillHide(notification:Notification) {
+        if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y = 0
+            }
+        }
+        keyboardVisible = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

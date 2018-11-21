@@ -472,7 +472,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="tIO-z8-37l" kind="showDetail" identifier="SignUpSegue" id="9Nh-bk-j5w"/>
+                                    <segue destination="tIO-z8-37l" kind="show" identifier="SignUpSegue" id="9Nh-bk-j5w"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eby-Cz-Klo">
@@ -482,7 +482,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="eau-iP-7yc" kind="showDetail" identifier="LoginSeque" id="LMU-ja-bwM"/>
+                                    <segue destination="eau-iP-7yc" kind="show" identifier="LoginSeque" id="LMU-ja-bwM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -658,7 +658,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CP2-N9-sD7">
-                                <rect key="frame" x="5" y="149.5" width="81" height="21"/>
+                                <rect key="frame" x="5" y="149.5" width="106" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -685,7 +685,6 @@
                             <constraint firstItem="srX-ZB-O0K" firstAttribute="top" secondItem="VPk-g8-x2L" secondAttribute="bottom" constant="8.5" id="Qo2-b0-AEu"/>
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="bPb-8v-gGL" secondAttribute="trailing" constant="5" id="U1V-42-8m7"/>
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="bottom" secondItem="snx-B4-PLg" secondAttribute="bottom" constant="64" id="UT4-as-nVo"/>
-                            <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="CP2-N9-sD7" secondAttribute="trailing" constant="289" id="V2K-hb-67Y"/>
                             <constraint firstItem="snx-B4-PLg" firstAttribute="top" secondItem="bKI-yX-n6w" secondAttribute="bottom" constant="92" id="VQD-S7-NqG"/>
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="srX-ZB-O0K" secondAttribute="trailing" constant="5" id="Y23-b0-Okg"/>
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="G5P-zs-ulW" secondAttribute="trailing" constant="329" id="Y5i-2Z-BX0"/>
@@ -695,6 +694,7 @@
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="9qd-vE-D3i" secondAttribute="trailing" constant="5" id="drk-eI-lsR"/>
                             <constraint firstItem="bPb-8v-gGL" firstAttribute="leading" secondItem="LCa-3O-H1T" secondAttribute="leading" constant="5" id="eR8-dh-p9D"/>
                             <constraint firstItem="qr5-01-rtI" firstAttribute="leading" secondItem="LCa-3O-H1T" secondAttribute="leading" constant="5" id="ead-ZH-dbK"/>
+                            <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="CP2-N9-sD7" secondAttribute="trailing" constant="264" id="h31-RY-002"/>
                             <constraint firstItem="75a-3X-raP" firstAttribute="leading" secondItem="LCa-3O-H1T" secondAttribute="leading" constant="5" id="hNi-NG-YiF"/>
                             <constraint firstItem="LCa-3O-H1T" firstAttribute="trailing" secondItem="VPk-g8-x2L" secondAttribute="trailing" constant="296" id="lvv-hW-wvp"/>
                             <constraint firstItem="bPb-8v-gGL" firstAttribute="centerX" secondItem="46N-gQ-YlX" secondAttribute="centerX" id="nTc-aj-ckb"/>
