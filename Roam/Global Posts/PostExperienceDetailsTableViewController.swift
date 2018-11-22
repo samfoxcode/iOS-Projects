@@ -9,10 +9,6 @@
 import UIKit
 
 class PostExperienceDetailsTableViewController: UITableViewController {
-
-    @IBAction func backAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
     
     var travels = [String]()
     var experiences = [String]()
@@ -23,6 +19,8 @@ class PostExperienceDetailsTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.isNavigationBarHidden = false
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -31,6 +29,10 @@ class PostExperienceDetailsTableViewController: UITableViewController {
         
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

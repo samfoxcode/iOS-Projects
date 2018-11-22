@@ -14,7 +14,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
-    
     @IBOutlet weak var profileNavBar: UINavigationBar!
     @IBOutlet weak var profileCollectionView: UICollectionView!
     

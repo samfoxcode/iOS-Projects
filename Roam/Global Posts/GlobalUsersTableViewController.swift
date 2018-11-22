@@ -194,11 +194,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         switch segue.identifier {
             case "ShowExperienceDetails":
                 let button = sender as? UIButton
-                let navController = segue.destination as! UINavigationController
-                let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
+                let experienceDetailController = segue.destination as! PostExperienceDetailsTableViewController
+                //let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
                 print(button!.tag)
                 let postIndex = button!.tag
                 let post = posts[postIndex]
+                self.navigationController?.navigationBar.isHidden = false
                 experienceDetailController.configure(post.travels, post.experiences)
             default:
                 assert(false, "Unhandled Segue")

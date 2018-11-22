@@ -71,8 +71,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize!.height/2.0
+            if self.view.frame.origin.y == 0 && (newUserPassword.isEditing || confirmNewUserPassword.isEditing) {
+                self.view.frame.origin.y -= keyboardSize!.height/4
             }
         }
         
