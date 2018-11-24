@@ -107,6 +107,9 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         super.viewWillAppear(animated)
     }
     
+
+    
+    
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         let block = {
             self.cachedPosts = self.posts.reversed()

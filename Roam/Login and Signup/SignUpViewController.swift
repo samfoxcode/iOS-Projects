@@ -100,6 +100,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    // TODO: process going to next fields or errors if text is not acceptable
     func processErrors(_ textField: UITextField) {
         
     }

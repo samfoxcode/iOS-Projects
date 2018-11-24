@@ -61,9 +61,15 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @IBAction func followUser(_ sender: Any) {
-        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
-        currentUser.child("following").child(globalPosterUsername!.text!).setValue(true)
+    @IBAction func followUser(_ sender: UIButton) {
+        if sender.titleLabel?.text == "Follow" {
+            let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("following").child(globalPosterUsername!.text!).setValue(true)
+        }
+        if sender.titleLabel?.text == "Unfollow" {
+            let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("following").child(globalPosterUsername!.text!).removeValue()
+        }
         //child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))")
     }
     

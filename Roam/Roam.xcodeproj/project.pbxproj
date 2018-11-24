@@ -34,6 +34,8 @@
 		22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
 		22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517621A612ED004B5FEC /* ProfileViewController.swift */; };
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
+		22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
+		22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,8 +133,6 @@
 		225A9460218E43D800C14B6B /* Roam */ = {
 			isa = PBXGroup;
 			children = (
-				22B7517421A4E52D004B5FEC /* PostModelCD.swift */,
-				22B7516D21A4CE01004B5FEC /* DataManager.swift */,
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
@@ -187,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				226DB033218E4CAF00261560 /* Model.swift */,
+				22B7517421A4E52D004B5FEC /* PostModelCD.swift */,
+				22B7516D21A4CE01004B5FEC /* DataManager.swift */,
 				22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */,
 			);
 			path = Model;
@@ -424,6 +426,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				225A9477218E43D900C14B6B /* RoamTests.swift in Sources */,
+				22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */,
+				22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */,
 				226DB035218E4CAF00261560 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
