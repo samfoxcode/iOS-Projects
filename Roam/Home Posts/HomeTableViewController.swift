@@ -22,6 +22,8 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     var cachedPosts = [Post]()
     var hideStatusBar = false
     
+    let postsModel = PostsModel.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,6 +78,11 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
+        
+        postsModel.findFollowingPosts()
+        postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
+        
+        /*
         var following = [String]()
         //var account : NewUser?
         
@@ -104,6 +111,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
                 DispatchQueue.main.async(execute: block)
             }
         }
+         */
         super.viewWillAppear(animated)
     }
     
@@ -111,14 +119,20 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
+        postsModel.findFollowingPosts()
+        postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
+        
+        /*
         let block = {
             self.cachedPosts = self.posts.reversed()
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }
         DispatchQueue.main.async(execute: block)
+        */
     }
     
+    /*
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
         let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
         storage.getData(maxSize: 2*1024*1024) { (data, error) in
@@ -132,12 +146,14 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             }
         }
     }
+    */
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return self.cachedPosts.count
+        return postsModel.cachedFollowingPostsCount
+        //return self.cachedPosts.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -165,9 +181,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
-        downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
-        cell.globalPostImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.section].imagePath)
-        cell.post = self.cachedPosts[indexPath.section]
+        let imagePath = postsModel.imagePathForFollowingPost(indexPath.section)
+        postsModel.downloadFollowingImage(indexPath, imagePath)
+        
+        //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
+        cell.globalPostImageView.image = postsModel.getCachedImage(imagePath)
+        cell.post = postsModel.postForFollowingSection(indexPath.section)
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 10.0
         return cell

@@ -14,7 +14,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
 
-    let cachedImage = CachedImages()
+    //let cachedImage = CachedImages()
     var tableViewSwipeUpGesture = UISwipeGestureRecognizer()
     var tableViewSwipeDownGesture = UISwipeGestureRecognizer()
     @IBOutlet var globalTableView: UITableView!
@@ -22,6 +22,9 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     var posts = [Post]()
     var cachedPosts = [Post]()
     var hideStatusBar = false
+    
+    let postsModel = PostsModel.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +45,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //
+        //postsModel.createReferences()
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
@@ -78,6 +83,9 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
         
+        //postsModel.downloadPosts()
+        postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
+        /*
         ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
             var posts = [Post]()
             for postSnapshot in snapshot.children {
@@ -92,18 +100,25 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             }
             DispatchQueue.main.async(execute: block)
         }
+        */
         super.viewWillAppear(animated)
     }
     
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
+        
+        postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
+        
+        /*
         let block = {
             self.cachedPosts = self.posts.reversed()
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }
         DispatchQueue.main.async(execute: block)
+        */
     }
     
+    /*
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
         let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
         storage.getData(maxSize: 2*1024*1024) { (data, error) in
@@ -117,11 +132,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             }
         }
     }
+    */
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.cachedPosts.count
+        return postsModel.cachedPostsCount
+        //return self.cachedPosts.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -148,9 +165,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
-        downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
-        cell.globalPostImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.section].imagePath)
-        cell.post = self.cachedPosts[indexPath.section]
+        //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
+        let imagePath = postsModel.imagePathForPost(indexPath.section)
+        postsModel.downloadImage(indexPath, imagePath)
+        
+        cell.globalPostImageView.image = postsModel.getCachedImage(imagePath)
+        cell.post = postsModel.postForSection(indexPath.section)
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 10.0
@@ -202,13 +222,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 //let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
                 print(button!.tag)
                 let postIndex = button!.tag
-                let post = posts[postIndex]
+                let post = postsModel.postForSection(postIndex)
                 self.navigationController?.navigationBar.isHidden = false
                 experienceDetailController.configure(post.travels, post.experiences)
             case "ShowComments":
                 let button = sender as? UIButton
                 let index = button!.tag
-                let postID = posts[index].postID
+                let postID = postsModel.postForSection(index).postID
                 let commentsViewController = segue.destination as! CommentsTableViewController
                 var comments = [String]()
                 self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in

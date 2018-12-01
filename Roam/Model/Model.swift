@@ -132,10 +132,123 @@ struct Post : PostIsh, Codable  {
     }
 }
 
-class Posts {
+class PostsModel {
     
-    static let sharhedPosts = Posts()
-    var posts = [Post]()
+    static let sharedInstance = PostsModel()
+    
+    fileprivate var posts = [Post]()
+    fileprivate var cachedPosts = [Post]()
+    fileprivate var followingPosts = [Post]()
+    fileprivate var ref : DatabaseReference!
+    fileprivate var storageRef : StorageReference!
+    
+    fileprivate let imageCache = NSCache<AnyObject, AnyObject>()
+    fileprivate var following = [String]()
+    
+    var cachedPostsCount : Int {return cachedPosts.count}
+    var cachedFollowingPostsCount : Int {return followingPosts.count}
+    
+    func postForSection(_ section: Int) -> Post{
+        return cachedPosts[section]
+    }
+    func postForFollowingSection(_ section: Int) -> Post{
+        return followingPosts[section]
+    }
+    
+    func imagePathForPost(_ section: Int) -> String {
+        return cachedPosts[section].imagePath
+    }
+    func imagePathForFollowingPost(_ section: Int) -> String {
+        return followingPosts[section].imagePath
+    }
+    
+    func cacheImage(_ imageURL: String, _ image: UIImage) {
+        let imageToCache = image
+        imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
+    }
+    
+    func getCachedImage(_ imageURL: String) -> UIImage? {
+        return imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+    }
+    
+    fileprivate init(){
+        ref = Database.database().reference()
+        storageRef = Storage.storage().reference()
+        downloadPosts()
+    }
+    
+    func downloadPosts() {
+        ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
+            var posts = [Post]()
+            for postSnapshot in snapshot.children {
+                let post = Post(snapshot: postSnapshot as! DataSnapshot)
+                posts.append(post)
+            }
+            self.posts = posts
+            let block = {
+                self.cachedPosts = self.posts.reversed()
+                //tableView.reloadData()
+                //refreshControl?.endRefreshing()
+            }
+            DispatchQueue.main.async(execute: block)
+        }
+    }
+    
+    func refreshContent(for tableView: UITableView, with refreshControl: UIRefreshControl?) {
+        let block = {
+            self.cachedPosts = self.posts.reversed()
+            tableView.reloadData()
+            refreshControl?.endRefreshing()
+        }
+        DispatchQueue.main.async(execute: block)
+    }
+    
+    func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
+        let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
+        storage.getData(maxSize: 2*1024*1024) { (data, error) in
+            if error == nil {
+                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                let image = UIImage(data: data!)
+                self.cacheImage(imageURL, image!)
+            }
+            else {
+                print("Error:\(error ?? "" as! Error)")
+            }
+        }
+    }
+    func downloadFollowingImage(_ indexPath: IndexPath, _ imageURL: String) {
+        let storage = storageRef.storage.reference(forURL: followingPosts[indexPath.section].imagePath)
+        storage.getData(maxSize: 2*1024*1024) { (data, error) in
+            if error == nil {
+                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                let image = UIImage(data: data!)
+                self.cacheImage(imageURL, image!)
+            }
+            else {
+                print("Error:\(error ?? "" as! Error)")
+            }
+        }
+    }
+    
+    func findFollowingPosts() {
+        //var account : NewUser?
+        
+        if Auth.auth().currentUser != nil {
+            ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
+                self.following = []
+                self.followingPosts = []
+                for user in snapshot.children {
+                    let temp = user as! DataSnapshot
+                    self.following.append(temp.key)
+                }
+                for post in self.cachedPosts {
+                    if self.following.contains(post.username){
+                        self.followingPosts.append(post)
+                    }
+                }
+            }
+        }
+    }
     
 }
 
