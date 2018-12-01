@@ -87,6 +87,12 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         // Configure the view for the selected state
     }
 
+    @IBAction func bookmarkPost(_ sender: Any) {
+        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+        currentUser.child("Bookmarks").child(postID).setValue(true)
+    }
+    
+    
     @IBAction func followUser(_ sender: UIButton) {
         if sender.titleLabel?.text == "Follow" {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)

@@ -28,7 +28,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     func downloadImage(from imagePath: String) {
         let storage = storageRef.storage.reference(forURL: imagePath)
-        storage.getData(maxSize: 1*1024*1024) { (data, error) in
+        storage.getData(maxSize: 2*1024*1024) { (data, error) in
             if error == nil {
                 self.postImageView.image = UIImage(data: data!)
             }

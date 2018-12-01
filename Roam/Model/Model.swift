@@ -132,6 +132,14 @@ struct Post : PostIsh, Codable  {
     }
 }
 
+class Posts {
+    
+    static let sharhedPosts = Posts()
+    var posts = [Post]()
+    
+}
+
+
 class Experiences {
     static let sharedExperiencesInstance = Experiences()
     

@@ -154,11 +154,13 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
     }
     
+    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 2.5))
         view.backgroundColor = self.view.tintColor
         return view
     }
+    */
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
