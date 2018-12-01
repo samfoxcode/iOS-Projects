@@ -24,6 +24,7 @@ enum PostAttributes: String {
     case experiences
     case travels
     case isPublic
+    case postID
 }
 
 enum UserAttributes: String {
@@ -77,6 +78,7 @@ struct Post : PostIsh, Codable  {
     let experiences: [String]
     let travels: [String]
     let isPublic: Bool
+    let postID : String
     var cachedImage: UIImage? = nil
     
     var firstname : String {return addedByUser}
@@ -90,9 +92,10 @@ struct Post : PostIsh, Codable  {
         case experiences
         case travels
         case isPublic
+        case postID
     }
     
-    init(addedByUser: String, username: String, description: String, imagePath: String, experiences: [String], travels: [String], isPublic: Bool){
+    init(addedByUser: String, username: String, description: String, imagePath: String, experiences: [String], travels: [String], isPublic: Bool, postID: String){
         self.addedByUser = addedByUser
         self.username = username
         self.description = description
@@ -100,6 +103,7 @@ struct Post : PostIsh, Codable  {
         self.experiences = experiences
         self.travels = travels
         self.isPublic = isPublic
+        self.postID = postID
     }
     
     init(snapshot: DataSnapshot) {
@@ -111,6 +115,7 @@ struct Post : PostIsh, Codable  {
         self.experiences = snapshotValue[PostAttributes.experiences.rawValue] as! [String]
         self.travels = snapshotValue[PostAttributes.travels.rawValue] as! [String]
         self.isPublic = snapshotValue[PostAttributes.isPublic.rawValue] as! Bool
+        self.postID = snapshotValue[PostAttributes.postID.rawValue] as! String
     }
     
     func toObject() -> Any {
@@ -122,6 +127,7 @@ struct Post : PostIsh, Codable  {
             PostAttributes.experiences.rawValue: self.experiences,
             PostAttributes.travels.rawValue: self.travels,
             PostAttributes.isPublic.rawValue: self.isPublic,
+            PostAttributes.postID.rawValue: self.postID,
         ]
     }
 }

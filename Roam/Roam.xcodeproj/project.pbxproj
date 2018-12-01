@@ -36,6 +36,7 @@
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
 		22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
 		22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
+		22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		22B7517421A4E52D004B5FEC /* PostModelCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModelCD.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.release.xcconfig"; sourceTree = "<group>"; };
 		85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roam/Pods-Roam.debug.xcconfig"; sourceTree = "<group>"; };
 		A532F474A5D30A82FB8056C8 /* Pods-RoamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoamTests/Pods-RoamTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
 				225A946D218E43D900C14B6B /* Info.plist */,
@@ -410,6 +413,7 @@
 				22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */,
 				22B7517321A4D978004B5FEC /* Roam.xcdatamodeld in Sources */,
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
+				22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */,
 				22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */,
 				22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */,
 				22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */,

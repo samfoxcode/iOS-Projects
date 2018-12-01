@@ -79,6 +79,7 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
         default:
             assert(false, "Unhandled Section Number")
         }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,6 +94,7 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
         default:
             assert(false, "Unhandled Section Number")
         }
+        return tableView.dequeueReusableCell(withIdentifier: "Experience", for: indexPath)
     }
  
     

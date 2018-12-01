@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class PostTableViewCell: UITableViewCell {
+class PostTableViewCell: UITableViewCell, UITextViewDelegate {
 
     fileprivate var storageRef : StorageReference!
     fileprivate var downloadImageTask : StorageDownloadTask!
@@ -21,6 +21,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var globalPostFavButton: UIButton!
     @IBOutlet weak var globalPostDescriptionTextView: UITextView!
     @IBOutlet weak var globalCommentTextView: UITextView!
+    @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var unfollowButton: UIButton!
+    
+    var postID = String()
     
     var post: Post? {
         didSet {
@@ -32,6 +36,7 @@ class PostTableViewCell: UITableViewCell {
                 globalPosterUsername.text = post.username
                 globalPostDescriptionTextView.text = post.description
                 globalCommentTextView.text = "Leave a comment"
+                postID = post.postID
             }
         }
     }
@@ -51,8 +56,27 @@ class PostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        globalCommentTextView.delegate = self
+        globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").setValue(["\(Int(Date.timeIntervalSinceReferenceDate * 1000))":textView.text])
+        textView.resignFirstResponder()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

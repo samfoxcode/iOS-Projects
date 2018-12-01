@@ -150,6 +150,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.section].imagePath)
         cell.post = self.cachedPosts[indexPath.section]
         cell.globalPostExperienceDetails.tag = indexPath.section
+        cell.followButton.layer.cornerRadius = 10.0
         return cell
     }
 

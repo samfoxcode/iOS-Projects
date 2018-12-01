@@ -16,6 +16,11 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     fileprivate var uploadStorageTask: StorageUploadTask!
     fileprivate var imageStoragePath = ""
     
+    @IBOutlet weak var addExperiences: UIButton!
+    @IBOutlet weak var addFlightsAndStays: UIButton!
+    @IBOutlet weak var postButton: UIButton!
+    
+    
     var imagePicker = UIImagePickerController()
     var imageToUpload = UIImage(named: "addPhoto")
     var travels = [""]
@@ -35,6 +40,13 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addExperiences.layer.cornerRadius = 10
+        addExperiences.layer.shadowColor = UIColor.gray.cgColor
+        addExperiences.layer.shadowOffset = CGSize(width: 2, height: 2)
+        
+        addFlightsAndStays.layer.cornerRadius = 10
+        postButton.layer.cornerRadius = 10
         
         descriptionTextView.delegate = self
         descriptionTextView.returnKeyType = .done
@@ -134,9 +146,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @IBAction func submitPost(_ sender: Any) {
-        
+            
         let image = imageToUpload!.jpegData(compressionQuality: 0.25)
-        let imagePath = "Samf1596"+"/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+        let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
         
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
@@ -189,10 +201,11 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)
+        let postID = (account?.username)!+"\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
+            
+        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.descriptionTextView.text, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true, postID: postID)
         
-        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.descriptionTextView.text, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true)
-        
-        self.databaseRef.child(FirebaseFields.Posts.rawValue).child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(post.toObject())
+        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
         }
     }
