@@ -102,7 +102,7 @@
                                             <rect key="frame" x="300" y="401" width="75" height="30"/>
                                             <state key="normal" title="Comments"/>
                                             <connections>
-                                                <segue destination="5L3-0Y-J1E" kind="show" id="5Ad-bQ-TVm"/>
+                                                <segue destination="5L3-0Y-J1E" kind="show" identifier="ShowComments" id="5Ad-bQ-TVm"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -146,6 +146,7 @@
                                     <outlet property="globalPostImageView" destination="w2w-kY-DRe" id="5i8-K2-3vN"/>
                                     <outlet property="globalPosterUsername" destination="ARq-ED-dA8" id="P5T-cJ-nvn"/>
                                     <outlet property="globalPostersName" destination="MS3-oc-lUW" id="CJ3-Sd-oYW"/>
+                                    <outlet property="viewCommentsButton" destination="geS-gv-Smz" id="GU1-KQ-IEW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1035,6 +1036,7 @@
                                     <outlet property="globalPosterUsername" destination="J6p-10-j3W" id="Fx7-dB-0gj"/>
                                     <outlet property="globalPostersName" destination="vlL-gf-Edi" id="SrF-nI-DSH"/>
                                     <outlet property="unfollowButton" destination="x9k-kK-Erf" id="Igs-MU-CPL"/>
+                                    <outlet property="viewCommentsButton" destination="c34-i3-atr" id="83G-u1-uUb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

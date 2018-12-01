@@ -23,6 +23,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var globalCommentTextView: UITextView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var unfollowButton: UIButton!
+    @IBOutlet weak var viewCommentsButton: UIButton!
+    
     
     var postID = String()
     
@@ -75,7 +77,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").setValue(["\(Int(Date.timeIntervalSinceReferenceDate * 1000))":textView.text])
+        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(textView.text)
         textView.resignFirstResponder()
     }
     

@@ -150,6 +150,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.section].imagePath)
         cell.post = self.cachedPosts[indexPath.section]
         cell.globalPostExperienceDetails.tag = indexPath.section
+        cell.viewCommentsButton.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 10.0
         return cell
     }
@@ -202,9 +203,23 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let post = posts[postIndex]
                 self.navigationController?.navigationBar.isHidden = false
                 experienceDetailController.configure(post.travels, post.experiences)
+            case "ShowComments":
+                let button = sender as? UIButton
+                let index = button!.tag
+                let postID = posts[index].postID
+                let commentsViewController = segue.destination as! CommentsTableViewController
+                var comments = [String]()
+                self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
+                    for comment in snapshot.children {
+                        let _comment = (comment as? DataSnapshot)?.value as! String
+                        print(_comment)
+                        comments.append(_comment)
+                    }
+                    commentsViewController.configure(comments)
+                }
             default:
                 assert(false, "Unhandled Segue")
-             }
+        }
      }
 
 }
