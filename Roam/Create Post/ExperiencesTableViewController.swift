@@ -38,6 +38,7 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
         
         dismiss(animated: true, completion: nil)
         delegate?.saveExperiences(model.experiences)
+        model.experiences = [String]()
     }
     
     @IBAction func addExperience(_ sender: Any) {

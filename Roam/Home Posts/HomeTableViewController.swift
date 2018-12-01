@@ -121,7 +121,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
         let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
-        storage.getData(maxSize: 1*1024*1024) { (data, error) in
+        storage.getData(maxSize: 2*1024*1024) { (data, error) in
             if error == nil {
                 //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                 let image = UIImage(data: data!)

@@ -147,7 +147,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     @IBAction func submitPost(_ sender: Any) {
             
-        let image = imageToUpload!.jpegData(compressionQuality: 0.25)
+        let image = imageToUpload!.jpegData(compressionQuality: 0.001)
         let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
         
         let metadata = StorageMetadata()
@@ -201,7 +201,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)
-        let postID = (account?.username)!+"\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
+        let postID = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
             
         let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.descriptionTextView.text, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true, postID: postID)
         

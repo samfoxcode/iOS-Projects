@@ -35,6 +35,7 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     
     @IBAction func doneAdding(_ sender: Any) {
         delegate?.saveTravels(model.travels)
+        model.travels = [String]()
         dismiss(animated: true, completion: nil)
     }
     
