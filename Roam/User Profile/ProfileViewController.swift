@@ -9,18 +9,20 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MainViewDelegate {
     
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
     @IBOutlet weak var profileNavBar: UINavigationBar!
     @IBOutlet weak var profileCollectionView: UICollectionView!
-    
-    let cachedImage = CachedImages()
-    var posts = [Post]()
-    var cachedPosts = [Post]()
+    var collectionToShow = "UsersPosts"
+    //let cachedImage = CachedImages()
+    //var posts = [Post]()
+    //var cachedPosts = [Post]()
     var pageTitle = String()
+    
+    let postModel = PostsModel.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,23 +33,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
         
-        profileNavBar.topItem?.title = pageTitle
+        //profileNavBar.topItem?.title = pageTitle
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func signOut(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-        }
-        catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initial = storyboard.instantiateInitialViewController()
-        UIApplication.shared.keyWindow?.rootViewController = initial
+    func toggleCollectionViewType(show collection: String) {
+        self.collectionToShow = collection
+        profileCollectionView.reloadData()
     }
     
+    /*
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
         let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.row].imagePath)
         storage.getData(maxSize: 2*1024*1024) { (data, error) in
@@ -61,17 +56,22 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
     }
+    */
     
     override func viewWillAppear(_ animated: Bool) {
         //self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
-        //var account : NewUser?
         
+        postModel.findUsersPosts()
+        postModel.findBookmarkedPosts()
+        self.profileCollectionView.reloadData()
+        //var account : NewUser?
+        /*
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
                 
                 let user = NewUser(snapshot: snapshot)
                 self.pageTitle = user.firstname
-                self.profileNavBar.topItem?.title = self.pageTitle
+                //self.profileNavBar.topItem?.title = self.pageTitle
                 
                 self.ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
                     var posts = [Post]()
@@ -90,40 +90,65 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 }
             }
         }
+         */
         super.viewWillAppear(animated)
     }
     
-    @IBAction func postTypeSegmentedControlAction(_ sender: Any) {
+    /*
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ProfileHeader", for: indexPath) as! ProfileHeaderCollectionViewCell
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if indexPath.section == 0 {
+     
+            }
+            return cell
+            
+        default:
+            assert(false, "Unexpected Cell")
+        }
+        
+        return cell
     }
+    */
     
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cachedPosts.count
+        if collectionToShow == "UsersPosts" {
+            print("USERSPOSTS")
+            return postModel.cachedUsersPostsCount
+        }
+        else {
+            print("BOOKMARKEDPOSTS")
+            return postModel.cachedBookmarkedPostsCount
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCollectionViewCell
         
+        /*
         downloadImage(indexPath, cachedPosts[indexPath.row].imagePath)
         cell.postImageView.image = cachedImage.getCachedImage(cachedPosts[indexPath.row].imagePath)
         cell.post = self.cachedPosts[indexPath.row]
-
+        */
+        
+        if collectionToShow == "BookmarkedPosts"{
+            let imagePath = postModel.imagePathForBookmarkedPost(indexPath.row)
+            postModel.downloadBookmarkedImage(indexPath.row, imagePath)
+            cell.postImageView.image = postModel.getCachedImage(imagePath)
+        }
+        else {
+            let imagePath = postModel.imagePathForUsersPost(indexPath.row)
+            postModel.downloadUsersPostImage(indexPath.row, imagePath)
+            cell.postImageView.image = postModel.getCachedImage(imagePath)
+        }
         return cell
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 

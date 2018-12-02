@@ -139,6 +139,8 @@ class PostsModel {
     fileprivate var posts = [Post]()
     fileprivate var cachedPosts = [Post]()
     fileprivate var followingPosts = [Post]()
+    fileprivate var bookmarkedPosts = [Post]()
+    fileprivate var usersPosts = [Post]()
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
@@ -147,12 +149,19 @@ class PostsModel {
     
     var cachedPostsCount : Int {return cachedPosts.count}
     var cachedFollowingPostsCount : Int {return followingPosts.count}
-    
+    var cachedBookmarkedPostsCount : Int {return bookmarkedPosts.count}
+    var cachedUsersPostsCount : Int {return usersPosts.count}
     func postForSection(_ section: Int) -> Post{
         return cachedPosts[section]
     }
     func postForFollowingSection(_ section: Int) -> Post{
         return followingPosts[section]
+    }
+    func postForBookmarkedSection(_ section: Int) -> Post {
+        return bookmarkedPosts[section]
+    }
+    func postForUsersSection(_ section: Int) -> Post {
+        return usersPosts[section]
     }
     
     func imagePathForPost(_ section: Int) -> String {
@@ -160,6 +169,12 @@ class PostsModel {
     }
     func imagePathForFollowingPost(_ section: Int) -> String {
         return followingPosts[section].imagePath
+    }
+    func imagePathForBookmarkedPost(_ section: Int) -> String {
+        return bookmarkedPosts[section].imagePath
+    }
+    func imagePathForUsersPost(_ section: Int) -> String {
+        return usersPosts[section].imagePath
     }
     
     func cacheImage(_ imageURL: String, _ image: UIImage) {
@@ -204,28 +219,82 @@ class PostsModel {
     }
     
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
-        let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
-        storage.getData(maxSize: 2*1024*1024) { (data, error) in
-            if error == nil {
-                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
-                let image = UIImage(data: data!)
-                self.cacheImage(imageURL, image!)
-            }
-            else {
-                print("Error:\(error ?? "" as! Error)")
+        
+        if getCachedImage(imageURL) == nil {
+            let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
+            storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                if error == nil {
+                    //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                    let image = UIImage(data: data!)
+                    self.cacheImage(imageURL, image!)
+                }
+                else {
+                    print("Error:\(error ?? "" as! Error)")
+                }
             }
         }
     }
     func downloadFollowingImage(_ indexPath: IndexPath, _ imageURL: String) {
-        let storage = storageRef.storage.reference(forURL: followingPosts[indexPath.section].imagePath)
-        storage.getData(maxSize: 2*1024*1024) { (data, error) in
-            if error == nil {
-                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
-                let image = UIImage(data: data!)
-                self.cacheImage(imageURL, image!)
+        if getCachedImage(imageURL) == nil {
+            let storage = storageRef.storage.reference(forURL: followingPosts[indexPath.section].imagePath)
+            storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                if error == nil {
+                    //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                    let image = UIImage(data: data!)
+                    self.cacheImage(imageURL, image!)
+                }
+                else {
+                    print("Error:\(error ?? "" as! Error)")
+                }
             }
-            else {
-                print("Error:\(error ?? "" as! Error)")
+        }
+    }
+    func downloadBookmarkedImage(_ index: Int, _ imageURL: String) {
+        if getCachedImage(imageURL) == nil {
+            let storage = storageRef.storage.reference(forURL: bookmarkedPosts[index].imagePath)
+            storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                if error == nil {
+                    //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                    let image = UIImage(data: data!)
+                    self.cacheImage(imageURL, image!)
+                }
+                else {
+                    print("Error:\(error ?? "" as! Error)")
+                }
+            }
+        }
+    }
+    func downloadUsersPostImage(_ index: Int, _ imageURL: String) {
+        if getCachedImage(imageURL) == nil {
+            let storage = storageRef.storage.reference(forURL: usersPosts[index].imagePath)
+            storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                if error == nil {
+                    //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                    let image = UIImage(data: data!)
+                    self.cacheImage(imageURL, image!)
+                }
+                else {
+                    print("Error:\(error ?? "" as! Error)")
+                }
+            }
+        }
+    }
+    
+    func findBookmarkedPosts() {
+        if Auth.auth().currentUser != nil {
+            ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Bookmarks").observe(.value) { (snapshot) in
+                var bookmarks = [String]()
+                self.bookmarkedPosts = []
+                
+                for user in snapshot.children {
+                    let temp = user as! DataSnapshot
+                    bookmarks.append(temp.key)
+                }
+                for post in self.cachedPosts {
+                    if bookmarks.contains(post.postID){
+                        self.bookmarkedPosts.append(post)
+                    }
+                }
             }
         }
     }
@@ -244,6 +313,20 @@ class PostsModel {
                 for post in self.cachedPosts {
                     if self.following.contains(post.username){
                         self.followingPosts.append(post)
+                    }
+                }
+            }
+        }
+    }
+    
+    func findUsersPosts() {
+        if Auth.auth().currentUser != nil {
+            ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
+                self.usersPosts = []
+                let user = NewUser(snapshot: snapshot)
+                for post in self.cachedPosts {
+                    if post.username == user.username {
+                        self.usersPosts.append(post)
                     }
                 }
             }
