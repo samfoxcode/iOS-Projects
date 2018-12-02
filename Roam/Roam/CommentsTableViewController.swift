@@ -14,7 +14,8 @@ class CommentsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let selection = UISelectionFeedbackGenerator()
+        selection.selectionChanged()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

@@ -21,6 +21,8 @@ class PostExperienceDetailsTableViewController: UITableViewController {
         super.viewDidLoad()
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.isNavigationBarHidden = false
+        let selection = UISelectionFeedbackGenerator()
+        selection.selectionChanged()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

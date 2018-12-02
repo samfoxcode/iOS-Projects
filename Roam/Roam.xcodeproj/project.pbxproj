@@ -142,7 +142,6 @@
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
-				22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */,
 				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
@@ -216,6 +215,7 @@
 				22B7517621A612ED004B5FEC /* ProfileViewController.swift */,
 				22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */,
 				22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */,
+				22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */,
 			);
 			path = "User Profile";
 			sourceTree = "<group>";

@@ -26,9 +26,13 @@ class ProfileMainViewController: UIViewController {
     @IBAction func signOut(_ sender: Any) {
         do {
             try Auth.auth().signOut()
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         }
         catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
         }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -67,7 +71,6 @@ class ProfileMainViewController: UIViewController {
         case "presentCollectionView":
             let controller = segue.destination as! ProfileViewController
             self.delegate = controller
-            print("HITSEGUEHERE")
         default:
             assert(false, "Unhandled Segue")
         }

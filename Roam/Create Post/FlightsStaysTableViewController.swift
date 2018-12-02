@@ -37,6 +37,8 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
         delegate?.saveTravels(model.travels)
         model.travels = [String]()
         dismiss(animated: true, completion: nil)
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
     }
     
     @IBAction func addTravel(_ sender: Any) {
@@ -57,6 +59,8 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
             model.addTravel(text)
             textField.text = ""
             tableView.reloadData()
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         }
         return true
     }

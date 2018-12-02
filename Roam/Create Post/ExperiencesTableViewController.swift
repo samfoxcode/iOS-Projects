@@ -39,6 +39,8 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
         dismiss(animated: true, completion: nil)
         delegate?.saveExperiences(model.experiences)
         model.experiences = [String]()
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
     }
     
     @IBAction func addExperience(_ sender: Any) {
@@ -59,6 +61,8 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
             model.addExperience(text)
             textField.text = ""
             tableView.reloadData()
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         }
         return true
     }

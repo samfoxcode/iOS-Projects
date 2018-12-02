@@ -90,6 +90,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBAction func bookmarkPost(_ sender: Any) {
         let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
         currentUser.child("Bookmarks").child(postID).setValue(true)
+        let selection = UISelectionFeedbackGenerator()
+        selection.selectionChanged()
     }
     
     
@@ -102,6 +104,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("following").child(globalPosterUsername!.text!).removeValue()
         }
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         //child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))")
     }
     

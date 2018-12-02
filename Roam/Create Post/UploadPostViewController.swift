@@ -167,9 +167,13 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                     break
                 case .unknown:
                     print("Unknown Error")
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
                     break
                 default:
                     print("Unhandled Error")
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
                     break
                 }
             }
@@ -186,9 +190,13 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                         self.showNetworkActivityIndicator = false
                         self.uploadImageView.image = UIImage(named: "addPhoto")
                         self.uploadImageView.alpha = 0.5
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
                     }
                 } else {
                     print("Error:\(String(describing: error?.localizedDescription))")
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
                 }
             })
 
@@ -229,13 +237,17 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          switch segue.identifier {
          case "AddExperiences":
-             let navController = segue.destination as! UINavigationController
-             let experiencesController = navController.topViewController as! ExperiencesTableViewController
-             experiencesController.delegate = self
+            let impact = UIImpactFeedbackGenerator(style: .medium)
+            impact.impactOccurred()
+            let navController = segue.destination as! UINavigationController
+            let experiencesController = navController.topViewController as! ExperiencesTableViewController
+            experiencesController.delegate = self
          case "AddTravel":
-             let navController = segue.destination as! UINavigationController
-             let travelController = navController.topViewController as! FlightsStaysTableViewController
-             travelController.delegate = self
+            let impact = UIImpactFeedbackGenerator(style: .medium)
+            impact.impactOccurred()
+            let navController = segue.destination as! UINavigationController
+            let travelController = navController.topViewController as! FlightsStaysTableViewController
+            travelController.delegate = self
          default:
             assert(false, "Unhandled Segue")
          }

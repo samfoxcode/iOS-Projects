@@ -38,6 +38,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func toggleCollectionViewType(show collection: String) {
+        let selection = UISelectionFeedbackGenerator()
+        selection.selectionChanged()
         self.collectionToShow = collection
         profileCollectionView.reloadData()
     }
