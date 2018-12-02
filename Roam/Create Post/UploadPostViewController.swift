@@ -41,12 +41,12 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addExperiences.layer.cornerRadius = 10
+        addExperiences.layer.cornerRadius = 4.0
         addExperiences.layer.shadowColor = UIColor.gray.cgColor
         addExperiences.layer.shadowOffset = CGSize(width: 2, height: 2)
         
-        addFlightsAndStays.layer.cornerRadius = 10
-        postButton.layer.cornerRadius = 10
+        addFlightsAndStays.layer.cornerRadius = 4.0
+        postButton.layer.cornerRadius = 4.0
         
         descriptionTextView.delegate = self
         descriptionTextView.returnKeyType = .done
@@ -191,7 +191,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                         self.uploadImageView.image = UIImage(named: "addPhoto")
                         self.uploadImageView.alpha = 0.5
                         let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
                     }
                 } else {
                     print("Error:\(String(describing: error?.localizedDescription))")
@@ -223,6 +223,10 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         if self.travels.count < 1 {
             self.travels = [""]
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.descriptionTextView.text = "Add a description of your trip here..."
     }
     
     func saveExperiences(_ experiences: [String]) {

@@ -188,7 +188,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.globalPostImageView.image = postsModel.getCachedImage(imagePath)
         cell.post = postsModel.postForFollowingSection(indexPath.section)
         cell.globalPostExperienceDetails.tag = indexPath.section
-        cell.unfollowButton.layer.cornerRadius = 10.0
+        cell.unfollowButton.layer.cornerRadius = 4.0
         return cell
     }
 

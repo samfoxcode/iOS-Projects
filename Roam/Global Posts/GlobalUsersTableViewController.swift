@@ -173,7 +173,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.post = postsModel.postForSection(indexPath.section)
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
-        cell.followButton.layer.cornerRadius = 10.0
+        cell.followButton.layer.cornerRadius = 4.0
         return cell
     }
 

@@ -77,7 +77,13 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(textView.text)
+        if textView.text.count > 1 {
+            self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(textView.text)
+            textView.text = "Leave a comment..."
+        }
+        else {
+            textView.text = "Leave a comment..."
+        }
         textView.resignFirstResponder()
     }
     
