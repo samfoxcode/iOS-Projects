@@ -19,6 +19,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newUserFirstName: UITextField!
     @IBOutlet weak var newUserLastName: UITextField!
     
+    @IBOutlet weak var signupButton: UIButton!
+    
     fileprivate var ref : DatabaseReference!
     var keyboardVisible = false
     
@@ -32,6 +34,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         confirmNewUserPassword.delegate = self
         ref = Database.database().reference()
         self.title = "Signup for Roam!"
+        signupButton.layer.cornerRadius = 4.0
     }
     
     override func viewWillAppear(_ animated: Bool) {

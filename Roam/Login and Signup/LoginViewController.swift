@@ -14,6 +14,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailLoginUser: UITextField!
     @IBOutlet weak var passwordLoginUser: UITextField!
     
+    @IBOutlet weak var loginButton: UIButton!
+    
     @IBAction func loginUser(_ sender: Any) {
         Auth.auth().signIn(withEmail: emailLoginUser.text!, password: passwordLoginUser.text!) { (user, error) in
             if error == nil {
@@ -33,6 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         emailLoginUser.delegate = self
         passwordLoginUser.delegate = self
+        loginButton.layer.cornerRadius = 4.0
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

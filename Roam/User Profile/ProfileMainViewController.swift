@@ -61,7 +61,7 @@ class ProfileMainViewController: UIViewController {
                 
                 let user = NewUser(snapshot: snapshot)
                 self.pageTitle = user.firstname
-                self.profileNavBar.topItem?.title = self.pageTitle
+                self.title = self.pageTitle
             }
         }
     }
@@ -71,6 +71,9 @@ class ProfileMainViewController: UIViewController {
         case "presentCollectionView":
             let controller = segue.destination as! ProfileViewController
             self.delegate = controller
+            
+        case "settings":
+            _ = segue.destination as! SettingsViewController
         default:
             assert(false, "Unhandled Segue")
         }

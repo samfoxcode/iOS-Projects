@@ -10,19 +10,30 @@ import UIKit
 import FirebaseAuth
 
 class FirstViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signupButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Roam"
+        _ = PostsModel.sharedInstance
+        loginButton.layer.cornerRadius = 4.0
+        signupButton.layer.cornerRadius = 4.0
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Auth.auth().currentUser != nil {
-            self.performSegue(withIdentifier: "AlreadySignedInSegue", sender: nil)
+            _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dataLoaded), userInfo: nil, repeats: false)
+            //self.performSegue(withIdentifier: "AlreadySignedInSegue", sender: nil)
         }
     }
     
+    @objc func dataLoaded() {
+        self.performSegue(withIdentifier: "AlreadySignedInSegue", sender: nil)
+    }
 
 }

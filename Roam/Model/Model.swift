@@ -143,7 +143,7 @@ class PostsModel {
     fileprivate var usersPosts = [Post]()
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
-    
+    fileprivate let fileManager = FileManager()
     fileprivate let imageCache = NSCache<AnyObject, AnyObject>()
     fileprivate var following = [String]()
     
@@ -183,7 +183,7 @@ class PostsModel {
     }
     
     func getCachedImage(_ imageURL: String) -> UIImage? {
-        return imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+        return imageCache.object(forKey: imageURL+".jpg" as AnyObject) as? UIImage
     }
     
     fileprivate init(){
@@ -202,8 +202,9 @@ class PostsModel {
             self.posts = posts
             let block = {
                 self.cachedPosts = self.posts.reversed()
-                //tableView.reloadData()
-                //refreshControl?.endRefreshing()
+                self.findBookmarkedPosts()
+                self.findFollowingPosts()
+                self.findUsersPosts()
             }
             DispatchQueue.main.async(execute: block)
         }
@@ -218,65 +219,117 @@ class PostsModel {
         DispatchQueue.main.async(execute: block)
     }
     
-    func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
+    func saveImageInDirectory(_ image: UIImage, _ imageURL: String) {
+        let directoryPath = NSHomeDirectory().appending("/Library/Caches/")
+        if !fileManager.fileExists(atPath: directoryPath) {
+            do {
+                try fileManager.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+        let filePath = directoryPath.appending(imageURL)
+        let url = NSURL.fileURL(withPath: filePath)
+        do {
+            try image.jpegData(compressionQuality: 1.0)?.write(to: url, options: .atomic)
+            //return String.init("/Library/Caches/\(imageURL)")
+            
+        } catch {
+            print(error)
+            print("file cant not be save at path \(filePath), with error : \(error)");
+            //return filePath
+        }
+    }
+    
+    func getImageFromDirectory(_ imageURL: String) -> UIImage? {
+        let directoryPath = NSHomeDirectory().appending("/Library/Caches/")
+        let filePath = directoryPath.appending(imageURL)
+        let url = NSURL.fileURL(withPath: filePath)
         
-        if getCachedImage(imageURL) == nil {
+        let image = UIImage(contentsOfFile: url.path)
+        return image
+    }
+    
+    
+    func downloadImage(_ indexPath: IndexPath, _ imageURL: String, _ postID: String) {
+        
+        if getCachedImage(postID+".jpg") == nil && getImageFromDirectory(postID+".jpg") == nil {
             let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
             storage.getData(maxSize: 2*1024*1024) { (data, error) in
                 if error == nil {
                     //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                     let image = UIImage(data: data!)
-                    self.cacheImage(imageURL, image!)
+                    self.cacheImage(postID+".jpg", image!)
+                    self.saveImageInDirectory(image!, postID+".jpg")
                 }
                 else {
                     print("Error:\(error ?? "" as! Error)")
                 }
             }
         }
+        else {
+            let image = getImageFromDirectory(postID+".jpg")!
+            self.cacheImage(postID+".jpg", image)
+        }
     }
-    func downloadFollowingImage(_ indexPath: IndexPath, _ imageURL: String) {
-        if getCachedImage(imageURL) == nil {
+    func downloadFollowingImage(_ indexPath: IndexPath, _ imageURL: String, _ postID: String) {
+        if getCachedImage(postID+".jpg") == nil && getImageFromDirectory(postID+".jpg") == nil {
             let storage = storageRef.storage.reference(forURL: followingPosts[indexPath.section].imagePath)
             storage.getData(maxSize: 2*1024*1024) { (data, error) in
                 if error == nil {
                     //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                     let image = UIImage(data: data!)
-                    self.cacheImage(imageURL, image!)
+                    self.cacheImage(postID+".jpg", image!)
+                    self.saveImageInDirectory(image!, postID+".jpg")
                 }
                 else {
                     print("Error:\(error ?? "" as! Error)")
                 }
             }
         }
+        else {
+            let image = getImageFromDirectory(postID+".jpg")!
+            self.cacheImage(postID+".jpg", image)
+        }
     }
-    func downloadBookmarkedImage(_ index: Int, _ imageURL: String) {
-        if getCachedImage(imageURL) == nil {
+    func downloadBookmarkedImage(_ index: Int, _ imageURL: String, _ postID: String) {
+        if getCachedImage(postID+".jpg") == nil && getImageFromDirectory(postID+".jpg") == nil {
             let storage = storageRef.storage.reference(forURL: bookmarkedPosts[index].imagePath)
             storage.getData(maxSize: 2*1024*1024) { (data, error) in
                 if error == nil {
                     //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                     let image = UIImage(data: data!)
-                    self.cacheImage(imageURL, image!)
+                    self.cacheImage(postID+".jpg", image!)
+                    self.saveImageInDirectory(image!, postID+".jpg")
                 }
                 else {
                     print("Error:\(error ?? "" as! Error)")
                 }
             }
         }
+        else {
+            let image = getImageFromDirectory(postID+".jpg")!
+            self.cacheImage(postID+".jpg", image)
+        }
     }
-    func downloadUsersPostImage(_ index: Int, _ imageURL: String) {
-        if getCachedImage(imageURL) == nil {
+    func downloadUsersPostImage(_ index: Int, _ imageURL: String, _ postID: String) {
+        if getCachedImage(postID+".jpg") == nil && getImageFromDirectory(postID+".jpg") == nil {
             let storage = storageRef.storage.reference(forURL: usersPosts[index].imagePath)
             storage.getData(maxSize: 2*1024*1024) { (data, error) in
                 if error == nil {
                     //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                     let image = UIImage(data: data!)
-                    self.cacheImage(imageURL, image!)
+                    self.cacheImage(postID+".jpg", image!)
+                    self.saveImageInDirectory(image!, postID+".jpg")
                 }
                 else {
                     print("Error:\(error ?? "" as! Error)")
                 }
             }
+        }
+        else {
+            let image = getImageFromDirectory(postID+".jpg")!
+            self.cacheImage(postID+".jpg", image)
         }
     }
     

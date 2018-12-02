@@ -25,6 +25,7 @@
 		226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */; };
 		226DB039218E983200261560 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DB038218E983200261560 /* UploadPostViewController.swift */; };
 		228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */; };
+		22964CC721B456E10096C6E8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22964CC621B456E10096C6E8 /* SettingsViewController.swift */; };
 		22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A182FF218FF5F100DE3AC4 /* FirstViewController.swift */; };
 		22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */; };
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
@@ -71,6 +72,7 @@
 		226DB036218E944C00261560 /* GlobalUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUsersTableViewController.swift; sourceTree = "<group>"; };
 		226DB038218E983200261560 /* UploadPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
 		228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		22964CC621B456E10096C6E8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		22A182FF218FF5F100DE3AC4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */,
 				22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */,
 				22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */,
+				22964CC621B456E10096C6E8 /* SettingsViewController.swift */,
 			);
 			path = "User Profile";
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
 				22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */,
 				22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */,
+				22964CC721B456E10096C6E8 /* SettingsViewController.swift in Sources */,
 				22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */,
 				22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,

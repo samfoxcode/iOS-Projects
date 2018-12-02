@@ -76,12 +76,16 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         return UIStatusBarAnimation.slide
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+        super.viewDidAppear(animated)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
         
         postsModel.findFollowingPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
-        
         /*
         var following = [String]()
         //var account : NewUser?
@@ -182,11 +186,13 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
         let imagePath = postsModel.imagePathForFollowingPost(indexPath.section)
-        postsModel.downloadFollowingImage(indexPath, imagePath)
+        
+        let post = postsModel.postForFollowingSection(indexPath.section)
+        postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
         
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
-        cell.globalPostImageView.image = postsModel.getCachedImage(imagePath)
-        cell.post = postsModel.postForFollowingSection(indexPath.section)
+        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID)
+        cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
         return cell
@@ -237,14 +243,35 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     */
 
-    /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case "showHomeDetails":
+            let button = sender as? UIButton
+            let experienceDetailController = segue.destination as! PostExperienceDetailsTableViewController
+            //let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
+            print(button!.tag)
+            let postIndex = button!.tag
+            let post = postsModel.postForFollowingSection(postIndex)
+            self.navigationController?.navigationBar.isHidden = false
+            experienceDetailController.configure(post.travels, post.experiences)
+        case "showHomeComments":
+            let button = sender as? UIButton
+            let index = button!.tag
+            let postID = postsModel.postForFollowingSection(index).postID
+            let commentsViewController = segue.destination as! CommentsTableViewController
+            var comments = [String]()
+            self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
+                for comment in snapshot.children {
+                    let _comment = (comment as? DataSnapshot)?.value as! String
+                    print(_comment)
+                    comments.append(_comment)
+                }
+                commentsViewController.configure(comments)
+            }
+        default:
+            assert(false, "Unhandled Segue")
+        }
     }
-    */
 
 }

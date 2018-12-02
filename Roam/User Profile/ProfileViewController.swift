@@ -59,10 +59,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     */
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         //self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
-        
+        super.viewWillAppear(animated)
         postModel.findUsersPosts()
         postModel.findBookmarkedPosts()
         self.profileCollectionView.reloadData()
@@ -93,7 +96,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
          */
-        super.viewWillAppear(animated)
     }
     
     /*
@@ -141,13 +143,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         if collectionToShow == "BookmarkedPosts"{
             let imagePath = postModel.imagePathForBookmarkedPost(indexPath.row)
-            postModel.downloadBookmarkedImage(indexPath.row, imagePath)
-            cell.postImageView.image = postModel.getCachedImage(imagePath)
+            let post = postModel.postForBookmarkedSection(indexPath.row)
+            
+            postModel.downloadBookmarkedImage(indexPath.row, imagePath, post.postID)
+            cell.postImageView.image = postModel.getCachedImage(post.postID)
         }
         else {
             let imagePath = postModel.imagePathForUsersPost(indexPath.row)
-            postModel.downloadUsersPostImage(indexPath.row, imagePath)
-            cell.postImageView.image = postModel.getCachedImage(imagePath)
+            let post = postModel.postForUsersSection(indexPath.row)
+            
+            postModel.downloadUsersPostImage(indexPath.row, imagePath, post.postID)
+            cell.postImageView.image = postModel.getCachedImage(post.postID)
         }
         return cell
     }

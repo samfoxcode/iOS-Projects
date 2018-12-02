@@ -167,10 +167,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
 
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
         let imagePath = postsModel.imagePathForPost(indexPath.section)
-        postsModel.downloadImage(indexPath, imagePath)
         
-        cell.globalPostImageView.image = postsModel.getCachedImage(imagePath)
-        cell.post = postsModel.postForSection(indexPath.section)
+        let post = postsModel.postForSection(indexPath.section)
+        
+        postsModel.downloadImage(indexPath, imagePath, post.postID)
+        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID)
+        cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 4.0
@@ -229,6 +231,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let button = sender as? UIButton
                 let index = button!.tag
                 let postID = postsModel.postForSection(index).postID
+                self.navigationController?.navigationBar.isHidden = false
                 let commentsViewController = segue.destination as! CommentsTableViewController
                 var comments = [String]()
                 self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
