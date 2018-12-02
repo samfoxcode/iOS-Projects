@@ -78,7 +78,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             print("User do not have access to photo album.")
                 
         case .denied:
-            print("User has denied the permission.") }
+            print("User has denied the permission.")
+            
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
             UIResponder.keyboardWillShowNotification, object: nil)
@@ -180,11 +182,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         }
         
         storage.putData(image!).observe(.success) { (snapshot) in
-            // When the image has successfully uploaded, we get it's download URL
             storage.downloadURL(completion: { (url, error) in
                 if (error == nil) {
                     if let downloadUrl = url {
-                        // Make you download string
                         let downloadURL = downloadUrl.absoluteString
                         self.uploadSuccess(downloadURL)
                         self.showNetworkActivityIndicator = false
@@ -205,7 +205,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func uploadSuccess(_ imagePath : String) {
-        // TODO: Create post with correct experience description.
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)

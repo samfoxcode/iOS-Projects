@@ -16,7 +16,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         clearCacheButton.layer.cornerRadius = 4.0
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func clearCacheAction(_ sender: Any) {

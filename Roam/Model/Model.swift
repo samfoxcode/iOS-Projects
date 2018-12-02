@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import CoreData
 
+// MARK: - ENUMS for attributes
 enum FirebaseFields: String {
     case Posts
     case Users
@@ -35,6 +36,7 @@ enum UserAttributes: String {
     case email
 }
 
+// MARK: - User Struct
 struct NewUser {
     let firstname: String
     let lastname: String
@@ -70,6 +72,7 @@ struct NewUser {
     }
 }
 
+// MARK: - Post Struct
 struct Post : PostIsh, Codable  {
     let addedByUser: String
     let username: String
@@ -132,6 +135,7 @@ struct Post : PostIsh, Codable  {
     }
 }
 
+// MARK: - Model to save Posts to cache and to load them
 class PostsModel {
     
     static let sharedInstance = PostsModel()
@@ -232,12 +236,9 @@ class PostsModel {
         let url = NSURL.fileURL(withPath: filePath)
         do {
             try image.jpegData(compressionQuality: 1.0)?.write(to: url, options: .atomic)
-            //return String.init("/Library/Caches/\(imageURL)")
             
         } catch {
-            print(error)
             print("file cant not be save at path \(filePath), with error : \(error)");
-            //return filePath
         }
     }
     
@@ -353,8 +354,6 @@ class PostsModel {
     }
     
     func findFollowingPosts() {
-        //var account : NewUser?
-        
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
                 self.following = []
@@ -386,9 +385,16 @@ class PostsModel {
         }
     }
     
+    func clearFollowingUsersAndBookmarks() {
+        self.usersPosts = []
+        self.followingPosts = []
+        self.following = []
+        self.bookmarkedPosts = []
+    }
 }
 
 
+// MARK: - Experiences
 class Experiences {
     static let sharedExperiencesInstance = Experiences()
     
@@ -418,6 +424,7 @@ class Experiences {
     
 }
 
+// MARK: - Travel Info
 class TravelInfo {
     static let sharedTravelsInstance = TravelInfo()
     
@@ -447,6 +454,7 @@ class TravelInfo {
     
 }
 
+// MARK: - Class for caching images
 class CachedImages {
     let imageCache = NSCache<AnyObject, AnyObject>()
     

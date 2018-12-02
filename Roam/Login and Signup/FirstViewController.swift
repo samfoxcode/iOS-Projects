@@ -21,14 +21,12 @@ class FirstViewController: UIViewController {
         _ = PostsModel.sharedInstance
         loginButton.layer.cornerRadius = 4.0
         signupButton.layer.cornerRadius = 4.0
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Auth.auth().currentUser != nil {
             _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dataLoaded), userInfo: nil, repeats: false)
-            //self.performSegue(withIdentifier: "AlreadySignedInSegue", sender: nil)
         }
     }
     

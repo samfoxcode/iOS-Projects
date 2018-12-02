@@ -27,7 +27,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
         swipeUp.direction = UISwipeGestureRecognizer.Direction.up
         swipeUp.delegate = self
@@ -40,11 +39,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         self.tableViewSwipeDownGesture = swipeDown
         
         navigationController?.hidesBarsOnSwipe = true
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
@@ -64,7 +58,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        //Identify gesture recognizer and return true else false.
         return gestureRecognizer.isEqual(self.tableViewSwipeUpGesture) || gestureRecognizer.isEqual(self.tableViewSwipeDownGesture) ? true : false
     }
     
@@ -86,36 +79,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         postsModel.findFollowingPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
-        /*
-        var following = [String]()
-        //var account : NewUser?
-        
-        if Auth.auth().currentUser != nil {
-            ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
-                for user in snapshot.children {
-                    let temp = user as! DataSnapshot
-                    following.append(temp.key)
-                }
-            }
-            
-            ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
-                var posts = [Post]()
-                for postSnapshot in snapshot.children {
-                    let post = Post(snapshot: postSnapshot as! DataSnapshot)
-                    if following.contains(post.username) {
-                        posts.append(post)
-                    }
-                }
-                self.posts = posts
-                let block = {
-                    self.cachedPosts = self.posts.reversed()
-                    self.tableView.reloadData()
-                    self.refreshControl?.endRefreshing()
-                }
-                DispatchQueue.main.async(execute: block)
-            }
-        }
-         */
+
         super.viewWillAppear(animated)
     }
     
@@ -125,43 +89,15 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         postsModel.findFollowingPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
-        
-        /*
-        let block = {
-            self.cachedPosts = self.posts.reversed()
-            self.tableView.reloadData()
-            self.refreshControl?.endRefreshing()
-        }
-        DispatchQueue.main.async(execute: block)
-        */
     }
-    
-    /*
-    func downloadImage(_ indexPath: IndexPath, _ imageURL: String) {
-        let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath)
-        storage.getData(maxSize: 2*1024*1024) { (data, error) in
-            if error == nil {
-                //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
-                let image = UIImage(data: data!)
-                self.cachedImage.cacheImage(imageURL, image!)
-            }
-            else {
-                print("Error:\(error ?? "" as! Error)")
-            }
-        }
-    }
-    */
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return postsModel.cachedFollowingPostsCount
-        //return self.cachedPosts.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
     
@@ -174,14 +110,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 2.5))
-        view.backgroundColor = self.view.tintColor
-        return view
-    }
-    */
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
@@ -189,8 +117,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         let post = postsModel.postForFollowingSection(indexPath.section)
         postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
-        
-        //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
+
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID)
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
@@ -198,59 +125,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         return cell
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showHomeDetails":
             let button = sender as? UIButton
             let experienceDetailController = segue.destination as! PostExperienceDetailsTableViewController
-            //let experienceDetailController = navController.topViewController as! PostExperienceDetailsTableViewController
-            print(button!.tag)
             let postIndex = button!.tag
             let post = postsModel.postForFollowingSection(postIndex)
             self.navigationController?.navigationBar.isHidden = false
@@ -264,7 +144,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
                 for comment in snapshot.children {
                     let _comment = (comment as? DataSnapshot)?.value as! String
-                    print(_comment)
                     comments.append(_comment)
                 }
                 commentsViewController.configure(comments)

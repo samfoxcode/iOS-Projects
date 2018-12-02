@@ -16,18 +16,19 @@ protocol MainViewDelegate {
 class ProfileMainViewController: UIViewController {
 
     var delegate : MainViewDelegate?
+    var pageTitle = String()
     
-    
-    @IBOutlet weak var profileNavBar: UINavigationBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     fileprivate var ref : DatabaseReference!
-    var pageTitle = String()
+    
+    let postModel = PostsModel.sharedInstance
     
     @IBAction func signOut(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            postModel.clearFollowingUsersAndBookmarks()
         }
         catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)

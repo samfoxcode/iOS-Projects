@@ -89,8 +89,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
 
     @IBAction func bookmarkPost(_ sender: Any) {
@@ -112,7 +110,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
-        //child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))")
     }
     
     override func prepareForReuse() {

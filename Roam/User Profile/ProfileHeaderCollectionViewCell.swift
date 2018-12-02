@@ -10,8 +10,4 @@ import UIKit
 
 class ProfileHeaderCollectionViewCell: UICollectionViewCell {
     
-    @IBAction func segmentedControlAction(_ sender: UISegmentedControl) {
-        print("TAPTAPTAPTAP")
-    }
-    
 }
