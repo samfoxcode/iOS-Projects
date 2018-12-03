@@ -960,7 +960,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwO-wz-Yfk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5898.3999999999996" y="-39.130434782608695"/>
+            <point key="canvasLocation" x="-5994" y="-39"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WZ2-wc-60R">
