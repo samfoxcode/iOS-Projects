@@ -20,6 +20,20 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var addFlightsAndStays: UIButton!
     @IBOutlet weak var postButton: UIButton!
     
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.view.tintColor = UIColor.darkGray
+                self.view.backgroundColor = UIColor.darkGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.view.tintColor = UIColor.white
+                self.view.backgroundColor = UIColor.white
+            }
+        }
+    }
     
     var imagePicker = UIImagePickerController()
     var imageToUpload = UIImage(named: "addPhoto")
@@ -40,6 +54,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         
         addExperiences.layer.cornerRadius = 4.0
         addExperiences.layer.shadowColor = UIColor.gray.cgColor

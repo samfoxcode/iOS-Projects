@@ -18,6 +18,21 @@ class ProfileMainViewController: UIViewController {
     var delegate : MainViewDelegate?
     var pageTitle = String()
     
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.view.tintColor = UIColor.darkGray
+                self.view.backgroundColor = UIColor.darkGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.view.tintColor = UIColor.white
+                self.view.backgroundColor = UIColor.white
+            }
+        }
+    }
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     fileprivate var ref : DatabaseReference!
     
@@ -54,6 +69,8 @@ class ProfileMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         
         ref = Database.database().reference()
         

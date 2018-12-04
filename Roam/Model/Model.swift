@@ -36,6 +36,11 @@ enum UserAttributes: String {
     case email
 }
 
+enum Themes: String {
+    case Dark
+    case Light
+}
+
 // MARK: - User Struct
 struct NewUser {
     let firstname: String

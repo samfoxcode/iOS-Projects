@@ -14,6 +14,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.view.tintColor = UIColor.darkGray
+                self.view.backgroundColor = UIColor.darkGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.view.tintColor = UIColor.white
+                self.view.backgroundColor = UIColor.white
+            }
+        }
+    }
+    
     @IBOutlet weak var profileCollectionView: UICollectionView!
     
     var collectionToShow = "UsersPosts"
@@ -23,6 +38,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         
         profileCollectionView.dataSource = self
         profileCollectionView.delegate = self
