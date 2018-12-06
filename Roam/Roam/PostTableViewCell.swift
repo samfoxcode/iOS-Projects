@@ -14,6 +14,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     fileprivate var downloadImageTask : StorageDownloadTask!
     fileprivate var databaseRef : DatabaseReference!
     
+    
+    @IBOutlet weak var backgroundColorView: UIView!
     @IBOutlet weak var globalPostersName: UILabel!
     @IBOutlet weak var globalPosterUsername: UILabel!
     @IBOutlet weak var globalPostImageView: UIImageView!
@@ -62,6 +64,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
+        backgroundColorView.layer.cornerRadius = 15
+        globalCommentTextView.layer.cornerRadius = 15
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
