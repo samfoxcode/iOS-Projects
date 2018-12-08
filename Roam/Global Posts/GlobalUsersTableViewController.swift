@@ -38,6 +38,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         navigationController?.hidesBarsOnSwipe = true
         
+
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
         
@@ -107,15 +108,18 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
-        let imagePath = postsModel.imagePathForPost(indexPath.section)
+        let imagePath = postsModel.imagePathForPost(indexPath.section, 0)
+        let imagesCount = imagePath.count
         
         let post = postsModel.postForSection(indexPath.section)
         
         postsModel.downloadImage(indexPath, imagePath, post.postID)
-        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID)
+        
+        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
+        cell.segueButtonForImages.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 4.0
         return cell
     }
@@ -144,6 +148,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                     }
                     commentsViewController.configure(comments)
                 }
+            case "ShowImages":
+                let viewController = segue.destination as! AllImagesTableViewController
+                let index = (sender as? UIButton)?.tag
+                viewController.configure(index!, "Global")
+                self.navigationController?.navigationBar.isHidden = false
             default:
                 assert(false, "Unhandled Segue")
         }

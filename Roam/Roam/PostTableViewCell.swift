@@ -26,7 +26,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var unfollowButton: UIButton!
     @IBOutlet weak var viewCommentsButton: UIButton!
-    
+    @IBOutlet weak var segueButtonForImages: UIButton!
     
     var postID = String()
     
@@ -34,7 +34,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         didSet {
             if let post = post {
                 if globalPostImageView.image == nil {
-                    downloadImage(from: post.imagePath)
+                    downloadImage(from: post.imagePath[0])
                 }
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username

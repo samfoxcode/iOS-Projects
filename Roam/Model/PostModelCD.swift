@@ -13,6 +13,7 @@ protocol PostIsh {
     var fullname : String {get}
 }
 
+/*
 extension Post {
     func insert(using dataManager:DataManager) -> PostMO {
         let postMO = NSEntityDescription.insertNewObject(forEntityName: "PostMO", into: dataManager.managedObjectContext) as! PostMO
@@ -60,3 +61,4 @@ class PostsModelCD : DataManagerDelegate {
     }
     
 }
+*/

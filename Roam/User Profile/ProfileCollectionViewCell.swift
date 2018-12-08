@@ -20,7 +20,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         didSet {
             if let post = post {
                 if postImageView.image == nil {
-                    downloadImage(from: post.imagePath)
+                    downloadImage(from: post.imagePath[0])
                 }
             }
         }

@@ -10,6 +10,7 @@ target 'Roam' do
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'TLPhotoPicker'
 
   target 'RoamTests' do
     inherit! :search_paths

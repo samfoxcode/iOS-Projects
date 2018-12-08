@@ -25,7 +25,11 @@ class MainTabBarViewController: UITabBarController {
         }
     }
     
-
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

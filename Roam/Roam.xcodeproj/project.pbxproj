@@ -38,6 +38,8 @@
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
 		22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
 		22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
+		22E8AFD521BC6AA90028476F /* AllImagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */; };
+		22E8AFD721BC6CC10028476F /* ImageViewPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */; };
 		22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */; };
 		22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */; };
 		22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */; };
@@ -84,6 +86,8 @@
 		22B7517421A4E52D004B5FEC /* PostModelCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModelCD.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllImagesTableViewController.swift; sourceTree = "<group>"; };
+		22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewPostTableViewCell.swift; sourceTree = "<group>"; };
 		22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +150,9 @@
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
+				22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */,
 				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
@@ -393,6 +399,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Roam/Pods-Roam-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -400,6 +407,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -430,8 +438,10 @@
 				22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */,
 				22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */,
 				22964CC721B456E10096C6E8 /* SettingsViewController.swift in Sources */,
+				22E8AFD521BC6AA90028476F /* AllImagesTableViewController.swift in Sources */,
 				22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */,
 				22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */,
+				22E8AFD721BC6CC10028476F /* ImageViewPostTableViewCell.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */,
 				22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */,

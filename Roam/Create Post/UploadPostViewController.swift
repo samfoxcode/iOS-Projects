@@ -8,9 +8,12 @@
 import UIKit
 import Firebase
 import Photos
+import TLPhotoPicker
 
-class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate {
+class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate {
 
+    static let uploadedImage = Notification.Name("uploadedImage")
+    
     fileprivate var databaseRef : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     fileprivate var uploadStorageTask: StorageUploadTask!
@@ -20,6 +23,10 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var addFlightsAndStays: UIButton!
     @IBOutlet weak var postButton: UIButton!
     
+    var selectedPictures = [TLPHAsset]()
+    var imageURLSforUpload = [String]()
+    var uploadCount = 0
+    var selectedImageCount = 0
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
@@ -31,6 +38,17 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 print("LIGHT THEME")
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.white
+            }
+        }
+        if notification.name == UploadPostViewController.uploadedImage {
+            uploadCount = uploadCount + 1
+            if uploadCount >= selectedImageCount {
+                self.uploadSuccess(self.imageURLSforUpload)
+                self.showNetworkActivityIndicator = false
+                self.uploadImageView.image = UIImage(named: "addPhoto")
+                self.uploadImageView.alpha = 1.0
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             }
         }
     }
@@ -54,6 +72,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: UploadPostViewController.uploadedImage, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         
@@ -145,11 +164,54 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @objc func selectImage(_ sender: UITapGestureRecognizer) {
+        /*
         self.imagePicker.delegate = self
         self.imagePicker.sourceType = .photoLibrary
         self.present(self.imagePicker, animated: true, completion: nil)
+        */
+        
+        let viewController = TLPhotosPickerViewController()
+        viewController.delegate = self
+        var configure = TLPhotosPickerConfigure()
+        configure.allowedVideo = false
+        configure.allowedVideoRecording = false
+        configure.muteAudio = true
+        self.present(viewController, animated: true, completion: nil)
+        
+    }
+    // TLPhotos delegate functions
+    //TLPhotosPickerViewControllerDelegate
+    func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
+        // use selected order, fullresolution image
+        self.selectedPictures = withTLPHAssets
+        uploadImageView.image = self.selectedPictures[0].fullResolutionImage
+        print(self.selectedPictures)
+    }
+    func dismissPhotoPicker(withPHAssets: [PHAsset]) {
+        // if you want to used phasset.
+    }
+    func photoPickerDidCancel() {
+        // cancel
+    }
+    func dismissComplete() {
+        // picker viewcontroller dismiss completion
+    }
+    func canSelectAsset(phAsset: PHAsset) -> Bool {
+        //Custom Rules & Display
+        //You can decide in which case the selection of the cell could be forbidden.
+        return true
+    }
+    func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) {
+        // exceed max selection
+    }
+    func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) {
+        // handle denied albums permissions case
+    }
+    func handleNoCameraPermissions(picker: TLPhotosPickerViewController) {
+        // handle denied camera permissions case
     }
     
+    // ImagePickerView delegate
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             uploadImageView.alpha = 1.0
@@ -164,63 +226,72 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @IBAction func submitPost(_ sender: Any) {
+
+        self.selectedImageCount = self.selectedPictures.count
+        
+        for selectedImage in self.selectedPictures {
+            let image = selectedImage.fullResolutionImage!.jpegData(compressionQuality: 0.001)
+            let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
-        let image = imageToUpload!.jpegData(compressionQuality: 0.001)
-        let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        showNetworkActivityIndicator = true
-        
-        let storage = storageRef.child("IMAGES/"+imagePath)
-        
-        storage.putData(image!).observe(.failure) { snapshot in
-            if let error = snapshot.error as NSError? {
-                switch (StorageErrorCode(rawValue: error.code)!) {
-                case .objectNotFound:
-                    print("File doesn't exist")
-                    break
-                case .unauthorized:
-                    print("User doesn't have permission to access file")
-                    break
-                case .unknown:
-                    print("Unknown Error")
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
-                    break
-                default:
-                    print("Unhandled Error")
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
-                    break
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            showNetworkActivityIndicator = true
+            
+            let storage = storageRef.child("IMAGES/"+imagePath)
+            
+            storage.putData(image!).observe(.failure) { snapshot in
+                if let error = snapshot.error as NSError? {
+                    switch (StorageErrorCode(rawValue: error.code)!) {
+                    case .objectNotFound:
+                        print("File doesn't exist")
+                        break
+                    case .unauthorized:
+                        print("User doesn't have permission to access file")
+                        break
+                    case .unknown:
+                        print("Unknown Error")
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
+                        break
+                    default:
+                        print("Unhandled Error")
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
+                        break
+                    }
                 }
             }
-        }
-        
-        storage.putData(image!).observe(.success) { (snapshot) in
-            storage.downloadURL(completion: { (url, error) in
-                if (error == nil) {
-                    if let downloadUrl = url {
-                        let downloadURL = downloadUrl.absoluteString
-                        self.uploadSuccess(downloadURL)
-                        self.showNetworkActivityIndicator = false
-                        self.uploadImageView.image = UIImage(named: "addPhoto")
-                        self.uploadImageView.alpha = 0.5
+            storage.putData(image!).observe(.success) { (snapshot) in
+                storage.downloadURL(completion: { (url, error) in
+                    if (error == nil) {
+                        if let downloadUrl = url {
+                            let downloadURL = downloadUrl.absoluteString
+                            self.imageURLSforUpload.append(downloadURL)
+                            NotificationCenter.default.post(name: UploadPostViewController.uploadedImage, object: nil)
+                            
+                            /*
+                            self.uploadSuccess([downloadURL])
+                            self.showNetworkActivityIndicator = false
+                            self.uploadImageView.image = UIImage(named: "addPhoto")
+                            self.uploadImageView.alpha = 1.0
+                            let generator = UINotificationFeedbackGenerator()
+                            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+                            */
+                        }
+                    } else {
+                        print("Error:\(String(describing: error?.localizedDescription))")
                         let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+                        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
                     }
-                } else {
-                    print("Error:\(String(describing: error?.localizedDescription))")
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.error)
-                }
-            })
+                })
+
+            }
 
         }
-        
+
     }
     
-    func uploadSuccess(_ imagePath : String) {
+    func uploadSuccess(_ imagePath : [String]) {
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)

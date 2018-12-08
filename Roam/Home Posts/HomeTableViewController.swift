@@ -113,15 +113,16 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
-        let imagePath = postsModel.imagePathForFollowingPost(indexPath.section)
+        let imagePath = postsModel.imagePathForFollowingPost(indexPath.section, 0)
         
         let post = postsModel.postForFollowingSection(indexPath.section)
         postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
 
-        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID)
+        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
+        cell.segueButtonForImages.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
         return cell
     }
@@ -149,6 +150,11 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
                 }
                 commentsViewController.configure(comments)
             }
+        case "ShowImages":
+            let viewController = segue.destination as! AllImagesTableViewController
+            let index = (sender as? UIButton)?.tag
+            viewController.configure(index!, "Home")
+            self.navigationController?.navigationBar.isHidden = false
         default:
             assert(false, "Unhandled Segue")
         }
