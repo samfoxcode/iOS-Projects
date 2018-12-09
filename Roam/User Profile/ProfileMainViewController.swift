@@ -22,15 +22,25 @@ class ProfileMainViewController: UIViewController {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 print("DARK THEME")
-                self.view.tintColor = UIColor.darkGray
+                self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
+                self.segmentedControl.backgroundColor = UIColor.darkGray
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .selected)
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
             }
             else {
                 print("LIGHT THEME")
-                self.view.tintColor = UIColor.white
+                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.view.backgroundColor = UIColor.white
+                self.segmentedControl.backgroundColor = UIColor.white
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
             }
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -71,7 +81,12 @@ class ProfileMainViewController: UIViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
-        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
         ref = Database.database().reference()
         
         if Auth.auth().currentUser != nil && pageTitle.count < 1 {

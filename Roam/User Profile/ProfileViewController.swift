@@ -18,15 +18,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 print("DARK THEME")
-                self.view.tintColor = UIColor.darkGray
+                self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
+                self.profileCollectionView.backgroundView?.backgroundColor = UIColor.darkGray
+                self.profileCollectionView.backgroundColor = UIColor.darkGray
             }
             else {
                 print("LIGHT THEME")
-                self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.white
+                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.profileCollectionView.backgroundView?.backgroundColor = UIColor.white
+                self.profileCollectionView.backgroundColor = UIColor.white
             }
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
     @IBOutlet weak var profileCollectionView: UICollectionView!
@@ -40,6 +48,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
         
         profileCollectionView.dataSource = self
         profileCollectionView.delegate = self

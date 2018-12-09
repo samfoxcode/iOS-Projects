@@ -57,7 +57,28 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
             }
         }
     }
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.tintColor = UIColor.white
+                self.backgroundColor = UIColor.darkGray
+                self.backgroundColorView.backgroundColor = UIColor.lightGray
+                self.contentView.backgroundColor = UIColor.darkGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.contentView.backgroundColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.backgroundColorView.backgroundColor = UIColor.white
+            }
+        }
+    }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         globalCommentTextView.delegate = self
@@ -66,6 +87,14 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         databaseRef = Database.database().reference()
         backgroundColorView.layer.cornerRadius = 15
         globalCommentTextView.layer.cornerRadius = 15
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

@@ -21,6 +21,50 @@ class FirstViewController: UIViewController {
         _ = PostsModel.sharedInstance
         loginButton.layer.cornerRadius = 4.0
         signupButton.layer.cornerRadius = 4.0
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
+    }
+    
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.view.tintColor = UIColor.white
+                self.view.backgroundColor = UIColor.darkGray
+                
+                let proxy = UINavigationBar.appearance()
+                proxy.barTintColor = UIColor.darkGray
+                proxy.tintColor = UIColor.white
+                proxy.barStyle = .blackOpaque
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+                
+                let buttonProxy = UIButton.appearance()
+                buttonProxy.titleLabel?.textColor = UIColor.darkGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.view.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                
+                let proxy = UINavigationBar.appearance()
+                proxy.barTintColor = UIColor.white
+                proxy.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                proxy.barStyle = .default
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+                
+                let buttonProxy = UIButton.appearance()
+                buttonProxy.titleLabel?.textColor = UIColor.white
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

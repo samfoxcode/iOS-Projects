@@ -16,17 +16,44 @@ class MainTabBarViewController: UITabBarController {
                 print("DARK THEME")
                 self.tabBar.barTintColor = UIColor.darkGray
                 self.tabBar.tintColor = UIColor.white
+                
+                self.navigationController?.navigationBar.barStyle = .blackOpaque
+                self.navigationController?.navigationBar.barTintColor = UIColor.darkGray
+                self.navigationController?.navigationBar.tintColor = UIColor.white
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+                
+                let proxy = UINavigationBar.appearance()
+                proxy.barTintColor = UIColor.darkGray
+                proxy.tintColor = UIColor.white
+                proxy.barStyle = .blackOpaque
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+                
+                let buttonProxy = UIButton.appearance()
+                buttonProxy.titleLabel?.textColor = UIColor.darkGray
             }
             else {
                 print("LIGHT THEME")
                 self.tabBar.barTintColor = UIColor.white
                 self.tabBar.tintColor = self.view.tintColor
+                
+                self.navigationController?.navigationBar.barTintColor = UIColor.white
+                self.navigationController?.navigationBar.barStyle = .default
+                self.navigationController?.navigationBar.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+                
+                let proxy = UINavigationBar.appearance()
+                proxy.barTintColor = UIColor.white
+                proxy.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                proxy.barStyle = .default
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+                
+                let buttonProxy = UIButton.appearance()
+                buttonProxy.titleLabel?.textColor = UIColor.white
             }
         }
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
         NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
@@ -34,6 +61,12 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
         // Do any additional setup after loading the view.
     }
     

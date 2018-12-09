@@ -23,16 +23,44 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
         static let add = 1
     }
     
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                print("DARK THEME")
+                self.tableView.tintColor = UIColor.white
+                self.tableView.backgroundColor = UIColor.darkGray
+                self.tableView.tableHeaderView?.backgroundColor = UIColor.lightGray
+            }
+            else {
+                print("LIGHT THEME")
+                self.tableView.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.tableView.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.tableView.tableHeaderView?.backgroundColor = UIColor.white
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
     }
     
     @IBAction func doneAdding(_ sender: Any) {
         delegate?.saveTravels(model.travels)
         model.travels = [String]()
-        dismiss(animated: true, completion: nil)
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+        performSegue(withIdentifier: "goBackToUpload", sender: self)
     }
     
     @IBAction func addTravel(_ sender: Any) {

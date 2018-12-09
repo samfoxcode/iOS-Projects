@@ -27,19 +27,24 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     var imageURLSforUpload = [String]()
     var uploadCount = 0
     var selectedImageCount = 0
+    
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 print("DARK THEME")
                 self.view.tintColor = UIColor.darkGray
                 self.view.backgroundColor = UIColor.darkGray
+                self.descriptionTextView.backgroundColor = UIColor.lightGray
             }
             else {
                 print("LIGHT THEME")
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.white
+                self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)
+                self.descriptionTextView.isOpaque = true
             }
         }
+        
         if notification.name == UploadPostViewController.uploadedImage {
             uploadCount = uploadCount + 1
             if uploadCount >= selectedImageCount {
@@ -75,6 +80,13 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: UploadPostViewController.uploadedImage, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
         
         addExperiences.layer.cornerRadius = 4.0
         addExperiences.layer.shadowColor = UIColor.gray.cgColor
@@ -144,9 +156,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
-            if self.view.frame.origin.y == 0{
+            if self.view.frame.origin.y - (2*(self.navigationController?.navigationBar.frame.height)!) == 0{
                 kKeyboardSize = keyboardSize!.height
-                self.view.frame.origin.y -= keyboardSize!.height/2.0
+                self.view.frame.origin.y -= (keyboardSize!.height/2.0 + (self.navigationController?.navigationBar.frame.height)!)
             }
         }
         
@@ -156,8 +168,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @objc
     func keyboardWillHide(notification:Notification) {
         if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y = 0
+            if self.view.frame.origin.y != 2*(self.navigationController?.navigationBar.frame.height)!{
+                self.view.frame.origin.y = 0 + 2*(self.navigationController?.navigationBar.frame.height)!
             }
         }
         keyboardVisible = false
@@ -323,20 +335,22 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     // MARK: - Navigation
 
+    @IBAction func unwindToUploadPost(segue:UIStoryboardSegue) { }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          switch segue.identifier {
          case "AddExperiences":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
-            let navController = segue.destination as! UINavigationController
-            let experiencesController = navController.topViewController as! ExperiencesTableViewController
+            let experiencesController = segue.destination as! ExperiencesTableViewController
+            //let experiencesController = navController.topViewController as! ExperiencesTableViewController
             experiencesController.delegate = self
          case "AddTravel":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
-            let navController = segue.destination as! UINavigationController
-            let travelController = navController.topViewController as! FlightsStaysTableViewController
+            let travelController = segue.destination as! FlightsStaysTableViewController
+            //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self
          default:
             assert(false, "Unhandled Segue")
