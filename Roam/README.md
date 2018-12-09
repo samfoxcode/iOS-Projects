@@ -4,7 +4,9 @@
 
 ### Then once the pods have installed, open the project by opening Roam.xcworkspace and build the Roam project as normal
 
+### NOTE: It may take a little while to properly index/build due to the thirdparty library "TLPhotoPicker" and it's dependencies, but it will build without error.
+### NOTE 2: When running the app, images may take a little while to initially show up due to their size and how the app sets itself up, but once downloading no other issues should be noticed.
 
 ### You can log in to the app with a profile I've already created with "email: samsam@gmail.com password: samsam", or create your own account with a fake email/password.
 
-### The "Fav/Boomark" button is not yet opperational and there might still be a few little bugs/quirks you notice that I am still working on. Just wanted to get a functioning prototype up and running, quirks and design choices will be addressed for the final version,
+### All buttons are operational at this time.
