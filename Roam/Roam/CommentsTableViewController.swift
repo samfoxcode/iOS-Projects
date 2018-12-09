@@ -63,10 +63,12 @@ class CommentsTableViewController: UITableViewController {
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             cell.textLabel?.textColor = UIColor.black
             cell.textLabel?.backgroundColor = UIColor.white
+            cell.backgroundColor = UIColor.white
         }
         if UserDefaults.standard.bool(forKey: "DarkMode") == true {
             cell.textLabel?.textColor = UIColor.white
             cell.textLabel?.backgroundColor = UIColor.darkGray
+            cell.backgroundColor = UIColor.darkGray
         }
         
         cell.textLabel?.text = comments[indexPath.row]

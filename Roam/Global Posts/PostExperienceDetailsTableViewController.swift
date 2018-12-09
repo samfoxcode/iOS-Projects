@@ -87,6 +87,17 @@ class PostExperienceDetailsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Detail", for: indexPath)
 
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            cell.textLabel?.textColor = UIColor.black
+            cell.textLabel?.backgroundColor = UIColor.white
+            cell.backgroundColor = UIColor.white
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            cell.textLabel?.textColor = UIColor.white
+            cell.textLabel?.backgroundColor = UIColor.darkGray
+            cell.backgroundColor = UIColor.darkGray
+        }
+        
         if indexPath.section == 0 {
             cell.textLabel?.text = experiences[indexPath.row]
         }

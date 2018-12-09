@@ -312,6 +312,13 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
         }
+        
+        self.selectedPictures = [TLPHAsset]()
+        self.imageURLSforUpload = [String]()
+        self.uploadCount = 0
+        self.selectedImageCount = 0
+        self.travels = [""]
+        self.experiences = [""]
     }
     
     func saveTravels(_ travels: [String]) {
