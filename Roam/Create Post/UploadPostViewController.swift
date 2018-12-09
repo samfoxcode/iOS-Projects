@@ -105,6 +105,11 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         uploadImageView.addGestureRecognizer(addImageGesture)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        previousHeight = self.view.frame.origin.y
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         
@@ -154,9 +159,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
             let userInfo = notification.userInfo!
             let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
-            if self.view.frame.origin.y - (2*(self.navigationController?.navigationBar.frame.height)!) == 0{
+            if self.view.frame.origin.y == previousHeight {
                 kKeyboardSize = keyboardSize!.height
-                self.view.frame.origin.y -= (keyboardSize!.height/2.0 + (self.navigationController?.navigationBar.frame.height)!)
+                self.view.frame.origin.y -= (keyboardSize!.height/2.0)
             }
         }
         
@@ -166,8 +171,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @objc
     func keyboardWillHide(notification:Notification) {
         if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
-            if self.view.frame.origin.y != 2*(self.navigationController?.navigationBar.frame.height)!{
-                self.view.frame.origin.y = 0 + 2*(self.navigationController?.navigationBar.frame.height)!
+            if self.view.frame.origin.y != previousHeight {
+                self.view.frame.origin.y = previousHeight
             }
         }
         keyboardVisible = false
