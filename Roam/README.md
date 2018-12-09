@@ -10,3 +10,5 @@
 ### You can log in to the app with a profile I've already created with "email: samsam@gmail.com password: samsam", or create your own account with a fake email/password.
 
 ### All buttons are operational at this time.
+
+## BUGS: If you run into any errors, closing and restarting the app will fix it most likely. Don't switch tabs when uploading a post as this creates an issue (very rarely) that I haven't been able to pinpoint due to its rarity. The phone will vibrate and the image will go back to the default when it has uploaded.
