@@ -31,13 +31,11 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                print("DARK THEME")
                 self.view.tintColor = UIColor.darkGray
                 self.view.backgroundColor = UIColor.darkGray
                 self.descriptionTextView.backgroundColor = UIColor.lightGray
             }
             else {
-                print("LIGHT THEME")
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.white
                 self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)

@@ -13,7 +13,6 @@ class MainTabBarViewController: UITabBarController {
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                print("DARK THEME")
                 self.tabBar.barTintColor = UIColor.darkGray
                 self.tabBar.tintColor = UIColor.white
                 
@@ -32,7 +31,6 @@ class MainTabBarViewController: UITabBarController {
                 buttonProxy.titleLabel?.textColor = UIColor.darkGray
             }
             else {
-                print("LIGHT THEME")
                 self.tabBar.barTintColor = UIColor.white
                 self.tabBar.tintColor = self.view.tintColor
                 

@@ -17,12 +17,10 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                print("DARK THEME")
                 self.tintColor = UIColor.white
                 self.backgroundColor = UIColor.darkGray
             }
             else {
-                print("LIGHT THEME")
                 self.backgroundColor = UIColor.white
                 self.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
             }

@@ -33,7 +33,6 @@ class FirstViewController: UIViewController {
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                print("DARK THEME")
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
                 
@@ -47,7 +46,6 @@ class FirstViewController: UIViewController {
                 buttonProxy.titleLabel?.textColor = UIColor.darkGray
             }
             else {
-                print("LIGHT THEME")
                 self.view.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 
