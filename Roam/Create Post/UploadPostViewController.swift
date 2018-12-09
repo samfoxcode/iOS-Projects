@@ -27,6 +27,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     var imageURLSforUpload = [String]()
     var uploadCount = 0
     var selectedImageCount = 0
+    var textToUpload = "Add a description of your trip here..."
     
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
@@ -44,8 +45,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         }
         
         if notification.name == UploadPostViewController.uploadedImage {
+            print("NOTIFICATION")
             uploadCount = uploadCount + 1
-            if uploadCount >= selectedImageCount {
+            if uploadCount >= selectedImageCount && imageURLSforUpload.count > 0 {
                 self.uploadSuccess(self.imageURLSforUpload)
                 self.showNetworkActivityIndicator = false
                 self.uploadImageView.image = UIImage(named: "addPhoto")
@@ -153,6 +155,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.resignFirstResponder()
+        self.textToUpload = textView.text
     }
     
     @objc func keyboardWillShow(notification:Notification) {
@@ -200,6 +203,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
         uploadImageView.image = self.selectedPictures[0].fullResolutionImage
+        self.selectedImageCount = self.selectedPictures.count
         print(self.selectedPictures)
     }
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
@@ -241,11 +245,12 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @IBAction func submitPost(_ sender: Any) {
-
+        
+        self.textToUpload = self.descriptionTextView.text
         self.selectedImageCount = self.selectedPictures.count
         
         for selectedImage in self.selectedPictures {
-            let image = selectedImage.fullResolutionImage!.jpegData(compressionQuality: 0.001)
+            let image = selectedImage.fullResolutionImage!.jpegData(compressionQuality: 0.2)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metadata = StorageMetadata()
@@ -312,18 +317,18 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         account = NewUser(snapshot: snapshot)
         let postID = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
             
-        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.descriptionTextView.text, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true, postID: postID)
+        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true, postID: postID)
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
+            self.textToUpload = "Add a description of your trip here..."
+            self.selectedPictures = [TLPHAsset]()
+            self.imageURLSforUpload = [String]()
+            self.uploadCount = 0
+            self.selectedImageCount = 0
+            self.travels = [""]
+            self.experiences = [""]
         }
-        
-        self.selectedPictures = [TLPHAsset]()
-        self.imageURLSforUpload = [String]()
-        self.uploadCount = 0
-        self.selectedImageCount = 0
-        self.travels = [""]
-        self.experiences = [""]
     }
     
     func saveTravels(_ travels: [String]) {
@@ -345,7 +350,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     // MARK: - Navigation
 
-    @IBAction func unwindToUploadPost(segue:UIStoryboardSegue) { }
+    @IBAction func unwindToUploadPost(segue:UIStoryboardSegue) {
+        self.descriptionTextView.text = self.textToUpload
+    }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
