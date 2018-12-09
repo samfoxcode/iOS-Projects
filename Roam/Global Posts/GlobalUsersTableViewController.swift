@@ -133,7 +133,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
 
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
         let imagePath = postsModel.imagePathForPost(indexPath.section, 0)
-        let imagesCount = imagePath.count
         
         let post = postsModel.postForSection(indexPath.section)
         

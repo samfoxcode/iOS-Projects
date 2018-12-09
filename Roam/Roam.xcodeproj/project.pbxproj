@@ -31,15 +31,11 @@
 		22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */; };
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
 		22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */; };
-		22B7516E21A4CE01004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
-		22B7517321A4D978004B5FEC /* Roam.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */; };
-		22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
 		22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517621A612ED004B5FEC /* ProfileViewController.swift */; };
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
-		22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517421A4E52D004B5FEC /* PostModelCD.swift */; };
-		22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516D21A4CE01004B5FEC /* DataManager.swift */; };
 		22E8AFD521BC6AA90028476F /* AllImagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */; };
 		22E8AFD721BC6CC10028476F /* ImageViewPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */; };
+		22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */; };
 		22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */; };
 		22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */; };
 		22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */; };
@@ -81,13 +77,11 @@
 		22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
-		22B7516D21A4CE01004B5FEC /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		22B7517221A4D978004B5FEC /* Roam.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Roam.xcdatamodel; sourceTree = "<group>"; };
-		22B7517421A4E52D004B5FEC /* PostModelCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModelCD.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllImagesTableViewController.swift; sourceTree = "<group>"; };
 		22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewPostTableViewCell.swift; sourceTree = "<group>"; };
+		22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
+				22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
 				22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */,
@@ -205,9 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				226DB033218E4CAF00261560 /* Model.swift */,
-				22B7517421A4E52D004B5FEC /* PostModelCD.swift */,
-				22B7516D21A4CE01004B5FEC /* DataManager.swift */,
-				22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,14 +416,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */,
-				22B7516E21A4CE01004B5FEC /* DataManager.swift in Sources */,
 				226DB039218E983200261560 /* UploadPostViewController.swift in Sources */,
 				226DB037218E944C00261560 /* GlobalUsersTableViewController.swift in Sources */,
 				22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */,
 				2264B69521952E4500A402A1 /* ExperiencesTableViewController.swift in Sources */,
 				22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */,
 				22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */,
-				22B7517321A4D978004B5FEC /* Roam.xcdatamodeld in Sources */,
 				22964CC921B4E9080096C6E8 /* MainTabBarViewController.swift in Sources */,
 				22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */,
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
@@ -440,12 +430,12 @@
 				22964CC721B456E10096C6E8 /* SettingsViewController.swift in Sources */,
 				22E8AFD521BC6AA90028476F /* AllImagesTableViewController.swift in Sources */,
 				22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */,
-				22B7517521A4E52D004B5FEC /* PostModelCD.swift in Sources */,
 				22E8AFD721BC6CC10028476F /* ImageViewPostTableViewCell.swift in Sources */,
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */,
 				22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
+				22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */,
 				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
 				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
 			);
@@ -456,8 +446,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				225A9477218E43D900C14B6B /* RoamTests.swift in Sources */,
-				22B7517B21A8B887004B5FEC /* DataManager.swift in Sources */,
-				22B7517A21A8B883004B5FEC /* PostModelCD.swift in Sources */,
 				226DB035218E4CAF00261560 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,19 +707,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		22B7517121A4D978004B5FEC /* Roam.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				22B7517221A4D978004B5FEC /* Roam.xcdatamodel */,
-			);
-			currentVersion = 22B7517221A4D978004B5FEC /* Roam.xcdatamodel */;
-			path = Roam.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 225A9456218E43D800C14B6B /* Project object */;
 }

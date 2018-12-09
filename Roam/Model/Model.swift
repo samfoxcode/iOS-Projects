@@ -78,7 +78,7 @@ struct NewUser {
 }
 
 // MARK: - Post Struct
-struct Post : PostIsh, Codable  {
+struct Post :  Codable  {
     let addedByUser: String
     let username: String
     let description: String
