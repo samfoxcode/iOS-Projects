@@ -45,7 +45,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         }
         
         if notification.name == UploadPostViewController.uploadedImage {
-            print("NOTIFICATION")
             uploadCount = uploadCount + 1
             if uploadCount >= selectedImageCount && imageURLSforUpload.count > 0 {
                 self.uploadSuccess(self.imageURLSforUpload)
@@ -142,7 +141,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
+        textView.text = self.textToUpload != "Add a description of your trip here..." ? self.textToUpload : ""
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -182,11 +181,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     @objc func selectImage(_ sender: UITapGestureRecognizer) {
-        /*
-        self.imagePicker.delegate = self
-        self.imagePicker.sourceType = .photoLibrary
-        self.present(self.imagePicker, animated: true, completion: nil)
-        */
         
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
@@ -198,13 +192,12 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
     }
     // TLPhotos delegate functions
-    //TLPhotosPickerViewControllerDelegate
+    // TLPhotosPickerViewControllerDelegate
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
         uploadImageView.image = self.selectedPictures[0].fullResolutionImage
         self.selectedImageCount = self.selectedPictures.count
-        print(self.selectedPictures)
     }
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
         // if you want to used phasset.
@@ -251,7 +244,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         let widthRatio  = targetSize.width  / size.width
         let heightRatio = targetSize.height / size.height
         
-        // Figure out what our orientation is, and use that to form the rectangle
         var newSize: CGSize
         if(widthRatio > heightRatio) {
             newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
@@ -259,10 +251,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
         
-        // This is the rect that we've calculated out and this is what is actually used below
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
-        // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -390,12 +380,14 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
          case "AddExperiences":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
+            self.textToUpload = self.descriptionTextView.text
             let experiencesController = segue.destination as! ExperiencesTableViewController
             //let experiencesController = navController.topViewController as! ExperiencesTableViewController
             experiencesController.delegate = self
          case "AddTravel":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
+            self.textToUpload = self.descriptionTextView.text
             let travelController = segue.destination as! FlightsStaysTableViewController
             //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self
