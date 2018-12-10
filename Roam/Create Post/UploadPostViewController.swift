@@ -191,8 +191,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         self.present(viewController, animated: true, completion: nil)
         
     }
+    
     // TLPhotos delegate functions
-    // TLPhotosPickerViewControllerDelegate
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
@@ -308,15 +308,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                             let downloadURL = downloadUrl.absoluteString
                             self.imageURLSforUpload.append(downloadURL)
                             NotificationCenter.default.post(name: UploadPostViewController.uploadedImage, object: nil)
-                            
-                            /*
-                            self.uploadSuccess([downloadURL])
-                            self.showNetworkActivityIndicator = false
-                            self.uploadImageView.image = UIImage(named: "addPhoto")
-                            self.uploadImageView.alpha = 1.0
-                            let generator = UINotificationFeedbackGenerator()
-                            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
-                            */
                         }
                     } else {
                         print("Error:\(String(describing: error?.localizedDescription))")
